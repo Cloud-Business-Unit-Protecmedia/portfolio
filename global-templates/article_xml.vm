@@ -1,0 +1,1398 @@
+## Conocimientos Ãºtiles para usar estas macros
+## Instanciar un hashmap vacio -> #set ($map = {})
+## Obtener el valor de una propiedad de un hashmap -> $map.nombrepropiedad
+
+
+##Macro para recuperar el tema de un vocabulario especÃ­fico
+##ParÃ¡metro 1: listaResultado -> ArrayList que contendrÃ¡ todas las categorÃ­as del vocabulario pasado como parÃ¡metro asignadas al artÃ­culo. 
+##ParÃ¡metro 2: vocabulario -> String con el vocabulario del que se extraerÃ¡n las categorÃ­as.
+
+#macro (getCategory $listaResultado $vocabulario)
+        #set($ac-vocabulario = $articleContext.selectNodes("articlectx/metadata//key[@name='$vocabulario']//key"))
+	#foreach($tempVoca in $ac-vocabulario)
+        
+		#foreach ($atrib in $tempVoca.attributes())
+                        
+			#if($atrib.name == "name")
+               #set($temp = $listaResultado.add($atrib.data))
+			#end
+		#end
+	#end
+#end
+
+##Macro para recuperar los ids de las categorias de un vocabulario especÃ­fico
+##ParÃ¡metro 1: listaResultado -> ArrayList que contendrÃ¡ todos los ids de las categorÃ­as del vocabulario pasado como parÃ¡metro asignadas al artÃ­culo. 
+##ParÃ¡metro 2: vocabulario -> String con el vocabulario del que se extraerÃ¡n las categorÃ­as.
+#macro (getCategoryId $listaResultado $vocabulario)
+        #set($ac-vocabulario = $articleContext.selectNodes("articlectx/metadata//key[@name='$vocabulario']//key"))
+	#foreach($tempVoca in $ac-vocabulario)
+        
+		#foreach ($atrib in $tempVoca.attributes())
+                        
+			#if($atrib.name == "id")
+               #set($temp = $listaResultado.add($atrib.data))
+			#end
+		#end
+	#end
+#end
+
+##Macro para recuperar los friendlynames de las categorias de un vocabulario especÃ­fico
+##ParÃ¡metro 1: listaResultado -> ArrayList que contendrÃ¡ todos los ids de las categorÃ­as del vocabulario pasado como parÃ¡metro asignadas al artÃ­culo. 
+##ParÃ¡metro 2: vocabulario -> String con el vocabulario del que se extraerÃ¡n las categorÃ­as.
+#macro (getCategoryFriendlyName $listaResultado $vocabulario)
+        #set($ac-vocabulario = $articleContext.selectNodes("articlectx/metadata//key[@name='$vocabulario']//key"))
+	#foreach($tempVoca in $ac-vocabulario)
+        
+		#foreach ($atrib in $tempVoca.attributes())
+                        
+			#if($atrib.name == "friendlyname")
+               #set($temp = $listaResultado.add($atrib.data))
+			#end
+		#end
+	#end
+#end
+
+##Macro para recuperar el nombre de la secciÃ³n asignada al teaserViewer
+##Parámetro 1: Color en hexadecimal (#FFFFFF) en el que se deben pintar los links
+
+#macro (printAssignedSection $sectionColor)#*
+	*##set($ac-sectionDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]'))#*
+	*##if($ac-sectionDateFrom.size() > 0)#*
+    	*##foreach ($atrib in $ac-sectionDateFrom.get(0).attributes()  )#*         
+    		*##if($atrib.name == "name")#*
+    			*#<span class="assigned-section"  #if($sectionColor) style='color:${sectionColor}' #end>$!atrib.data </span>#*			  
+    		*##end#*
+		*##end#*
+	*##end#*
+*##end
+
+##Macro para recuperar el id de la secciÃ³n asignada al teaserViewer
+#macro (printAssignedSectionID)#*
+	*##set($ac-sectionDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]'))#*
+	*##if($ac-sectionDateFrom.size() > 0)#*
+    	*##foreach ($atrib in $ac-sectionDateFrom.get(0).attributes())#*    
+    		*##if($atrib.name == "id")#*
+    			*#$!atrib.data#*			  
+    		*##end#*
+		*##end#*
+	*##end#*
+*##end
+
+
+##Macro para recuperar el nombre de la secciÃ³n asignada al teaserViewer
+#macro (printLinkAssignedSection)
+    #set($ac-sectionDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]'))
+	#if($ac-sectionDateFrom.size() > 0)
+    	#foreach ($atrib in $ac-sectionDateFrom.get(0).attributes()  )         
+    		#if($atrib.name == "name")
+    			#set ($secName= $!atrib.data)			  
+    		#end
+                
+            #if($atrib.name == "url")
+    			#set ($secUrl= $!atrib.data)			  
+    		#end
+               
+             
+		#end
+	#end
+    $!secUrl
+#end
+
+##Macro para recuperar el la url de la seccion a la que estï¿½ asignado el artï¿½culo
+#macro (printURLAssignedSection)#*
+    *##set($ac-sectionDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]'))#*
+    *##if($ac-sectionDateFrom)#*
+	   *##if($ac-sectionDateFrom.size() > 0)#*
+    	   *##foreach ($atrib in $ac-sectionDateFrom.get(0).attributes())#*         
+    		  *##if($atrib.name == "name")#*
+		      	*##set ($secName= $!atrib.data)#*			  
+    		  *##end#*
+                *##if($atrib.name == "url")#*
+    			 *##set ($secUrl= $!atrib.data)#*			  
+    		  *##end#*
+	       *##end#*
+       *##end#*
+	*##end#*
+	*#$!secUrl#* 
+*##end
+
+##Macro para recuperar el nombre de la secciÃ³n padre de la secciÃ³n asignada al teaserViewer
+#macro (printLinkParentAssignedSection)
+	#set($ac-sectionParentDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]/parent::section'))
+	#if($ac-sectionParentDateFrom.size() > 0)
+		#foreach ($atrib in $ac-sectionParentDateFrom.get(0).attributes()  )         
+			#if($atrib.name == "name")
+				#set ($secName= $!atrib.data)			  
+			#end
+		 
+		#end
+		<span> $secName </span> 
+	#end
+#end
+
+
+
+
+##Macro para recuperar la fecha de inicio de vigencia de la secciÃ³n asignada al teaserViewer
+##ParÃ¡metro 1: dateFormat -> Cadena que contiene el formato de salida de la fecha.
+##ParÃ¡metro 2: checkToday -> Booleano que indica si se debe sustituir la fecha por la hora si es el dÃ­a de hoy.
+##ParÃ¡metro 3: hourFormat -> Cadena con el formato de salida de la hora si checktody es true y es el dÃ­a de hoy.
+#macro (printDateFrom $dateFormat $checkToday $hourFormat)
+	 #set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))
+	 #set ($dateFormatFactory = $portalBeanLocator.locate('com.liferay.portal.kernel.util.DateFormatFactoryUtil'))
+	 #set ($indexFormat = $dateFormatFactory.getSimpleDateFormat('EEE, dd MMM yyyy HH:mm:ss Z'))
+	 #set ($dResultado = $indexFormat.parse("$reserved-article-modified-date.data"))
+	 #if($checkToday == true)
+		#set($hoy = $dateTool.getDate())
+		#set($dia_a = $dateTool.getDay($hoy))
+		#set($mes_a = $dateTool.getMonth($hoy) + 1)
+		#set($anio_a = $dateTool.getYear($hoy))
+		
+		#set($dia_n = $dateTool.getDay($dResultado))
+		#set($mes_n = $dateTool.getMonth($dResultado) + 1)
+		#set($anio_n = $dateTool.getYear($dResultado))
+
+		#if( ($dia_a == $dia_n) && ($mes_a == $mes_n) && ($anio_a == $anio_n) )
+  			$dateTool.format($hourFormat,$dResultado)
+		#else
+  			$dateTool.format($dateFormat,$dResultado)
+		#end
+	  #else
+		$dateTool.format($dateFormat,$dResultado)
+	  #end
+#end
+
+##Macro para recuperar los minutos o las horas de la fecha de inicio de vigencia de la secciÃ³n asignada al teaserViewer tomando como referencia el tiempo transcurido desde el inicio de vigencia hasta la fecha/hora actual
+##ParÃ¡metro 1: dateFormat -> Cadena que contiene el formato de salida de la fecha.
+#macro (printDateFromExtend $dateFormat)
+	#set($ac-sectionDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]'))
+	#if($ac-sectionDateFrom.size() > 0)
+    	#foreach ($atrib in $ac-sectionDateFrom.get(0).attributes()  )         
+    		#if($atrib.name == "from")
+                #set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))
+                #set ($dateFormatFactory = $portalBeanLocator.locate('com.liferay.portal.kernel.util.DateFormatFactoryUtil'))
+                #set ($indexFormat = $dateFormatFactory.getSimpleDateFormat('EEE, dd MMM yyyy HH:mm:ss Z'))
+	 #set ($dResultado = $indexFormat.parse("$reserved-article-modified-date.data"))
+    			  
+                #set($hoy = $dateTool.getDate())
+                #set($dia_a = $dateTool.getDay($hoy))
+                #set($mes_a = $dateTool.getMonth($hoy) + 1)
+                #set($anio_a = $dateTool.getYear($hoy))
+                
+                #set($dia_n = $dateTool.getDay($dResultado))
+                #set($mes_n = $dateTool.getMonth($dResultado) + 1)
+                #set($anio_n = $dateTool.getYear($dResultado))
+                
+                #if( ($dia_a == $dia_n) && ($mes_a == $mes_n) && ($anio_a == $anio_n) )
+                	#set($Integer = 0)
+                	#set($hora_articulo = $Integer.parseInt($dateTool.format("H",$dResultado)) )  
+                	#set($minutos_articulo = $Integer.parseInt($dateTool.format("m",$dResultado)) )
+                	#set($hora_actual = $Integer.parseInt($dateTool.format("H",$hoy)) )
+                	#set($minutos_actual = $Integer.parseInt($dateTool.format("m",$hoy)) )
+                	
+                	#set($hora_de_diferencia_sin_minutos_extra = $hora_actual - $hora_articulo)
+                	
+                	#set($minutos_hora_articulo = $hora_articulo * 60)
+                	#set($minutos_hora_actual = $hora_actual * 60)
+                	
+                	#set($minutos_hora_articulo = $minutos_hora_articulo + $minutos_articulo)
+                	#set($minutos_hora_actual = $minutos_hora_actual + $minutos_actual)
+                	
+                	#set($minutos_de_diferencia = $minutos_hora_actual - $minutos_hora_articulo)
+                	
+                	#if($minutos_de_diferencia <= 60)
+                		#if($minutos_de_diferencia == 1)
+                			
+                			#getGlobalString("date2String") $minutos_de_diferencia #getGlobalString("date3String")  
+                		#else
+                			#getGlobalString("date2String") $minutos_de_diferencia #getGlobalString("date4String")
+                		#end
+                	#else
+                		#if($hora_de_diferencia_sin_minutos_extra == 1)
+                			#getGlobalString("date2String") $hora_de_diferencia_sin_minutos_extra #getGlobalString("date5String")
+                		#else
+                			#getGlobalString("date2String") $hora_de_diferencia_sin_minutos_extra #getGlobalString("date6String")
+                		#end
+                	#end
+                #else
+					#getGlobalString("date1String") $dateTool.format($dateFormat,$dResultado)
+				#end
+    		#end
+		#end
+	#end
+#end
+
+##Macro para obtener la fecha a pintar en el articulo (Entre fecha de inicio de vigencia o fecha de modificación)
+##Parámetro 1: Formato de la fecha, en caso de ser anterior al día actual
+##Parámetro 2: Formatode la hora en caso de ser el dia actual
+#macro (printDateTeaser $dateFormat $hourFormat)	
+    ##Recuperacion de la fecha de modificación
+    #set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))
+    #set ($dateFormatFactory = $portalBeanLocator.locate('com.liferay.portal.kernel.util.DateFormatFactoryUtil'))
+    #set ($indexFormat = $dateFormatFactory.getSimpleDateFormat('EEE, dd MMM yyyy HH:mm:ss'))
+    #set ($idResultadoMod = $indexFormat.parse($reserved-article-modified-date.getData()))
+    
+    ##Recuperacion de la fechade inicio de vigencia
+    #set($ac-sectionDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]'))
+    
+    #set ($idResultado = $idResultadoMod)
+    #if($ac-sectionDateFrom.size() > 0)
+    	#foreach ($atrib in $ac-sectionDateFrom.get(0).attributes()  )         
+    		#if($atrib.name == "from")
+    			#set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))
+    			#set ($dateFormatFactory = $portalBeanLocator.locate('com.liferay.portal.kernel.util.DateFormatFactoryUtil'))
+    			#set ($indexFormat = $dateFormatFactory.getSimpleDateFormat('yyyy/MM/dd HH:mm:ss'))
+    			#set ($idResultadoFrom = $indexFormat.parse("$atrib.data"))
+				#if($idResultadoFrom.compareTo($idResultadoMod) > 0)
+            		#set($idResultado = $idResultadoFrom)
+            	#end
+    		#end
+    	#end
+    #end
+    
+	#set($hoy = $dateTool.getDate())
+    #set($dia_a = $dateTool.getDay($hoy))
+    #set($mes_a = $dateTool.getMonth($hoy) + 1)
+    #set($anio_a = $dateTool.getYear($hoy))   
+    
+    #set($dia_p = $dateTool.getDay($idResultado))
+    #set($mes_p = $dateTool.getMonth($idResultado) + 1)
+    #set($anio_p = $dateTool.getYear($idResultado))
+    
+	#set($mask = $dateFormat)
+
+	#if ($anio_p == $anio_a && $mes_p == $mes_a && $dia_p == $dia_a)
+		#set($mask = $hourFormat)
+	#end
+
+    $dateTool.format($mask, $idResultado)
+#end
+
+
+
+##Macro para recuperar la fecha de inicio de vigencia de la secciÃ³n asignada al teaserViewer
+##ParÃ¡metro 1: dateFormat -> Cadena que contiene el formato de salida de la fecha.
+##ParÃ¡metro 2: checkToday -> Booleano que indica si se debe sustituir la fecha por la hora si es el dÃ­a de hoy.
+##ParÃ¡metro 3: hourFormat -> Cadena con el formato de salida de la hora si checktody es true y es el dÃ­a de hoy.
+#macro (printDateTo $dateFormat $checkToday $hourFormat)
+	#set($ac-sectionDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]'))
+	#if($ac-sectionDateFrom.size() > 0)
+    	#foreach ($atrib in $ac-sectionDateFrom.get(0).attributes()  )         
+    		#if($atrib.name == "to")
+    			  #set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))
+    			  #set ($dateFormatFactory = $portalBeanLocator.locate('com.liferay.portal.kernel.util.DateFormatFactoryUtil'))
+    			  #set ($indexFormat = $dateFormatFactory.getSimpleDateFormat('yyyy/MM/dd HH:mm:ss'))
+    			  #set ($dResultado = $indexFormat.parse("$atrib.data"))
+    			  #if($checkToday == true)
+    				#set($hoy = $dateTool.getDate())
+            		#set($dia_a = $dateTool.getDay($hoy))
+            		#set($mes_a = $dateTool.getMonth($hoy) + 1)
+    				#set($anio_a = $dateTool.getYear($hoy))
+    				
+            		#set($dia_n = $dateTool.getDay($dResultado))
+            		#set($mes_n = $dateTool.getMonth($dResultado) + 1)
+    				#set($anio_n = $dateTool.getYear($dResultado))
+            
+            		#if( ($dia_a == $dia_n) && ($mes_a == $mes_n) && ($anio_a == $anio_n) )
+              			$dateTool.format($hourFormat,$dResultado)
+            		#else
+              			$dateTool.format($dateFormat,$dResultado)
+            		#end
+    			  #else
+    				$dateTool.format($dateFormat,$dResultado)
+    			  #end
+    			  
+    		#end
+		#end
+	#end
+#end
+
+
+##Macro para recuperar los minutos o las horas de la fecha de inicio de vigencia de la secciÃ³n asignada al teaserViewer tomando como referencia el tiempo transcurido desde el inicio de vigencia hasta la fecha/hora actual
+##ParÃ¡metro 1: dateFormat -> Cadena que contiene el formato de salida de la fecha.
+#macro (printDateToExtend $dateFormat)
+	##Recuperacion de la fecha de modificación
+    #set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))
+    #set ($dateFormatFactory = $portalBeanLocator.locate('com.liferay.portal.kernel.util.DateFormatFactoryUtil'))
+    #set ($indexFormat = $dateFormatFactory.getSimpleDateFormat('EEE, dd MMM yyyy HH:mm:ss'))
+    #set ($idResultadoMod = $indexFormat.parse($reserved-article-modified-date.getData()))
+	
+	#set($ac-sectionDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]'))
+	#set($dResultado = $idResultadoMod)
+	#if($ac-sectionDateFrom.size() > 0)
+    	#foreach ($atrib in $ac-sectionDateFrom.get(0).attributes()  )         
+    		#if($atrib.name == "to")
+                #set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))
+                #set ($dateFormatFactory = $portalBeanLocator.locate('com.liferay.portal.kernel.util.DateFormatFactoryUtil'))
+                #set ($indexFormat = $dateFormatFactory.getSimpleDateFormat('yyyy/MM/dd HH:mm:ss'))
+                #set ($dResultadoFrom = $indexFormat.parse("$atrib.data"))
+    			
+				#if($idResultadoFrom.compareTo($idResultadoMod) > 0)
+                	#set($dResultado = $idResultadoFrom)
+                #end
+            				
+                #set($hoy = $dateTool.getDate())
+                #set($dia_a = $dateTool.getDay($hoy))
+                #set($mes_a = $dateTool.getMonth($hoy) + 1)
+                #set($anio_a = $dateTool.getYear($hoy))
+                
+                #set($dia_n = $dateTool.getDay($dResultado))
+                #set($mes_n = $dateTool.getMonth($dResultado) + 1)
+                #set($anio_n = $dateTool.getYear($dResultado))
+                
+                #if( ($dia_a == $dia_n) && ($mes_a == $mes_n) && ($anio_a == $anio_n) )
+                	#set($Integer = 0)
+                	#set($hora_articulo = $Integer.parseInt($dateTool.format("H",$dResultado)) )  
+                	#set($minutos_articulo = $Integer.parseInt($dateTool.format("m",$dResultado)) )
+                	#set($hora_actual = $Integer.parseInt($dateTool.format("H",$hoy)) )
+                	#set($minutos_actual = $Integer.parseInt($dateTool.format("m",$hoy)) )
+                	
+                	#set($hora_de_diferencia_sin_minutos_extra = $hora_actual - $hora_articulo)
+                	
+                	#set($minutos_hora_articulo = $hora_articulo * 60)
+                	#set($minutos_hora_actual = $hora_actual * 60)
+                	
+                	#set($minutos_hora_articulo = $minutos_hora_articulo + $minutos_articulo)
+                	#set($minutos_hora_actual = $minutos_hora_actual + $minutos_actual)
+                	
+                	#set($minutos_de_diferencia = $minutos_hora_actual - $minutos_hora_articulo)
+                	
+                	#if($minutos_de_diferencia <= 60)
+                		#if($minutos_de_diferencia == 1)
+                			Publicado hace $minutos_de_diferencia minutos
+                		#else
+                			Publicado hace $minutos_de_diferencia minutos
+                		#end
+                	#else
+                		#if($hora_de_diferencia_sin_minutos_extra == 1)
+                			Publicado hace $hora_de_diferencia_sin_minutos_extra horas
+                		#else
+                			Publicado hace $hora_de_diferencia_sin_minutos_extra horas
+                		#end
+                	#end
+                #else
+					$dateTool.format($dateFormat,$dResultado)
+				#end
+    		#end
+		#end
+	#end
+#end
+
+
+##Macro para recuperar la secciÃ³n asiganada dentro del vocabulario TEMAS
+##ParÃ¡metro 1: vResultTheme -> ArrayList que contendrÃ¡ todas las categorÃ­as del vocabulario TEMAS asignadas al artÃ­culo. 
+#macro (getAssignedTheme $vResultTheme)
+	#set($ac-temaAsignado = $articleContext.selectNodes('articlectx/metadata//key[@name="TEMAS"]//key[@set="1"]'))
+	#foreach ($key in $ac-temaAsignado)
+		#set($temp = $vResultTheme.add($key.attribute('name').getValue()))
+	#end
+#end
+
+
+##Macro para imprimir la url del detalle
+#macro (printAcUrl)#*
+	*##set($ac-url = $articleContext.selectNodes('articlectx/url'))#*
+	*##set($xml-url = $ac-url.get(0).text)#*					
+	*##set($xml-url-trimmed = $!xml-url.trim())#*		
+	*#$!xml-url-trimmed#*												
+*##end
+
+
+##Macro para imprimir la pÃ¡gina de referencia
+#macro (printAcRefPageUrl)
+	#set($ac-ref-page-url = $articleContext.selectNodes('articlectx/ref-page-url'))
+	#set($xml-ref-page-url = $ac-ref-page-url.get(0).text)
+	$!xml-ref-page-url
+#end
+
+
+##Macro para imprimir la secciÃ³n del artÃ­culo
+#macro (printAcSectionName)
+	#set($ac-section-name = $articleContext.selectNodes('articlectx/section-name'))
+	#set($xml-section-name = $ac-section-name.get(0).text)
+	$!xml-section-name
+#end
+
+##Macro para imprimir la secciÃ³n por defecto (seleccionada en milenium) del artÃ­culo
+#macro (printAcDefaultSection)
+	#set($ac-seccionAsignada = $articleContext.selectNodes('articlectx/sections//section[@default="1"]'))
+	#if($ac-seccionAsignada.size() > 0)
+		#set($xml-default-section = $ac-seccionAsignada.get(0).text)
+		$!xml-default-section
+	#end
+#end
+
+
+##Macro para recuperar la url canonica del articulo
+#macro (printAcCanonicalUrl)#*
+	*##set($ac-canonical-url = $articleContext.selectNodes('articlectx/canonicalurl'))#*
+	*##set($xml-canonical-url = $ac-canonical-url.get(0).text)#*					
+	*##set($xml-canonical-url-trimmed = $!xml-canonical-url.trim())#*		
+	*#$!xml-canonical-url-trimmed#*		
+*##end
+
+
+
+##Macro para imprimir el nÃºmero de visitas del artÃ­culo
+#macro (printAcNvisits)
+	#set($ac-nvisits = $articleContext.selectNodes('articlectx/nvisits'))
+	#set($xml-nvisits = $ac-nvisits.get(0).text)
+	$!xml-nvisits
+#end
+
+
+##Macro para recuperar el nÃºmero de comentarios del artÃ­culo
+#macro (printAcNcomments)
+	#set($ac-ncomments = $articleContext.selectNodes('articlectx/ncomments'))
+	#set($xml-ncomments = "")
+    #if($xml-ncomments.size() > 0 )
+        #set($xml-ncomments = $ac-ncomments.get(0).text)
+    #end
+    $!xml-ncomments
+#end
+
+##Macro para recuperar el nÃºmero de comentarios del artÃ­culo
+#macro (returnValueNcomments $numResult)
+	#set($ac-ncomments = $articleContext.selectNodes('articlectx/ncomments'))
+	#set($xml-ncomments = $ac-ncomments.get(0).text)
+	#set($numResult= $!xml-ncomments)
+#end
+
+##Macro que devuelve un array con las secciones desde la d epor defecto del art´ciulo.
+#macro (getBreadCrumArray $arraySectionName)
+	#set($querySection = "articlectx/sections//section[@from]")
+	#set($ac-sectionDateFrom =  $articleContext.selectNodes($querySection))	
+	#set($arraySectionName = [])
+    #if($ac-sectionDateFrom.size() > 0)
+    	#foreach($i in [0..10])
+    	   #if($ac-sectionDateFrom.get(0).name == "section")
+				#foreach ($atrib in $ac-sectionDateFrom.get(0).attributes()  )         
+					#if($atrib.name == "name")
+						#set($temp = $arraySectionName.add($!atrib.data))
+					#end
+				#end
+    			
+    			#set($querySection = $querySection + "/..")
+    			#set($ac-sectionDateFrom =  $articleContext.selectNodes($querySection))
+    	   #else
+    	   		#break
+    	   #end
+    	#end
+	#end
+	
+#end
+
+##Macro quÃ© devuelve una lista de categorÃ­as asignadas
+##ParÃ¡metro 1: hmResult -> HashMap que contendrÃ¡ la lista de categorÃ­as asignadas. 
+#macro(getAcAssignedCat $hmResult)
+	#set($ac-key = $articleContext.selectNodes('//key'))
+	#set($hmResult = {})
+	#set($index = 0)
+	#foreach ($key in $ac-key)
+		#set ($map-attribute = {})
+		
+		#foreach($attrib in $key.attributes())
+			#set($temp = $map-attribute.put($attrib.name,$attrib.data))
+		#end
+		
+		#if($key.attribute('set').getValue()== "1")
+			#set($temp = $hmResult.put($index,$map-attribute))
+			#set($index = $index + 1)
+		#end
+	#end
+#end
+
+
+##Macro quÃ© devuelve una lista de categorÃ­as asignadas
+##ParÃ¡metro 1: hmResult -> HashMap que contendrÃ¡ la lista de categorÃ­as asignadas.
+#macro(getAcAssignedCatExtendedGlobal $hmResult $vocabulario)
+	#set($ac-key = $articleContext.selectNodes('//key'))
+	#set($hmResult = {})
+	#set($hmtemp1 = {})
+	#set($hmtemp2 = {})
+	#set($index1 = 0)
+	#set($index2 = 0)
+	#set($hasMain = 0)
+	#set($hasSet = 0)
+	
+	
+	#foreach ($key in $ac-key)
+		#set ($map-attribute = {})
+		
+		#foreach($attrib in $key.attributes())
+			#set($temp = $map-attribute.put($attrib.name,$attrib.data))
+		#end
+		
+		#if($key.attribute('set').getValue()== "1")
+			#set($temp = $hmtemp1.put($index1,$map-attribute))
+			#set($index1 = $index1 + 1)
+			#set($hasSet = 1)
+		#end
+		
+		#if($key.attribute('main').getValue()== "1")
+			#set($temp = $hmtemp2.put($index2,$map-attribute))
+			#set($index2 = $index2 + 1)
+			#set($hasMain = 1)
+		#end
+	#end
+	
+	#if ($hasMain == 0)
+		#if($hasSet == 1)
+			#set($hmResult = $hmtemp1)
+		#end
+	#else
+		#set($hmResult = $hmtemp2)
+	#end
+#end
+
+
+##Macro quÃ© devuelve una lista de categorÃ­as asignadas
+##ParÃ¡metro 1: hmResult -> HashMap que contendrÃ¡ la lista de categorÃ­as asignadas.
+##ParÃ¡metro 2: vocabulario -> String con el vocabulario del que se extraerÃ¡n las categorÃ­as.
+#macro(getAcAssignedCatExtended $hmResult $vocabulario)
+	#set($ac-key = $articleContext.selectNodes("articlectx/metadata//key[@name='$vocabulario']//key"))
+	#set($hmResult = {})
+	#set($hmtemp1 = {})
+	#set($hmtemp2 = {})
+	#set($index1 = 0)
+	#set($index2 = 0)
+	#set($hasMain = 0)
+	#set($hasSet = 0)
+	
+	
+	#foreach ($key in $ac-key)
+		#set ($map-attribute = {})
+		
+		#foreach($attrib in $key.attributes())
+			#set($temp = $map-attribute.put($attrib.name,$attrib.data))
+		#end
+		
+		#if($key.attribute('set').getValue()== "1")
+			#set($temp = $hmtemp1.put($index1,$map-attribute))
+			#set($index1 = $index1 + 1)
+			#set($hasSet = 1)
+		#end
+		
+		#if($key.attribute('main').getValue()== "1")
+			#set($temp = $hmtemp2.put($index2,$map-attribute))
+			#set($index2 = $index2 + 1)
+			#set($hasMain = 1)
+		#end
+	#end
+	
+	#if ($hasMain == 0)
+		#if($hasSet == 1)
+			#set($hmResult = $hmtemp1)
+		#end
+	#else
+		#set($hmResult = $hmtemp2)
+	#end
+#end
+
+
+##Macro quÃ© devuelve una lista de categorÃ­as asignadas
+##ParÃ¡metro 1: hmResult -> HashMap que contendrÃ¡ la lista de categorÃ­as asignadas.
+##ParÃ¡metro 2: vocabulario -> String con el vocabulario del que se extraerÃ¡n las categorÃ­as.
+#macro(getAcAssignedExtendedAllCat $hmResult $vocabulario)
+    #set($ac-key = $articleContext.selectNodes("articlectx/metadata//key[@name='$vocabulario']//key"))
+    #set($hmResult = {})
+    #set($hmtemp1 = {})
+    #set($hmtemp2 = {})
+    #set($index1 = 0)
+    #set($index2 = 0)
+    #set($hasMain = 0)
+    #set($hasSet = 0)
+    
+    
+    #foreach ($key in $ac-key)
+        #set ($map-attribute = {})
+        
+        #foreach($attrib in $key.attributes())
+            #set($temp = $map-attribute.put($attrib.name,$attrib.data))
+        #end
+        
+        #if($key.attribute('set').getValue()== "1")
+            #set($temp = $hmtemp1.put($index1,$map-attribute))
+            #set($index1 = $index1 + 1)
+            #set($hasSet = 1)
+        #end
+    #end
+    
+    #set($hmResult = $hmtemp1)
+
+#end
+
+##Macro quÃ© devuelve y crea un link hacia la primera categoria asignada del articulo pasando como parametro el catalogo
+##Si llega el campo $seccion_migracion entonces se pinta dicho campo, de lo contrario se pinta la seccion por defecto junto con un enlace hacia la primera categoria si las hay.
+##ParÃ¡metro 1: urlToSection -> String que contendrÃ¡ la ubicaciÃ³n hacia donde debe apuntar el enlace.
+##ParÃ¡metro 2: vocabulary -> String con el vocabulario del que se extraerÃ¡n las categorÃ­as.
+#macro(printAcAssignedCat $urlToSection $vocabulary)
+	
+	#if($Seccion_Migracion && $Seccion_Migracion.data != "")
+		$Seccion_Migracion.data
+	#else
+		#set($auxCatalagoSecciones = {})
+    	#getAcAssignedCatExtended($auxCatalagoSecciones $vocabulary)
+		
+		#printAcSectionName() #if($auxCatalagoSecciones.size() > 0) / <a class="lnk" href="#metadataUrl()$auxCatalagoSecciones.get(0).friendlyname"> #if($auxCatalagoSecciones) $auxCatalagoSecciones.get(0).name #end </a> #end
+		
+	#end
+#end
+
+##-------------------------------------------------
+## Macro que pinta la imagen de una seccion si esta aplicado a esa seccion, si es m lo pinta centrado
+## si es galeria lo pinta abajo a la izquierda
+## Parametro 1: Cadena de texto que indica el tamano de la imagen que se quiere pintar (grande o pequena)
+
+#macro (pintaImgDeSeccionAuto $tamano)#*
+	*##if(($Multimedia && $Multimedia.data !="") || ($Multimedia_Youtube && $Multimedia_Youtube.data !="") || ($Multimedia_Vimeo && $Multimedia_Vimeo.data !="") || ($Multimedia_Brightcove && $Multimedia_Brightcove.data !=""))#*	
+		*#<span class="ImgVideos $!{tamano} center"></span>#*
+	*##elseif(($articleToolbox.getNumImageTags("TeaserImage","true") > 1) )	#*	
+		*#<span class="ImgGaleria $!{tamano} bottomLeft"></span>#*	
+	*##elseif($articleToolbox.getArticleViewer("0") == "/multimedia/infografia")#*
+		*#<span class="ImgInfografia $!{tamano} bottomLeft"></span>#*	
+	*##end#*		
+*##end
+##--------------------------------------------------
+
+##-------------------------------------------------
+## Macro que pinta la imagen de una seccion si esta aplicado a esa seccion
+## Parametro 1: Cadena de texto que indica el tamano de la imagen que se quiere pintar (grande o pequena)
+## Parametro 2: Cadena de texto que indica la posicion de la imagen, (topLeft,topRight,bottomLeft,bottomRight,center) 
+## Parametro 3: Boolean para indicar si pone enlace a la imagen (False si no tiene valor, True si tiene cualquier valor)
+
+#macro (pintaImgDeSeccion $tamano $posicion $enlace)#*
+	*##if(($Multimedia && $Multimedia.data !="") || ($Multimedia_Youtube && $Multimedia_Youtube.data !="") || ($Multimedia_Vimeo && $Multimedia_Vimeo.data !="") || ($Multimedia_Brightcove && $Multimedia_Brightcove.data !=""))#*	
+		*#<span class="ImgVideos $!{tamano} $!{posicion}"></span>#*
+	*##elseif(($articleToolbox.getNumImageTags("TeaserImage","true") > 1) )	#*	
+		*#<span class="ImgGaleria $!{tamano} $!{posicion}"></span>#*	
+	*##elseif($articleToolbox.getArticleViewer("0") == "/multimedia/infografia")#*
+		*#<span class="ImgInfografia $!{tamano} $!{posicion}"></span>#*	
+	*##end#*		
+*##end
+##--------------------------------------------------
+
+##Macro quÃ© devuelve la categoria principal asignada
+##ParÃ¡metro 1: hmResult -> HashMap que contendrÃ¡ la lista de categorÃ­as asignadas. 
+##Macro que devuelve la categotia principal
+#macro(getAcAssignedCatMain $hmResult $vocabulario)
+    #set($ac-key = $articleContext.selectNodes("articlectx/metadata//key[@name='$vocabulario']//key"))
+    #set($hmResult = {})
+    #set($hmtemp2 = {})
+    #set($index2 = 0)
+    #set($hasMain = 0)
+    #foreach ($key in $ac-key)
+        #set ($map-attribute = {})
+        #foreach($attrib in $key.attributes())
+            #set($temp = $map-attribute.put($attrib.name,$attrib.data))
+        #end
+        #if($key.attribute('main').getValue()== "1")
+            #set($temp = $hmtemp2.put($index2,$map-attribute))
+            #set($index2 = $index2 + 1)
+            #set($hasMain = 1)
+        #end
+    #end
+    #if ($hasMain == 1)
+        #set($hmResult = $hmtemp2)
+    #end
+#end
+
+
+## PLANTILLAS V1
+
+
+## Conocimientos Ãºtiles para usar estas macros
+## Instanciar un hashmap vacio -> #set ($map = {})
+## Obtener el valor de una propiedad de un hashmap -> $map.nombrepropiedad
+
+
+##Macro para recuperar el tema de un vocabulario especÃ­fico
+##ParÃ¡metro 1: listaResultado -> ArrayList que contendrÃ¡ todas las categorÃ­as del vocabulario pasado como parÃ¡metro asignadas al artÃ­culo. 
+##ParÃ¡metro 2: vocabulario -> String con el vocabulario del que se extraerÃ¡n las categorÃ­as.
+
+#macro (getCategory_v1 $listaResultado $vocabulario)
+		#set($ac-vocabulario = $articleContext.selectNodes("articlectx/metadata//key[@name='$vocabulario']//key"))
+		#foreach($tempVoca in $ac-vocabulario)
+			#foreach ($atrib in $tempVoca.attributes())     
+				#if($atrib.name == "name")
+					#set($temp = $listaResultado.add($atrib.data))
+				#end
+			#end
+		#end
+#end
+
+##Macro para recuperar los ids de las categorias de un vocabulario especÃ­fico
+##ParÃ¡metro 1: listaResultado -> ArrayList que contendrÃ¡ todos los ids de las categorÃ­as del vocabulario pasado como parÃ¡metro asignadas al artÃ­culo. 
+##ParÃ¡metro 2: vocabulario -> String con el vocabulario del que se extraerÃ¡n las categorÃ­as.
+#macro (getCategoryId_v1 $listaResultado $vocabulario)
+		#set($ac-vocabulario = $articleContext.selectNodes("articlectx/metadata//key[@name='$vocabulario']//key"))
+		#foreach($tempVoca in $ac-vocabulario)
+			#foreach ($atrib in $tempVoca.attributes())    
+				#if($atrib.name == "id")
+					#set($temp = $listaResultado.add($atrib.data))
+				#end
+			#end
+		#end
+#end
+
+##Macro para recuperar los friendlynames de las categorias de un vocabulario especÃ­fico
+##ParÃ¡metro 1: listaResultado -> ArrayList que contendrÃ¡ todos los ids de las categorÃ­as del vocabulario pasado como parÃ¡metro asignadas al artÃ­culo. 
+##ParÃ¡metro 2: vocabulario -> String con el vocabulario del que se extraerÃ¡n las categorÃ­as.
+#macro (getCategoryFriendlyName_v1 $listaResultado $vocabulario)
+		#set($ac-vocabulario = $articleContext.selectNodes("articlectx/metadata//key[@name='$vocabulario']//key"))
+		#foreach($tempVoca in $ac-vocabulario)
+			#foreach ($atrib in $tempVoca.attributes())			
+				#if($atrib.name == "friendlyname")
+					#set($temp = $listaResultado.add($atrib.data))
+				#end
+			#end
+		#end
+#end
+
+##Macro para recuperar el nombre de la secciÃ³n asignada al teaserViewer
+##Parámetro 1: Color en hexadecimal (#FFFFFF) en el que se deben pintar los links
+
+#macro (printAssignedSection_v1 $sectionColor)#*
+		*##set($ac-sectionDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]'))#*
+		*##if($ac-sectionDateFrom.size() > 0)#*
+			*##foreach ($atrib in $ac-sectionDateFrom.get(0).attributes()  )#*         
+				*##if($atrib.name == "name")#*
+					*#$!atrib.data#*			  
+				*##end#*
+			*##end#*
+		*##end#*
+*##end
+
+##Macro para recuperar el id de la secciÃ³n asignada al teaserViewer
+#macro (printAssignedSectionID_v1)#*
+		*##set($ac-sectionDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]'))#*
+		*##if($ac-sectionDateFrom.size() > 0)#*
+			*##foreach ($atrib in $ac-sectionDateFrom.get(0).attributes())#*    
+				*##if($atrib.name == "id")#*
+					*#$!atrib.data#*			  
+				*##end#*
+			*##end#*
+		*##end#*
+*##end
+
+
+##Macro para recuperar el nombre de la secciÃ³n asignada al teaserViewer
+#macro (printLinkAssignedSection_v1)
+		#set($ac-sectionDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]'))
+		#if($ac-sectionDateFrom.size() > 0)
+			#foreach ($atrib in $ac-sectionDateFrom.get(0).attributes()  )         
+				#if($atrib.name == "name")
+					#set ($secName= $!atrib.data)			  
+				#end
+					
+				#if($atrib.name == "url")
+					#set ($secUrl= $!atrib.data)			  
+				#end
+			#end
+		#end
+		$!secUrl
+#end
+
+##Macro para recuperar el la url de la seccion a la que estï¿½ asignado el artï¿½culo
+#macro (printURLAssignedSection_v1)#*
+		*##set($ac-sectionDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]'))#*
+		*##if($ac-sectionDateFrom)#*
+			*##if($ac-sectionDateFrom.size() > 0)#*
+				*##foreach ($atrib in $ac-sectionDateFrom.get(0).attributes())#*         
+					*##if($atrib.name == "name")#*
+						*##set ($secName= $!atrib.data)#*			  
+					*##end#*
+					*##if($atrib.name == "url")#*
+						*##set ($secUrl= $!atrib.data)#*			  
+					*##end#*
+				*##end#*
+			*##end#*
+		*##end#*
+		*#$!secUrl#* 
+*##end
+
+##Macro para recuperar el nombre de la secciÃ³n padre de la secciÃ³n asignada al teaserViewer
+#macro (printLinkParentAssignedSection_v1)
+		#set($ac-sectionParentDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]/parent::section'))
+		#if($ac-sectionParentDateFrom.size() > 0)
+			#foreach ($atrib in $ac-sectionParentDateFrom.get(0).attributes()  )         
+				#if($atrib.name == "name")
+					#set ($secName= $!atrib.data)			  
+				#end
+			#end
+			<span> $secName </span> 
+		#end
+#end
+
+##Macro para recuperar la fecha de inicio de vigencia de la secciÃ³n asignada al teaserViewer
+##ParÃ¡metro 1: dateFormat -> Cadena que contiene el formato de salida de la fecha.
+##ParÃ¡metro 2: checkToday -> Booleano que indica si se debe sustituir la fecha por la hora si es el dÃ­a de hoy.
+##ParÃ¡metro 3: hourFormat -> Cadena con el formato de salida de la hora si checktody es true y es el dÃ­a de hoy.
+#macro (printDateFrom_v1 $dateFormat $checkToday $hourFormat)
+		#set($ac-sectionDateTo =  $articleContext.selectNodes('articlectx/sections//section[@from]'))
+		#if($ac-sectionDateTo.size() > 0)
+			#foreach ($atrib in $ac-sectionDateTo.get(0).attributes()  )         
+				#if($atrib.name == "from")
+					#set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))
+					#set ($dateFormatFactory = $portalBeanLocator.locate('com.liferay.portal.kernel.util.DateFormatFactoryUtil'))
+					#set ($indexFormat = $dateFormatFactory.getSimpleDateFormat('yyyy/MM/dd HH:mm:ss'))
+					#set ($dResultado = $indexFormat.parse("$atrib.data"))
+					#if($checkToday == true)
+						#set($hoy = $dateTool.getDate())
+						#set($dia_a = $dateTool.getDay($hoy))
+						#set($mes_a = $dateTool.getMonth($hoy) + 1)
+						#set($anio_a = $dateTool.getYear($hoy))
+						
+						#set($dia_n = $dateTool.getDay($dResultado))
+						#set($mes_n = $dateTool.getMonth($dResultado) + 1)
+						#set($anio_n = $dateTool.getYear($dResultado))
+				
+						#if( ($dia_a == $dia_n) && ($mes_a == $mes_n) && ($anio_a == $anio_n) )
+							$dateTool.format($hourFormat,$dResultado)
+						#else
+							$dateTool.format($dateFormat,$dResultado)
+						#end
+					#else
+						$dateTool.format($dateFormat,$dResultado)
+					#end
+					
+				#end
+			#end
+		#end
+#end
+
+##Macro para recuperar los minutos o las horas de la fecha de inicio de vigencia de la secciÃ³n asignada al teaserViewer tomando como referencia el tiempo transcurido desde el inicio de vigencia hasta la fecha/hora actual
+##ParÃ¡metro 1: dateFormat -> Cadena que contiene el formato de salida de la fecha.
+#macro (printDateFromExtend_v1 $dateFormat)
+		#set($ac-sectionDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]'))
+		#if($ac-sectionDateFrom.size() > 0)
+			#foreach ($atrib in $ac-sectionDateFrom.get(0).attributes()  )         
+				#if($atrib.name == "from")
+					#set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))
+					#set ($dateFormatFactory = $portalBeanLocator.locate('com.liferay.portal.kernel.util.DateFormatFactoryUtil'))
+					#set ($indexFormat = $dateFormatFactory.getSimpleDateFormat('EEE, dd MMM yyyy HH:mm:ss Z'))
+					#set ($dResultado = $indexFormat.parse("$reserved-article-modified-date.data"))
+					
+					#set($hoy = $dateTool.getDate())
+					#set($dia_a = $dateTool.getDay($hoy))
+					#set($mes_a = $dateTool.getMonth($hoy) + 1)
+					#set($anio_a = $dateTool.getYear($hoy))
+					
+					#set($dia_n = $dateTool.getDay($dResultado))
+					#set($mes_n = $dateTool.getMonth($dResultado) + 1)
+					#set($anio_n = $dateTool.getYear($dResultado))
+					
+					#if( ($dia_a == $dia_n) && ($mes_a == $mes_n) && ($anio_a == $anio_n) )
+						#set($Integer = 0)
+						#set($hora_articulo = $Integer.parseInt($dateTool.format("H",$dResultado)) )  
+						#set($minutos_articulo = $Integer.parseInt($dateTool.format("m",$dResultado)) )
+						#set($hora_actual = $Integer.parseInt($dateTool.format("H",$hoy)) )
+						#set($minutos_actual = $Integer.parseInt($dateTool.format("m",$hoy)) )
+						
+						#set($hora_de_diferencia_sin_minutos_extra = $hora_actual - $hora_articulo)
+						
+						#set($minutos_hora_articulo = $hora_articulo * 60)
+						#set($minutos_hora_actual = $hora_actual * 60)
+						
+						#set($minutos_hora_articulo = $minutos_hora_articulo + $minutos_articulo)
+						#set($minutos_hora_actual = $minutos_hora_actual + $minutos_actual)
+						
+						#set($minutos_de_diferencia = $minutos_hora_actual - $minutos_hora_articulo)
+						
+						#if($minutos_de_diferencia <= 60)
+							#if($minutos_de_diferencia == 1)
+								
+								#getGlobalString_v1("date2String") $minutos_de_diferencia #getGlobalString_v1("date3String")  
+							#else
+								#getGlobalString_v1("date2String") $minutos_de_diferencia #getGlobalString_v1("date4String")
+							#end
+						#else
+							#if($hora_de_diferencia_sin_minutos_extra == 1)
+								#getGlobalString_v1("date2String") $hora_de_diferencia_sin_minutos_extra #getGlobalString_v1("date5String")
+							#else
+								#getGlobalString_v1("date2String") $hora_de_diferencia_sin_minutos_extra #getGlobalString_v1("date6String")
+							#end
+						#end
+					#else
+						#getGlobalString_v1("date1String") $dateTool.format($dateFormat,$dResultado)
+					#end
+				#end
+			#end
+		#end
+#end
+
+##Macro para obtener la fecha a pintar en el articulo (Entre fecha de inicio de vigencia o fecha de modificación)
+##Parámetro 1: Formato de la fecha, en caso de ser anterior al día actual
+##Parámetro 2: Formatode la hora en caso de ser el dia actual
+#macro (printDateTeaser_v1 $dateFormat $hourFormat)	
+		##Recuperacion de la fecha de modificación
+		#set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))
+		#set ($dateFormatFactory = $portalBeanLocator.locate('com.liferay.portal.kernel.util.DateFormatFactoryUtil'))
+		#set ($indexFormat = $dateFormatFactory.getSimpleDateFormat('EEE, dd MMM yyyy HH:mm:ss'))
+		#set ($idResultadoMod = $indexFormat.parse($reserved-article-modified-date.getData()))
+		
+		##Recuperacion de la fechade inicio de vigencia
+		#set($ac-sectionDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]'))
+		
+		#set ($idResultado = $idResultadoMod)
+		#if($ac-sectionDateFrom.size() > 0)
+			#foreach ($atrib in $ac-sectionDateFrom.get(0).attributes()  )         
+				#if($atrib.name == "from")
+					#set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))
+					#set ($dateFormatFactory = $portalBeanLocator.locate('com.liferay.portal.kernel.util.DateFormatFactoryUtil'))
+					#set ($indexFormat = $dateFormatFactory.getSimpleDateFormat('yyyy/MM/dd HH:mm:ss'))
+					#set ($idResultadoFrom = $indexFormat.parse("$atrib.data"))
+					#if($idResultadoFrom.compareTo($idResultadoMod) > 0)
+						#set($idResultado = $idResultadoFrom)
+					#end
+				#end
+			#end
+		#end
+		
+		#set($hoy = $dateTool.getDate())
+		#set($dia_a = $dateTool.getDay($hoy))
+		#set($mes_a = $dateTool.getMonth($hoy) + 1)
+		#set($anio_a = $dateTool.getYear($hoy))   
+		
+		#set($dia_p = $dateTool.getDay($idResultado))
+		#set($mes_p = $dateTool.getMonth($idResultado) + 1)
+		#set($anio_p = $dateTool.getYear($idResultado))
+		
+		#set($mask = $dateFormat)
+
+		#if ($anio_p == $anio_a && $mes_p == $mes_a && $dia_p == $dia_a)
+			#set($mask = $hourFormat)
+		#end
+
+
+		$dateTool.format($hourFormat,$idResultadoMod)
+
+
+#end
+
+
+
+##Macro para recuperar la fecha de inicio de vigencia de la secciÃ³n asignada al teaserViewer
+##ParÃ¡metro 1: dateFormat -> Cadena que contiene el formato de salida de la fecha.
+##ParÃ¡metro 2: checkToday -> Booleano que indica si se debe sustituir la fecha por la hora si es el dÃ­a de hoy.
+##ParÃ¡metro 3: hourFormat -> Cadena con el formato de salida de la hora si checktody es true y es el dÃ­a de hoy.
+#macro (printDateTo_v1 $dateFormat $checkToday $hourFormat)
+		#set($ac-sectionDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]'))
+		#if($ac-sectionDateFrom.size() > 0)
+			#foreach ($atrib in $ac-sectionDateFrom.get(0).attributes()  )         
+				#if($atrib.name == "to")
+					#set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))
+					#set ($dateFormatFactory = $portalBeanLocator.locate('com.liferay.portal.kernel.util.DateFormatFactoryUtil'))
+					#set ($indexFormat = $dateFormatFactory.getSimpleDateFormat('yyyy/MM/dd HH:mm:ss'))
+					#set ($dResultado = $indexFormat.parse("$atrib.data"))
+					#if($checkToday == true)
+						#set($hoy = $dateTool.getDate())
+						#set($dia_a = $dateTool.getDay($hoy))
+						#set($mes_a = $dateTool.getMonth($hoy) + 1)
+						#set($anio_a = $dateTool.getYear($hoy))
+						
+						#set($dia_n = $dateTool.getDay($dResultado))
+						#set($mes_n = $dateTool.getMonth($dResultado) + 1)
+						#set($anio_n = $dateTool.getYear($dResultado))
+				
+						#if( ($dia_a == $dia_n) && ($mes_a == $mes_n) && ($anio_a == $anio_n) )
+							$dateTool.format($hourFormat,$dResultado)
+						#else
+							$dateTool.format($dateFormat,$dResultado)
+						#end
+					#else
+						$dateTool.format($dateFormat,$dResultado)
+					#end
+					
+				#end
+			#end
+		#end
+#end
+
+
+##Macro para recuperar los minutos o las horas de la fecha de inicio de vigencia de la secciÃ³n asignada al teaserViewer tomando como referencia el tiempo transcurido desde el inicio de vigencia hasta la fecha/hora actual
+##ParÃ¡metro 1: dateFormat -> Cadena que contiene el formato de salida de la fecha.
+#macro (printDateToExtend_v1 $dateFormat)
+		##Recuperacion de la fecha de modificación
+		#set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))
+		#set ($dateFormatFactory = $portalBeanLocator.locate('com.liferay.portal.kernel.util.DateFormatFactoryUtil'))
+		#set ($indexFormat = $dateFormatFactory.getSimpleDateFormat('EEE, dd MMM yyyy HH:mm:ss'))
+		#set ($idResultadoMod = $indexFormat.parse($reserved-article-modified-date.getData()))
+		
+		#set($ac-sectionDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]'))
+		#set($dResultado = $idResultadoMod)
+		#if($ac-sectionDateFrom.size() > 0)
+			#foreach ($atrib in $ac-sectionDateFrom.get(0).attributes()  )         
+				#if($atrib.name == "to")
+					#set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))
+					#set ($dateFormatFactory = $portalBeanLocator.locate('com.liferay.portal.kernel.util.DateFormatFactoryUtil'))
+					#set ($indexFormat = $dateFormatFactory.getSimpleDateFormat('yyyy/MM/dd HH:mm:ss'))
+					#set ($dResultadoFrom = $indexFormat.parse("$atrib.data"))
+					
+					#if($idResultadoFrom.compareTo($idResultadoMod) > 0)
+						#set($dResultado = $idResultadoFrom)
+					#end
+								
+					#set($hoy = $dateTool.getDate())
+					#set($dia_a = $dateTool.getDay($hoy))
+					#set($mes_a = $dateTool.getMonth($hoy) + 1)
+					#set($anio_a = $dateTool.getYear($hoy))
+					
+					#set($dia_n = $dateTool.getDay($dResultado))
+					#set($mes_n = $dateTool.getMonth($dResultado) + 1)
+					#set($anio_n = $dateTool.getYear($dResultado))
+					
+					#if( ($dia_a == $dia_n) && ($mes_a == $mes_n) && ($anio_a == $anio_n) )
+						#set($Integer = 0)
+						#set($hora_articulo = $Integer.parseInt($dateTool.format("H",$dResultado)) )  
+						#set($minutos_articulo = $Integer.parseInt($dateTool.format("m",$dResultado)) )
+						#set($hora_actual = $Integer.parseInt($dateTool.format("H",$hoy)) )
+						#set($minutos_actual = $Integer.parseInt($dateTool.format("m",$hoy)) )
+						
+						#set($hora_de_diferencia_sin_minutos_extra = $hora_actual - $hora_articulo)
+						
+						#set($minutos_hora_articulo = $hora_articulo * 60)
+						#set($minutos_hora_actual = $hora_actual * 60)
+						
+						#set($minutos_hora_articulo = $minutos_hora_articulo + $minutos_articulo)
+						#set($minutos_hora_actual = $minutos_hora_actual + $minutos_actual)
+						
+						#set($minutos_de_diferencia = $minutos_hora_actual - $minutos_hora_articulo)
+						
+						#if($minutos_de_diferencia <= 60)
+							#if($minutos_de_diferencia == 1)
+								Publicado hace $minutos_de_diferencia minutos
+							#else
+								Publicado hace $minutos_de_diferencia minutos
+							#end
+						#else
+							#if($hora_de_diferencia_sin_minutos_extra == 1)
+								Publicado hace $hora_de_diferencia_sin_minutos_extra horas
+							#else
+								Publicado hace $hora_de_diferencia_sin_minutos_extra horas
+							#end
+						#end
+					#else
+						$dateTool.format($dateFormat,$dResultado)
+					#end
+				#end
+			#end
+		#end
+#end
+
+
+##Macro para recuperar la secciÃ³n asiganada dentro del vocabulario TEMAS
+##ParÃ¡metro 1: vResultTheme -> ArrayList que contendrÃ¡ todas las categorÃ­as del vocabulario TEMAS asignadas al artÃ­culo. 
+#macro (getAssignedTheme_v1 $vResultTheme)
+		#set($ac-temaAsignado = $articleContext.selectNodes('articlectx/metadata//key[@name="TEMAS"]//key[@set="1"]'))
+		#foreach ($key in $ac-temaAsignado)
+			#set($temp = $vResultTheme.add($key.attribute('name').getValue()))
+		#end
+#end
+
+
+##Macro para imprimir la url del detalle
+#macro (printAcUrl_v1)#*
+		*##set($ac-url = $articleContext.selectNodes('articlectx/url'))#*
+		*##set($xml-url = $ac-url.get(0).text)#*					
+		*##set($xml-url-trimmed = $!xml-url.trim())#*		
+		*#$!xml-url-trimmed#*												
+*##end
+
+
+##Macro para imprimir la pÃ¡gina de referencia
+#macro (printAcRefPageUrl_v1)
+		#set($ac-ref-page-url = $articleContext.selectNodes('articlectx/ref-page-url'))
+		#set($xml-ref-page-url = $ac-ref-page-url.get(0).text)
+		$!xml-ref-page-url
+#end
+
+
+##Macro para imprimir la secciÃ³n del artÃ­culo
+#macro (printAcSectionName_v1)
+		#set($ac-section-name = $articleContext.selectNodes('articlectx/section-name'))
+		#set($xml-section-name = $ac-section-name.get(0).text)
+		$!xml-section-name
+#end
+
+##Macro para imprimir la secciÃ³n por defecto (seleccionada en milenium) del artÃ­culo
+#macro (printAcDefaultSection_v1)
+		#set($ac-seccionAsignada = $articleContext.selectNodes('articlectx/sections//section[@default="1"]'))
+		#if($ac-seccionAsignada.size() > 0)
+			#set($xml-default-section = $ac-seccionAsignada.get(0).text)
+			$!xml-default-section
+		#end
+#end
+
+
+##Macro para recuperar la url canonica del articulo
+#macro (printAcCanonicalUrl_v1)#*
+		*##set($ac-canonical-url = $articleContext.selectNodes('articlectx/canonicalurl'))#*
+		*##set($xml-canonical-url = $ac-canonical-url.get(0).text)#*					
+		*##set($xml-canonical-url-trimmed = $!xml-canonical-url.trim())#*		
+		*#$!xml-canonical-url-trimmed#*		
+*##end
+
+
+
+##Macro para imprimir el nÃºmero de visitas del artÃ­culo
+#macro (printAcNvisits_v1)
+		#set($ac-nvisits = $articleContext.selectNodes('articlectx/nvisits'))
+		#set($xml-nvisits = $ac-nvisits.get(0).text)
+		$!xml-nvisits
+#end
+
+
+##Macro para recuperar el nÃºmero de comentarios del artÃ­culo
+#macro (printAcNcomments_v1)
+		#set($ac-ncomments = $articleContext.selectNodes('articlectx/ncomments'))
+		#set($xml-ncomments = "")
+		#if($xml-ncomments.size() > 0 )
+			#set($xml-ncomments = $ac-ncomments.get(0).text)
+		#end
+		$!xml-ncomments
+#end
+
+##Macro para recuperar el nÃºmero de comentarios del artÃ­culo
+#macro (returnValueNcomments_v1 $numResult)
+		#set($ac-ncomments = $articleContext.selectNodes('articlectx/ncomments'))
+		#set($xml-ncomments = $ac-ncomments.get(0).text)
+		#set($numResult= $!xml-ncomments)
+#end
+
+##Macro que devuelve un array con las secciones desde la d epor defecto del art´ciulo.
+#macro (getBreadCrumArray_v1 $arraySectionName)
+		#set($querySection = "articlectx/sections//section[@from]")
+		#set($ac-sectionDateFrom =  $articleContext.selectNodes($querySection))	
+		#set($arraySectionName = [])
+		#if($ac-sectionDateFrom.size() > 0)
+			#foreach($i in [0..10])
+				#if($ac-sectionDateFrom.get(0).name == "section")
+						#foreach ($atrib in $ac-sectionDateFrom.get(0).attributes()  )         
+							#if($atrib.name == "name")
+								#set($temp = $arraySectionName.add($!atrib.data))
+							#end
+						#end
+						
+						#set($querySection = $querySection + "/..")
+						#set($ac-sectionDateFrom =  $articleContext.selectNodes($querySection))
+				#else
+						#break
+				#end
+			#end
+		#end
+#end
+
+##Macro quÃ© devuelve una lista de categorÃ­as asignadas
+##ParÃ¡metro 1: hmResult -> HashMap que contendrÃ¡ la lista de categorÃ­as asignadas. 
+#macro(getAcAssignedCat_v1 $hmResult)
+		#set($ac-key = $articleContext.selectNodes('//key'))
+		#set($hmResult = {})
+		#set($index = 0)
+		#foreach ($key in $ac-key)
+			#set ($map-attribute = {})
+			#foreach($attrib in $key.attributes())
+				#set($temp = $map-attribute.put($attrib.name,$attrib.data))
+			#end
+			#if($key.attribute('set').getValue()== "1")
+				#set($temp = $hmResult.put($index,$map-attribute))
+				#set($index = $index + 1)
+			#end
+		#end
+#end
+
+
+##Macro quÃ© devuelve una lista de categorÃ­as asignadas
+##ParÃ¡metro 1: hmResult -> HashMap que contendrÃ¡ la lista de categorÃ­as asignadas.
+#macro(getAcAssignedCatExtendedGlobal_v1 $hmResult $vocabulario)
+		#set($ac-key = $articleContext.selectNodes('//key'))
+		#set($hmResult = {})
+		#set($hmtemp1 = {})
+		#set($hmtemp2 = {})
+		#set($index1 = 0)
+		#set($index2 = 0)
+		#set($hasMain = 0)
+		#set($hasSet = 0)
+		
+		
+		#foreach ($key in $ac-key)
+			#set ($map-attribute = {})
+			
+			#foreach($attrib in $key.attributes())
+				#set($temp = $map-attribute.put($attrib.name,$attrib.data))
+			#end
+			
+			#if($key.attribute('set').getValue()== "1")
+				#set($temp = $hmtemp1.put($index1,$map-attribute))
+				#set($index1 = $index1 + 1)
+				#set($hasSet = 1)
+			#end
+			
+			#if($key.attribute('main').getValue()== "1")
+				#set($temp = $hmtemp2.put($index2,$map-attribute))
+				#set($index2 = $index2 + 1)
+				#set($hasMain = 1)
+			#end
+		#end
+		
+		#if ($hasMain == 0)
+			#if($hasSet == 1)
+				#set($hmResult = $hmtemp1)
+			#end
+		#else
+			#set($hmResult = $hmtemp2)
+		#end
+#end
+
+
+##Macro quÃ© devuelve una lista de categorÃ­as asignadas
+##ParÃ¡metro 1: hmResult -> HashMap que contendrÃ¡ la lista de categorÃ­as asignadas.
+##ParÃ¡metro 2: vocabulario -> String con el vocabulario del que se extraerÃ¡n las categorÃ­as.
+#macro(getAcAssignedCatExtended_v1 $hmResult $vocabulario)
+		#set($ac-key = $articleContext.selectNodes("articlectx/metadata//key[@name='$vocabulario']//key"))
+		#set($hmResult = {})
+		#set($hmtemp1 = {})
+		#set($hmtemp2 = {})
+		#set($index1 = 0)
+		#set($index2 = 0)
+		#set($hasMain = 0)
+		#set($hasSet = 0)
+		
+		
+		#foreach ($key in $ac-key)
+			#set ($map-attribute = {})
+			
+			#foreach($attrib in $key.attributes())
+				#set($temp = $map-attribute.put($attrib.name,$attrib.data))
+			#end
+			
+			#if($key.attribute('set').getValue()== "1")
+				#set($temp = $hmtemp1.put($index1,$map-attribute))
+				#set($index1 = $index1 + 1)
+				#set($hasSet = 1)
+			#end
+			
+			#if($key.attribute('main').getValue()== "1")
+				#set($temp = $hmtemp2.put($index2,$map-attribute))
+				#set($index2 = $index2 + 1)
+				#set($hasMain = 1)
+			#end
+		#end
+		
+		#if ($hasMain == 0)
+			#if($hasSet == 1)
+				#set($hmResult = $hmtemp1)
+			#end
+		#else
+			#set($hmResult = $hmtemp2)
+		#end
+#end
+
+
+##Macro quÃ© devuelve una lista de categorÃ­as asignadas
+##ParÃ¡metro 1: hmResult -> HashMap que contendrÃ¡ la lista de categorÃ­as asignadas.
+##ParÃ¡metro 2: vocabulario -> String con el vocabulario del que se extraerÃ¡n las categorÃ­as.
+#macro(getAcAssignedExtendedAllCat_v1 $hmResult $vocabulario)
+		#set($ac-key = $articleContext.selectNodes("articlectx/metadata//key[@name='$vocabulario']//key"))
+		#set($hmResult = {})
+		#set($hmtemp1 = {})
+		#set($hmtemp2 = {})
+		#set($index1 = 0)
+		#set($index2 = 0)
+		#set($hasMain = 0)
+		#set($hasSet = 0)
+		
+		
+		#foreach ($key in $ac-key)
+			#set ($map-attribute = {})
+			
+			#foreach($attrib in $key.attributes())
+				#set($temp = $map-attribute.put($attrib.name,$attrib.data))
+			#end
+			
+			#if($key.attribute('set').getValue()== "1")
+				#set($temp = $hmtemp1.put($index1,$map-attribute))
+				#set($index1 = $index1 + 1)
+				#set($hasSet = 1)
+			#end
+		#end
+		
+		#set($hmResult = $hmtemp1)
+
+#end
+
+##Macro quÃ© devuelve y crea un link hacia la primera categoria asignada del articulo pasando como parametro el catalogo
+##Si llega el campo $seccion_migracion entonces se pinta dicho campo, de lo contrario se pinta la seccion por defecto junto con un enlace hacia la primera categoria si las hay.
+##ParÃ¡metro 1: urlToSection -> String que contendrÃ¡ la ubicaciÃ³n hacia donde debe apuntar el enlace.
+##ParÃ¡metro 2: vocabulary -> String con el vocabulario del que se extraerÃ¡n las categorÃ­as.
+#macro(printAcAssignedCat_v1 $urlToSection $vocabulary)
+		#if($Seccion_Migracion && $Seccion_Migracion.data != "")
+			$Seccion_Migracion.data
+		#else
+			#set($auxCatalagoSecciones = {})
+			#getAcAssignedCatExtended_v1($auxCatalagoSecciones $vocabulary)
+			
+			#printAcSectionName_v1() #if($auxCatalagoSecciones.size() > 0) / <a class="lnk" href="#metadataUrl_v1()$auxCatalagoSecciones.get(0).friendlyname"> #if($auxCatalagoSecciones) $auxCatalagoSecciones.get(0).name #end </a> #end
+			
+		#end
+#end
+
+##-------------------------------------------------
+## Macro que pinta la imagen de una seccion si esta aplicado a esa seccion, si es m lo pinta centrado
+## si es galeria lo pinta abajo a la izquierda
+## Parametro 1: Cadena de texto que indica el tamano de la imagen que se quiere pintar (grande o pequena)
+
+
+#macro (pintaImgDeSeccionAuto_v1 $tamano)#*
+		*##if(($Multimedia && $Multimedia.data !="") || ($Multimedia_Youtube && $Multimedia_Youtube.data !="") || ($Multimedia_Vimeo && $Multimedia_Vimeo.data !="") || ($Multimedia_Brightcove && $Multimedia_Brightcove.data !=""))#*	
+			*#<span class="ImgVideos $!{tamano} center"></span>#*
+		*##elseif(($articleToolbox.getNumImageTags("TeaserImage","true") > 1) )	#*	
+			*#<span class="ImgGaleria $!{tamano} bottomLeft"></span>#*	
+		*##elseif($articleToolbox.getArticleViewer("0") == "/multimedia/infografia")#*
+			*#<span class="ImgInfografia $!{tamano} bottomLeft"></span>#*	
+		*##end#*		
+*##end
+##--------------------------------------------------
+
+##-------------------------------------------------
+## Macro que pinta la imagen de una seccion si esta aplicado a esa seccion
+## Parametro 1: Cadena de texto que indica el tamano de la imagen que se quiere pintar (grande o pequena)
+## Parametro 2: Cadena de texto que indica la posicion de la imagen, (topLeft,topRight,bottomLeft,bottomRight,center) 
+## Parametro 3: Boolean para indicar si pone enlace a la imagen (False si no tiene valor, True si tiene cualquier valor)
+
+
+#macro (pintaImgDeSeccion_v1 $tamano $posicion $enlace)#*
+		*##if(($Multimedia && $Multimedia.data !="") || ($Multimedia_Youtube && $Multimedia_Youtube.data !="") || ($Multimedia_Vimeo && $Multimedia_Vimeo.data !="") || ($Multimedia_Brightcove && $Multimedia_Brightcove.data !=""))#*	
+			*#<span class="ImgVideos $!{tamano} $!{posicion}"></span>#*
+		*##elseif(($articleToolbox.getNumImageTags("TeaserImage","true") > 1) )	#*	
+			*#<span class="ImgGaleria $!{tamano} $!{posicion}"></span>#*	
+		*##elseif($articleToolbox.getArticleViewer("0") == "/multimedia/infografia")#*
+			*#<span class="ImgInfografia $!{tamano} $!{posicion}"></span>#*	
+		*##end#*		
+*##end
+##--------------------------------------------------
+
+##Macro quÃ© devuelve la categoria principal asignada
+##ParÃ¡metro 1: hmResult -> HashMap que contendrÃ¡ la lista de categorÃ­as asignadas. 
+##Macro que devuelve la categotia principal
+#macro(getAcAssignedCatMain_v1 $hmResult $vocabulario)
+		#set($ac-key = $articleContext.selectNodes("articlectx/metadata//key[@name='$vocabulario']//key"))
+		#set($hmResult = {})
+		#set($hmtemp2 = {})
+		#set($index2 = 0)
+		#set($hasMain = 0)
+		#foreach ($key in $ac-key)
+			#set ($map-attribute = {})
+			#foreach($attrib in $key.attributes())
+				#set($temp = $map-attribute.put($attrib.name,$attrib.data))
+			#end
+			#if($key.attribute('main').getValue()== "1")
+				#set($temp = $hmtemp2.put($index2,$map-attribute))
+				#set($index2 = $index2 + 1)
+				#set($hasMain = 1)
+			#end
+		#end
+		#if ($hasMain == 1)
+			#set($hmResult = $hmtemp2)
+		#end
+#end
