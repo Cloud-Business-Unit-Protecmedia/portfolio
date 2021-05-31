@@ -1,0 +1,138 @@
+## Variable que indica si es sistema 'antiguo' o 'nuevo' (getTag o gatTag2)
+#set($enviromentVersion = "old")
+
+
+##Personaliza la URL base de las cronologías
+#macro (metadataUrl)#*
+	*#/tag/-/meta/#*
+*##end
+
+##Personaliza el formato de las fechas en las plantillas que usan el formato de fecha corto
+#macro (dateMaskShort)#*
+	*#HH:mm#*
+*##end
+
+##Personaliza el formato de las fechas en las plantillas que usan el formato de fecha largo
+#macro (dateMaskLong)#*
+	*##set($sitecode = $iterVelocityTools.getVariable('0', "sitecode"))#*
+	*##if($sitecode == "jornalsol")#*
+		*##dateMaskLong_jornalsol()#*
+	*##else#*
+		*#dd MMM yyyy / HH:mm#*
+	*##end#*
+*##end
+
+#macro (germanDateFormat)#*
+	*#dd.MM.yyyy#*
+*##end
+
+##Macro que devuelve literales
+#macro (getGlobalString $stringName)#*
+	*##if 		($stringName == "voteString")#*
+		*#Vote#*
+	*##elseif	($stringName == "viewResultsString")#*
+		*#View Results#*
+	*##elseif	($stringName == "backString")#*
+		*#Back#*
+	*##elseif	($stringName == "date1String")#*
+		*#el#*
+	*##elseif	($stringName == "date2String")#*
+		*#hace#*
+	*##elseif	($stringName == "date3String")#*
+		*#minuto#*
+	*##elseif	($stringName == "date4String")#*
+		*#minutos#*
+	*##elseif	($stringName == "date5String")#*
+		*#hora#*
+	*##elseif	($stringName == "date6String")#*
+		*#horas#*
+	*##elseif	($stringName == "byString")#*
+		*#By#*
+	*##elseif	($stringName == "vonString")#*
+		*#Von#*
+	*##elseif 	($stringName == "voteStringEsp")#*
+		*#Votar#*
+	*##elseif	($stringName == "viewResultsStringEsp")#*
+		*#Ver Resultados#*
+	*##elseif	($stringName == "backStringEsp")#*
+		*#Volver#*
+	*##elseif    ($stringName == "escritoPor")#*
+		*#Escrito Por:#*
+	*##end#*
+*##end	
+
+##PLANTILLAS V1
+
+
+## Variable que indica si es sistema 'antiguo' o 'nuevo' (getTag o gatTag2)
+#set($enviromentVersion = "old")
+
+
+##Personaliza la URL base de las cronologías
+#macro (metadataUrl_v1)#*
+		*#/tag/-/meta/#*
+*##end
+
+##Personaliza el formato de las fechas en las plantillas que usan el formato de fecha corto
+#macro (dateMaskShort_v1)#*
+		*#HH:mm#*
+*##end
+
+##Personaliza el formato de las fechas en las plantillas que usan el formato de fecha largo
+#macro (dateMaskLong_v1)#*
+	*##set($sitecode = $iterVelocityTools.getVariable('0', "sitecode"))#*
+	*##if($sitecode == "jornalsol")#*
+		*##dateMaskLong_jornalsol()#*
+	*##else#*
+		*#dd MMM yyyy / HH:mm#*
+	*##end#*
+*##end
+
+
+
+#macro (germanDateFormat_v1)#*
+		*#dd.MM.yyyy#*
+*##end
+
+##Macro que devuelve literales
+#macro (getGlobalString_v1 $stringName)#*
+		*##if 		($stringName == "voteString")#*
+			*#Vote#*
+		*##elseif	($stringName == "viewResultsString")#*
+			*#View Results#*
+		*##elseif	($stringName == "backString")#*
+			*#Back#*
+		*##elseif	($stringName == "date1String")#*
+			*#el#*
+		*##elseif	($stringName == "date2String")#*
+			*#hace#*
+		*##elseif	($stringName == "date3String")#*
+			*#minuto#*
+		*##elseif	($stringName == "date4String")#*
+			*#minutos#*
+		*##elseif	($stringName == "date5String")#*
+			*#hora#*
+		*##elseif	($stringName == "date6String")#*
+			*#horas#*
+		*##elseif	($stringName == "byString")#*
+			*#By#*
+		*##elseif	($stringName == "vonString")#*
+			*#Von#*
+		*##elseif 	($stringName == "voteStringEsp")#*
+			*#Votar#*
+		*##elseif	($stringName == "viewResultsStringEsp")#*
+			*#Ver Resultados#*
+		*##elseif	($stringName == "backStringEsp")#*
+			*#Volver#*
+		*##elseif    ($stringName == "escritoPor")#*
+			*#Escrito Por:#*
+		*##end#*
+*##end	
+
+
+## Formatea una fecha de acuerdo a un patron de formato y el locale del sitio
+#macro (dateToolFormatLocale_v1 $dateFormat, $datetoformat)#*
+		*##set($language = $html_lang.substring(0, 2))#*
+		*##set ($localeUtil = $portal.getClass().forName('com.liferay.portal.kernel.util.LocaleUtil'))#*
+		*#$dateTool.format($dateFormat, $datetoformat, $localeUtil.fromLanguageId($language))#*
+*##end
