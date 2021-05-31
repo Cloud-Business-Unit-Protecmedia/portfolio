@@ -1,0 +1,2783 @@
+##Macro para llamar a getTag2 o getTag
+#macro (getTagMacro $rtag $context $contentType $totalChars $elem2Rm $elipsis)#*
+	*##if($context == '')#*
+		*##if($enviromentVersion == 'new')#*
+			*##set ($rtag = $!articleToolbox.getTag2(null, $contentType, $totalChars, $elem2Rm, $elipsis))#*
+		*##else#*
+			*##if($contentType == 'TeaserText')#*
+				*##getTeaserTextOld(150)#*
+			*##else#*
+				*##set ($rtag = $!articleToolbox.getTag(null, $contentType))#*
+			*##end#*
+		*##end#*
+	*##else#*
+		*##if($enviromentVersion == 'new')#*
+			*##set ($rtag = $!articleToolbox.getTag2($context, $contentType, $totalChars, $elem2Rm, $elipsis))#*
+		*##else#*
+			*##if($contentType == 'TeaserText')#*
+				*##getTeaserTextOld(150)#*
+			*##else#*
+				*##set ($rtag = $!articleToolbox.getTag(null, $contentType))#*
+			*##end#*
+		*##end#*
+	*##end#*
+*##end
+
+##Macro que recupera el título para los TEASERS
+#macro (getTeaserTitle $titleCustom)#*
+	*##set ($mobileTag="")#*
+	*##getTagMacro($mobileTag, '', 'MobileHeadline', -1, '', '')#*
+
+	*##set ($headlineTag="")#*
+	*##getTagMacro($headlineTag, '', 'TeaserHeadline', -1, '', '')#*
+
+	*##if($mobileTag && $mobileTag != "")#*
+		*#<span class="visible-xs-block priority-content" mlnid="$!mobileTag.Milenium.data">$!mobileTag.data</span>#*
+		*##if($fullaccess=="false")<span class="premium"></span>#end#*
+		*#<span class="hidden-xs priority-content" mlnid="$!mobileTag.Milenium.data">$!headlineTag.data</span>#* 
+    	*##if($fullaccess=="false")<span class="premium"></span>#end#*
+	 *##else#*
+		*##if($titleCustom)#*
+			*##set($mlnid = $titleCustom.Milenium.data)#*
+			*#<span class="priority-content" mlnid="$!mlnid">#*
+				*#$!titleCustom.data.length#*
+			*#</span>#*
+			*##if($fullaccess=="false")<span class="premium"></span>#end#*
+		*##elseif($headlineTag.data && $headlineTag != "")#*
+			*##set($mlnid = $headlineTag.Milenium.data)#*
+			*#<span class="priority-content" mlnid="$!mlnid">#*
+				*#$!headlineTag.data#*
+			*#</span>#*
+			*##if($fullaccess=="false")<span class="premium"></span>#end#*
+		*##end#*
+	*##end#*
+*##end
+
+##Macro to recover TopHeadline
+##Use $lookForSubheadline to look for Subheadline if Topheadline doesnt exist  
+#macro (getTeaserTopheadline $lookForSubheadline)#*
+	
+
+	
+	*##getTagMacro($topheadlineTag, '', 'Topheadline', -1, '', '')#*
+	
+	
+
+	*##if($topheadlineTag && $!topheadlineTag.data != "")#*
+		
+		*##if ($environment == 'PREVIEW')#*
+
+			*#<span class="priority-content" mlnid="$!topheadlineTag.Milenium.data">#*
+				*#$!topheadlineTag.data#*
+			*#</span>#*
+
+		*##else#*
+
+			*#$!topheadlineTag.data#*
+
+		*##end#*
+
+	*##end#*
+*##end
+
+##Macro to recover SubHeadline
+##Use $lookForTopheadline to look for Topheadline if Subheadline doesnt exist  
+#macro (getTeaserSubheadline $lookForTopheadline)#*
+
+	
+	*##getTagMacro($subheadlineTag, '', 'Subheadline', -1, '', '')#*
+	*##if($subheadlineTag && $!subheadlineTag.data != "")#*
+
+		*##if ($environment == 'PREVIEW')#*
+
+			*#<span class="priority-content" mlnid="$!subheadlineTag.Milenium.data">#*
+				*#$!subheadlineTag.data#*
+			*#</span>#*
+
+		*##else#*
+
+			*#$!subheadlineTag.data#*
+
+		*##end#*
+		
+	*##end#*
+*##end
+
+##Macro que recupera el título para los FULL CONTENT GENERAL
+#macro (getFullContentTitleGeneral)#*
+   *##set ($mobileHeadlineTag = "")#*
+   *##getTagMacro($mobileHeadlineTag, '', 'MobileHeadline', -1, '', '')#*
+
+   *##set ($headlineTag = "")#*
+   *##getTagMacro($headlineTag, '', 'Headline', -1, '', '')#*
+   *##set($mlnid = $headlineTag.Milenium.data)#*
+   *##if($mobileHeadlineTag != "")#*
+		*#<span class="visible-xs-block priority-content" mlnid="$!mobileHeadlineTag.Milenium.data">$!mobileHeadlineTag.data</span>#*
+		*#<span class="hidden-xs priority-content" mlnid="$!mlnid">$!headlineTag.data</span>#*
+   *##else#*
+		*#<span class="priority-content" mlnid="$!mlnid">#*
+			*#$!headlineTag.data#*
+		*#</span>#*
+		*##if($fullaccess=="false")<span class="premium"></span>#end#*
+	*##end#* 
+*##end
+
+##Macro que recupera el texto para los TEASER
+#macro (getTeaserText $maximumSize $textCustom)#*
+*##set($ellipsis = '...')#*
+*##set ($TeaserText = "")#*
+*##getTagMacro($TeaserText, '', 'TeaserText', $maximumSize, '', $ellipsis)#*
+	*##if($textCustom)#*
+		*##set ($tc = "")#*
+   		*##getTagMacro($tc, '', $textCustom, -1, '', '')#*
+		*#<div class="text-wrapper" mlnid="$!tc.Milenium.data">#* 
+			*##if($fullaccess=="false")<span class="premium-icon fl"></span>#end#*
+			*#$!tc.data#*
+		*#</div>#*
+	*##elseif($TeaserText.data && $TeaserText.data != "")#*
+		*#<div class="text-wrapper" mlnid="$!TeaserText.Milenium.data">#* 
+			*##if($fullaccess=="false")<span class="premium-icon fl"></span>#end#*
+			*##set($stringResultado = $TeaserText.data)#*
+			*#$!stringResultado#*
+		*#</div>#*
+	*##end#*
+*##end
+
+##Macro que recupera el texto para los TEASER
+#macro (getTeaserTextOld $maximumSize $textCustom)#*
+
+*##set($TeaserTexto = $articleToolbox.getTag(null,"TeaserText"))#*
+	*##if($textCustom)#*
+		*##set($tc = $articleToolbox.getTag(null,$textCustom))#*
+		*#<div class="text-wrapper" mlnid="$!tc.Milenium.data">#* 
+			*##if($fullaccess=="false")<span class="premium-icon fl"></span>#end#*
+			*##set ($arraText = [])#* 
+			*##recuperarParrafosTexto($tc true true $arraText)#*
+			*##set ($textoRecortado ="")#*                         			   
+			*##recortarTexto($arraText $maximumSize $textoRecortado)#*
+		*#</div>#*
+	*##elseif($TeaserTexto.data && $TeaserTexto.data != "")#*
+		*#<div class="text-wrapper" mlnid="$!TeaserTexto.Milenium.data">#* 
+			*##if($fullaccess=="false")<span class="premium-icon fl"></span>#end#*
+			*##set ($arraText = [])#* 
+			*##recuperarParrafosTexto($TeaserTexto true true $arraText)#*
+			*##set ($textoRecortado ="")#*                         			   
+			*##recortarTexto($arraText $maximumSize $textoRecortado)#*
+		*#</div>#*
+	*##elseif($TeaserText.data && $TeaserText.data != "")#*
+		*#<div class="text-wrapper" mlnid="$!TeaserText.Milenium.data">#* 
+			*##if($fullaccess=="false")<span class="premium-icon fl"></span>#end#*
+			*##set($stringResultado = $TeaserText.data)#*
+			*#$stringResultado#*
+		*#</div>#*
+	*##elseif($Texto_Web && $Texto_Web.data !="")#*
+		*#<div class="text-wrapper" mlnid="$!Texto_Web.Milenium.data">#*
+			*##if($fullaccess=="false")<span class="premium-icon fl"></span>#end#*
+			*##set ($arraText = [])#*
+			*##recuperarParrafosTexto($Texto_Web true true $arraText)#*
+			*##set ($textoRecortado ="")#*                         			   
+			*##recortarTexto($arraText $maximumSize $textoRecortado)#*
+		*#</div>#*
+	*##elseif($Text.data && $Text.data !="")#*
+		*#<div class="text-wrapper" mlnid="$!Text.Milenium.data">#* 
+			*##if($fullaccess=="false")<span class="premium-icon fl"></span>#end#*
+			*##set ($arraText = [])#* 
+			*##recuperarParrafosTexto($Text true true $arraText)#*
+ 			*##set ($textoRecortado ="")#*                         			   
+			*##recortarTexto($arraText $maximumSize $textoRecortado)#*
+		*#</div>#*
+	*##end#*
+*##end
+
+##Macro que pinta un video, una galería de imágenes o una imagen.
+#macro (getMultimediaStandard $minImagesGallery $templateType $encuadre $widthMultimedia $heightMultimedia $cropHD $cropSizes)#*
+		*##if($templateType == "teaser")#*/
+			*##set ($TeaserImage = "")#*
+			*##getTagMacro($TeaserImage, '', 'TeaserImage', -1, '', '')#*
+			*##if($TeaserImage)#*
+				*##set ($numImage = $TeaserImage.getSiblings().size())#*
+				*##set($tipoContenido = "TeaserImage")#*
+			*##else#*
+				*##set($numImage = $Image.getSiblings().size())#*
+				*##set($tipoContenido = "Image")#*
+			*##end#*
+		*##else#*
+			*##set ($numImage = $Image.getSiblings().size())#*
+			*##set($tipoContenido = "Image")#*
+		*##end#*
+		*##if(!$numImage)#*
+			*##set ($numImage = -1)#*
+		*##end#*
+		*##set ($Multimedia = "")#*
+		*##getTagMacro($Multimedia, '', 'Multimedia', -1, '', '')#*
+		*##if($Multimedia && $Multimedia.Document.data)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-video interno">#*
+					*#<div class="responsive-video">#*
+						*#<div id="multimediaPlayer${reserved-article-id.data}">Cargando reproductor ...</div>#*		
+						*#<script type="text/javascript">#*
+							*#
+								if (typeof asyncJwplayerList === 'undefined') {
+									window.asyncJwplayerList = [];
+								}
+								
+								if (typeof jwplayer === 'undefined') {
+								    var tempAsyncJwplayerElement = {};
+								    tempAsyncJwplayerElement.preview = "$Multimedia.Preview.data;
+								    tempAsyncJwplayerElement.document = "$Multimedia.Document.data";
+								    tempAsyncJwplayerElement.id = "multimediaPlayer${reserved-article-id.data}";
+								    tempAsyncJwplayerElement.width = "$widthMultimedia";
+								    tempAsyncJwplayerElement.height = "$heightMultimedia";
+								    window.asyncJwplayerList.push(tempAsyncJwplayerElement);
+								}else{
+									initJwPlayer("$Multimedia.Preview.data","$Multimedia.Document.data","multimediaPlayer${reserved-article-id.data}","$widthMultimedia","$heightMultimedia")
+								};
+							#*		
+																
+						*#</script>#*
+					*#</div>#*
+				*#</div>#*
+			*#</div>#*
+		*##set ($Jwplayer = "")#*
+		*##getTagMacro($Jwplayer, '', 'Jwplayer', -1, '', '')#*
+		*##elseif($Jwplayer && $Jwplayer.data)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-video externo">#*
+					*#<div style="width:${widthMultimedia}px;height:${heightMultimedia}px;">#*
+						*#<div id='botr_${Jwplayer.data}_isitqcrW_div' style="width:100%;height:100%;" class="jwplayerMultimedia"></div>#*
+					*#</div>#*
+					*#<script>#*
+						*#if(mobileBrowser){#*
+							*#var htmlJwPlayerDiv = "";#*
+							*#htmlJwPlayerDiv +="<video class='html5Jw' style='width:${widthMultimedia}px;height:${heightMultimedia}px;' controls='' tabindex='0' poster='http://content.jwplatform.com/thumbs/${Jwplayer.data}-480.jpg'>";#*
+								*#htmlJwPlayerDiv +="<source type='video/mp4' src='http://content.jwplatform.com/videos/${Jwplayer.data}.mp4'></source>";#*
+							*#htmlJwPlayerDiv +="</video>";#*
+							*#jQuery("#botr_${Jwplayer.data}_isitqcrW_div").append(htmlJwPlayerDiv);#*
+						*#}#*		
+						*#else{#*
+							*#var script = $('<script>', {#*
+							    *#type: 'text/javascript',#*
+							    *#async: true,#*
+							    *#src: 'http://content.jwplatform.com/players/${Jwplayer.data}-isitqcrW.js'#*
+							*#});#*
+							*#$('script:first').before(script);#*
+						*#}#*	
+					*#</script>#*
+				*#</div>#*
+			*#</div>#*
+		*##set ($Vimeo = "")#*
+		*##getTagMacro($Vimeo, '', 'Vimeo', -1, '', '')#*
+		*##elseif($Vimeo && $Vimeo.data !="")#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-vimeo">#*
+					*#<div class="responsive-video">#*
+						*#<iframe class="vimeo-player" src="//player.vimeo.com/video/$Vimeo.data" width="$widthMultimedia" height="$heightMultimedia" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>#*
+					*#</div>#*
+				*#</div>#*
+			*#</div>#*
+		*##set ($Youtube = "")#*
+		*##getTagMacro($Youtube, '', 'Youtube', -1, '', '')#*
+		*##elseif($Youtube && $Youtube.data)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-youtube">#*
+					*#<div class="responsive-video">#*
+						*##set ($timeParameter ="")#*
+						*##set ($index1 = $Youtube.data.indexOf("?t="))#*
+						*##set ($index2 = $Youtube.data.indexOf("?start="))#*
+
+						*##if($index1 >= 0){#*
+							*##set ($timeParameter = $Youtube.data.substring($index1))#*
+							*##set ($timeParameter = $timeParameter.replace("?t=",""))#*
+							*##set ($Youtube.data = $Youtube.data.substring(0,$Youtube.data.indexOf("?t=")))#*
+						*##end#*
+						
+						*##if($index2 >= 0){#*
+							*##set ($timeParameter = $Youtube.data.substring($index2))#*
+							*##set ($timeParameter = $timeParameter.replace("?start=",""))#*
+							*##set ($Youtube.data = $Youtube.data.substring(0,$Youtube.data.indexOf("?start=")))#*
+						*##end#*
+						
+						*##if($timeParameter && $timeParameter != "")#*
+							*##set ($timeParameter = "&start=" + $timeParameter)#*
+						*##end#*
+					
+						*#<iframe allowfullscreen="" frameborder="0" height="$heightMultimedia"  width="$widthMultimedia" src="//www.youtube.com/embed/$Youtube.data?wmode=transparent&showinfo=0&theme=light$timeParameter"></iframe>#*
+					*#</div>#*	
+				*#</div>#*
+			*#</div>#*
+		*##elseif($numImage >= $minImagesGallery)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-gallery">#*
+					*#<ul class="bxMultimedia${reserved-article-id.data}">#*
+					    *##set ($numImageFor = $numImage - 1)#*
+						*##foreach($i in [0..$numImageFor])#*
+							*#<li>#*
+								*##if($templateType == "teaser")#*
+									*#<a href="#printAcUrl()" class="cutlineShow">#*
+								*##end#*
+										*#<figure class="cutlineShow">#*
+											*##set($tempImage = $articleToolbox.getImageNode($tipoContenido, $i, "true"))#*
+											*##set($AltImage = "#getAltImage($tempImage)")#*
+											*##set($TitleImage = "#getTitleImage($tempImage)")#*
+											*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+											*##set($elcutline = $tempcutline.Cutline.data)#*
+											*##set($elcutlinemlnid = $tempcutline.Cutline.Milenium.data)#*
+											*##set($tempbylineimage = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+											*##set($elbylineimage = $tempbylineimage.Byline.data)#*
+											*##set($elbylineimagemlnid = $tempbylineimage.Byline.Milenium.data)#*
+											*##if($enviromentVersion == "new")#*
+												*##set($imgHtml = $!articleToolbox.getImageTag2("$tipoContenido","$i","$encuadre","","$!cropHD","galleryHD","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+											*##else#*
+												*##set($imgHtml = $!articleToolbox.getImageTag("$tipoContenido","$i","$encuadre","","$!cropHD","galleryHD","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+											*##end#*
+											*##if($imgHtml)#*
+												*#$imgHtml#*
+											*##end#*
+											**##if($elcutline)#*
+												*#<div class="cutline"><span class="cutline-text" mlnid="$!elcutlinemlnid">$!elcutline</span>#*
+													*##if($elbylineimage)#*
+														*#<span class="byline-image" mlnid="$!elbylineimagemlnid">($!elbylineimage)</span>#*
+													*##end#*
+												*#</div>#*
+											*##end#*
+										*#</figure>#*
+								*##if($templateType == "teaser")#*
+									*#</a>#*
+								*##end#*
+							*#</li>#*				
+						*##end#*		
+					*#</ul>#*
+				*#</div>#*
+			*#</div>#*
+			*#<script>IniciarBxsliderMultimedia(".bxMultimedia${reserved-article-id.data}","$widthMultimedia","$heightMultimedia")</script>#*
+		*##elseif($numImage > 0)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-img">#*
+					*##if($templateType == "teaser")#*
+						*#<a href="#printAcUrl()">#*
+					*##end#*
+						*#<figure class="cutlineShow">#*
+							*##set($tempImage = $articleToolbox.getImageNode($tipoContenido, '0', "true"))#*
+							*##set($AltImage = "#getAltImage($tempImage)")#*
+							*##set($TitleImage = "#getTitleImage($tempImage)")#*
+							*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "0"))#*
+							*##set($elcutline = $tempcutline.Cutline.data)#*
+							*##set($elcutlinemlnid = $tempcutline.Cutline.Milenium.data)#*
+							*##set($tempbylineimage = $articleToolbox.getImageNode("$tipoContenido", "0"))#*
+							*##set($elbylineimage = $tempbylineimage.Byline.data)#*
+							*##set($elbylineimagemlnid = $tempbylineimage.Byline.Milenium.data)#*
+							*##if($enviromentVersion == "new")#*
+								*##set($imgHtml = $!articleToolbox.getImageTag2("$tipoContenido","$i","$encuadre","","$!cropHD","galleryHD","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+							*##else#*
+								*##set($imgHtml = $!articleToolbox.getImageTag("$tipoContenido","$i","$encuadre","","$!cropHD","galleryHD","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+							*##end#*
+							*##if($imgHtml)#*
+								*#$imgHtml#*
+							*##end#*
+							*##if($elcutline)#*
+								*#<div class="cutline"><span class="cutline-text" mlnid="$!elcutlinemlnid">$!elcutline</span>#*
+									*##if($elbylineimage)#*
+										*#<span class="byline-image" mlnid="$!elbylineimagemlnid">($!elbylineimage)</span>#*
+									*##end#*
+								*#</div>#*
+							*##end#*
+						*#</figure>#*
+					*##if($templateType == "teaser")#*
+						*#</a>#*
+					*##end#*
+				*#</div>#*
+			*#</div>#*
+		*##end#*
+*##end
+
+
+##Macro que pinta un video todos los contenidos multimedia juntos
+#macro (getMultimediaMixed $templateType $encuadre $widthMultimedia $heightMultimedia $cropSizes)#*
+		*##if($templateType == "teaser")#*/
+			*##set ($TeaserImage = "")#*
+			*##getTagMacro($TeaserImage, '', 'TeaserImage', -1, '', '')#*
+			*##if($TeaserImage)#*
+				*##set ($numImage = $TeaserImage.getSiblings().size())#*
+				*##set($tipoContenido = "TeaserImage")#*
+			*##else#*
+			*##set ($Image = "")#*
+			*##getTagMacro($Image, '', 'Image', -1, '', '')#*
+				*##set($numImage = $Image.getSiblings().size())#*
+				*##set($tipoContenido = "Image")#*
+			*##end#*
+		*##else#*
+			*##set ($numImage = $Image.getSiblings().size())#*
+			*##set($tipoContenido = "Image")#*
+		*##end#*
+		*##if(!$numImage)#*
+			*##set ($numImage = 0)#*
+		*##end#*
+
+		*##set ($numContents = $numImage)#*
+		
+		*#<div class="multimediaMacroWrapper">#*
+			*#<ul class="bxMultimedia${reserved-article-id.data}">#*
+				*##set ($Multimedia = "")#*
+				*##getTagMacro($Multimedia, '', 'Multimedia', -1, '', '')#*
+				*##if($Multimedia && $Multimedia != '')#*
+					*##set ($numContents = $numContents + $Multimedia.getSiblings().size())#*
+					*##foreach ($el in $Multimedia.getSiblings())#*
+						*#<div class="contentMedia art-video interno" iterhtmlid="$el.Milenium.data">#*
+							*#<div class="responsive-video">#*
+								*#<div id="multimediaPlayer${reserved-article-id.data}-${velocityCount}">Cargando reproductor ...</div>#*		
+								*#<script type="text/javascript">#*
+									*#
+									if (typeof asyncJwplayerList === 'undefined') {
+										window.asyncJwplayerList = [];
+									}
+									
+									if (typeof jwplayer === 'undefined') {
+									    var tempAsyncJwplayerElement = {};
+									    tempAsyncJwplayerElement.preview = "$el.Preview.data";
+									    tempAsyncJwplayerElement.document = "$el.Document.data";
+									    tempAsyncJwplayerElement.id = "multimediaPlayer${reserved-article-id.data}-${velocityCount}";
+									    tempAsyncJwplayerElement.width = "$widthMultimedia";
+									    tempAsyncJwplayerElement.height = "$heightMultimedia";
+									    window.asyncJwplayerList.push(tempAsyncJwplayerElement);
+									}else{
+										initJwPlayer("$el.Preview.data","$el.Document.data","multimediaPlayer${reserved-article-id.data}-${velocityCount}","$widthMultimedia","$heightMultimedia");
+									};
+																																	
+									#*									
+								*#</script>#*
+							*#</div>#*
+						*#</div>#* 
+					*##end#*
+				*##end#*
+				*##set ($Jwplayer = "")#*
+				*##getTagMacro($Jwplayer, '', 'Jwplayer', -1, '', '')#*
+				*##if($Jwplayer && $Jwplayer != '')#*
+					*##set ($numContents = $numContents + $Jwplayer.getSiblings().size())#*
+					*##foreach ($el in $Jwplayer.getSiblings())#*
+						*#<div class="contentMedia art-video externo" iterhtmlid="$el.Milenium.data">#*
+							*#<div style="width:${widthMultimedia}px;height:${heightMultimedia}px;">#*
+								*#<div id='botr_${$el.data}_isitqcrW_div' style="width:100%;height:100%;" class="jwplayerMultimedia"></div>#*
+							*#</div>#*
+							*#<script>#*
+								*#if(mobileBrowser){#*
+									*#var htmlJwPlayerDiv = "";#*
+									*#htmlJwPlayerDiv +="<video class='html5Jw' style='width:${widthMultimedia}px;height:${heightMultimedia}px;' controls='' tabindex='0' poster='http://content.jwplatform.com/thumbs/${el.data}-480.jpg'>";#*
+										*#htmlJwPlayerDiv +="<source type='video/mp4' src='http://content.jwplatform.com/videos/${el.data}.mp4'></source>";#*
+									*#htmlJwPlayerDiv +="</video>";#*
+									*#jQuery("#botr_${el.data}_isitqcrW_div").append(htmlJwPlayerDiv);#*
+								*#}#*		
+								*#else{#*
+									*#var script = $('<script>', {#*
+										*#type: 'text/javascript',#*
+										*#async: true,#*
+										*#src: 'http://content.jwplatform.com/players/${el.data}-isitqcrW.js'#*
+									*#});#*
+									*#$('script:first').before(script);#*
+								*#}#*	
+							*#</script>#*
+						*#</div>#*
+					*##end#*
+				*##end#*
+				*##set ($Vimeo = "")#*
+				*##getTagMacro($Vimeo, '', 'Vimeo', -1, '', '')#*
+				*##if($Vimeo && $Vimeo !='')#*
+					*##set ($numContents = $numContents + $Vimeo.getSiblings().size())#*
+					*##foreach ($el in $Vimeo.getSiblings())#*
+						*#<div class="contentMedia art-vimeo" iterhtmlid="$el.Milenium.data">#*
+							*#<div class="responsive-video">#*
+								*#<iframe class="vimeo-plaayer" src="//player.vimeo.com/video/$el.data" width="$widthMultimedia" height="$heightMultimedia" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>#*
+							*#</div>#*
+						*#</div>#*
+					*##end#*
+				*##end#*
+				*##set ($Youtube = "")#*
+				*##getTagMacro($Youtube, '', 'Youtube', -1, '', '')#*
+				*##if($Youtube && $Youtube != '')#*
+					*##set ($numContents = $numContents + $Youtube.getSiblings().size())#*
+					*##foreach ($el in $Youtube.getSiblings())#*
+						*#<div class="contentMedia art-youtube" iterhtmlid="$el.Milenium.data">#*
+							*#<div class="responsive-video">#*
+								*##set ($timeParameter ="")#*
+								*##set ($index1 = $el.data.indexOf("?t="))#*
+								*##set ($index2 = $el.data.indexOf("?start="))#*
+	
+								*##if($index1 >= 0){#*
+									*##set ($timeParameter = $el.data.substring($index1))#*
+									*##set ($timeParameter = $timeParameter.replace("?t=",""))#*
+									*##set ($el.data = $el.data.substring(0,$el.data.indexOf("?t=")))#*
+								*##end#*
+								*##if($index2 >= 0){#*
+									*##set ($timeParameter = $el.data.substring($index2))#*
+									*##set ($timeParameter = $timeParameter.replace("?start=",""))#*
+									*##set ($el.data = $el.data.substring(0,$el.data.indexOf("?start=")))#*
+								*##end#*
+								*##if($timeParameter && $timeParameter != "")#*
+									*##set ($timeParameter = "&start=" + $timeParameter)#*
+								*##end#*
+							
+								*#<iframe allowfullscreen="" frameborder="0" height="$heightMultimedia"  width="$widthMultimedia" src="//www.youtube.com/embed/$el.data?wmode=transparent&showinfo=0&theme=light$timeParameter"></iframe>#*
+							*#</div>#*	
+						*#</div>#*
+					*##end#*		
+				*##end#*
+				
+				*##if($numImage > 0)#*		
+					*##set ($numImageFor = $numImage - 1)#*
+					*##foreach($i in [0..$numImageFor])#*
+						*#<div class="contentMedia art-gallery">#*
+							*##if($templateType == "teaser")#*
+								*#<a href="#printAcUrl()" class="cutlineShow">#*
+							*##end#*
+									*#<figure class="cutlineShow">#*
+										*##set($tempImage = $articleToolbox.getImageNode($tipoContenido, $i, "true"))#*
+										*##set($AltImage = "#getAltImage($tempImage)")#*
+										*##set($TitleImage = "#getTitleImage($tempImage)")#*
+										*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+										*##set($elcutline = $tempcutline.Cutline.data)#*
+										*##set($elcutlinemlnid = $tempcutline.Cutline.Milenium.data)#*
+										*##set($tempbylineimage = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+										*##set($elbylineimage = $tempbylineimage.Byline.data)#*
+										*##set($elbylineimagemlnid = $tempbylineimage.Byline.Milenium.data)#*
+										*##if($enviromentVersion == "new")#*
+											*##set($imgHtml = $!articleToolbox.getImageTag2("$tipoContenido","$i","$encuadre","","","","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+										*##else#*
+											*##set($imgHtml = $!articleToolbox.getImageTag("$tipoContenido","$i","$encuadre","","","","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+										*##end#*
+										*##if($imgHtml)#*
+											*#$imgHtml#*
+										*##end#*
+										**##if($elcutline)#*
+											*#<div class="cutline"><span class="cutline-text" mlnid="$!elcutlinemlnid">$!elcutline</span>#*
+												*##if($elbylineimage)#*
+													*#<span class="byline-image" mlnid="$!elbylineimagemlnid"> ($!elbylineimage)</span>#*
+												*##end#*
+											*#</div>#*
+										*##end#*
+									*#</figure>#*
+							*##if($templateType == "teaser")#*
+								*#</a>#*
+							*##end#*
+						*#</div>#*				
+					*##end#*		
+				*##end#*
+			*#</ul>#*
+		*#</div>#*
+		*##if($numContents > 1)#*
+			*#<script>IniciarBxsliderMultimedia(".bxMultimedia${reserved-article-id.data}","$widthMultimedia","$heightMultimedia")</script>#*
+		*##end#*
+		
+
+*##end
+
+##Macro que pinta una galería de videos
+#macro (getMultimediaVideoGallery $widthMultimedia $heightMultimedia)#*
+	*#<div class="multimediaMacroWrapper">#*
+		*#<ul class="bxMultimedia${reserved-article-id.data}">#*
+			*##set ($Multimedia = "")#*
+			*##getTagMacro($Multimedia, '', 'Multimedia', -1, '', '')#*
+			*##if($Multimedia && $Multimedia.Document.data)#*
+				*##foreach ($el in $Multimedia.getSiblings())#*
+					*#<li class="contentMedia art-video interno">#*
+						*#<div class="responsive-video">#*
+							*#<div id="multimediaPlayer${reserved-article-id.data}$velocityCount">Cargando reproductor ...</div>#*		
+							*#<script type="text/javascript">#*
+							*#
+								if (typeof asyncJwplayerList === 'undefined') {
+									window.asyncJwplayerList = [];
+								}
+								
+								if (typeof jwplayer === 'undefined') {
+								    var tempAsyncJwplayerElement = {};
+								    tempAsyncJwplayerElement.preview = "$el.Preview.data";
+								    tempAsyncJwplayerElement.document = "$el.Document.data";
+								    tempAsyncJwplayerElement.id = "multimediaPlayer${reserved-article-id.data}-${velocityCount}";
+								    tempAsyncJwplayerElement.width = "$widthMultimedia";
+								    tempAsyncJwplayerElement.height = "$heightMultimedia";
+								    window.asyncJwplayerList.push(tempAsyncJwplayerElement);
+								}else{
+									initJwPlayer("$el.Preview.data","$el.Document.data","multimediaPlayer${reserved-article-id.data}-${velocityCount}","$widthMultimedia","$heightMultimedia");
+								};
+							#*			
+							*#</script>#*
+						*#</div>#*
+						*##if($el.Multimedia_Cutline && $el.Multimedia_Cutline.data !="")#*
+							*#<div class="multimedia-cutline">#*
+								*#$el.Multimedia_Cutline.data#*
+							*#</div>#*
+						*##end#*
+					*#</li>#*
+				*##end#*		
+			*##end#*
+			*##set ($Jwplayer = "")#*
+			*##getTagMacro($Jwplayer, '', 'Jwplayer', -1, '', '')#*
+			*##if($Jwplayer && $Jwplayer.data)#*
+				*##foreach ($el in $Jwplayer.getSiblings())#*
+					*#<li class="contentMedia art-video externo">#*
+						*#<div style="width:${widthMultimedia}px;height:${heightMultimedia}px;">#*
+							*#<div id='botr_${$el.data}_isitqcrW_div' style="width:100%;height:100%;" class="jwplayerMultimedia"></div>#*
+						*#</div>#*
+						*#<script>#*
+							*#if(mobileBrowser){#*
+								*#var htmlJwPlayerDiv = "";#*
+								*#htmlJwPlayerDiv +="<video class='html5Jw' style='width:${widthMultimedia}px;height:${heightMultimedia}px;' controls='' tabindex='0' poster='http://content.jwplatform.com/thumbs/${$el.data}-480.jpg'>";#*
+									*#htmlJwPlayerDiv +="<source type='video/mp4' src='http://content.jwplatform.com/videos/${$el.data}.mp4'></source>";#*
+								*#htmlJwPlayerDiv +="</video>";#*
+								*#jQuery("#botr_${$el.data}_isitqcrW_div").append(htmlJwPlayerDiv);#*
+							*#}#*		
+							*#else{#*
+								*#var script = $('<script>', {#*
+									*#type: 'text/javascript',#*
+									*#async: true,#*
+									*#src: 'http://content.jwplatform.com/players/${$el.data}-isitqcrW.js'#*
+								*#});#*
+								*#$('script:first').before(script);#*
+							*#}#*	
+						*#</script>#*
+						*##if($el.Multimedia_Cutline && $el.Multimedia_Cutline.data !="")#*
+							*#<div class="multimedia-cutline">#*
+								*#$el.Multimedia_Cutline.data#*
+							*#</div>#*
+						*##end#*
+					*#</li>#*
+				*##end#*	
+			*##end#*
+			*##set ($Vimeo = "")#*
+			*##getTagMacro($Vimeo, '', 'Vimeo', -1, '', '')#*
+			*##if($Vimeo && $Vimeo.data !="")#*
+				*##foreach ($el in $Vimeo.getSiblings())#*
+					*#<li class="contentMedia art-vimeo">#*
+						*#<div class="responsive-video">#*
+							*#<iframe class="vimeo-player" src="//player.vimeo.com/video/$el.data" width="$widthMultimedia" height="$heightMultimedia" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>#*
+						*#</div>#*
+						*##if($el.Multimedia_Cutline && $el.Multimedia_Cutline.data !="")#*
+							*#<div class="multimedia-cutline">#*
+								*#$el.Multimedia_Cutline.data#*
+							*#</div>#*
+						*##end#*
+					*#</li>#*
+				*##end#*
+			*##end#*
+			*##set ($Youtube = "")#*
+			*##getTagMacro($Youtube, '', 'Youtube', -1, '', '')#*
+			*##if($Youtube && $Youtube.data)#*
+				*##foreach ($el in $Youtube.getSiblings())#*
+					*#<li class="contentMedia art-youtube">#*
+						*#<div class="responsive-video">#*
+							*##set ($timeParameter ="")#*
+							*##set ($index1 = $el.data.indexOf("?t="))#*
+							*##set ($index2 = $el.data.indexOf("?start="))#*
+
+							*##if($index1 >= 0){#*
+								*##set ($timeParameter = $el.data.substring($index1))#*
+								*##set ($timeParameter = $timeParameter.replace("?t=",""))#*
+								*##set ($el.data = $el.data.substring(0,$el.data.indexOf("?t=")))#*
+							*##end#*
+							*##if($index2 >= 0){#*
+								*##set ($timeParameter = $el.data.substring($index2))#*
+								*##set ($timeParameter = $timeParameter.replace("?start=",""))#*
+								*##set ($el.data = $el.data.substring(0,$el.data.indexOf("?start=")))#*
+							*##end#*
+							*##if($timeParameter && $timeParameter != "")#*
+								*##set ($timeParameter = "&start=" + $timeParameter)#*
+							*##end#*
+						
+							*#<iframe allowfullscreen="" frameborder="0" height="$heightMultimedia"  width="$widthMultimedia" src="//www.youtube.com/embed/$el.data?wmode=transparent&showinfo=0&theme=light$timeParameter"></iframe>#*
+						*#</div>#*	
+						*##if($el.Multimedia_Cutline && $el.Multimedia_Cutline.data !="")#*
+							*#<div class="multimedia-cutline">#*
+								*#$el.Multimedia_Cutline.data#*
+							*#</div>#*
+						*##end#*
+					*#</li>#*
+				*##end#*
+			*##end#*
+		*#</ul>#*
+		*#<script>IniciarBxsliderMultimedia(".bxMultimedia${reserved-article-id.data}","$widthMultimedia","$heightMultimedia")</script>#*
+		
+	*#</div>#*
+*##end
+
+
+##Macro que pinta los icono de multimedia
+		
+#macro (getMultimediaIcon $encuadre $tamanoIcono $valign $halign $frameHighRes $frameName $disableLink $cropSizes)#*
+		*##set($tipoContenido = "TeaserImage")#*
+		*##if($TeaserImage)#*
+			*##set ($numImage = $TeaserImage.getSiblings().size())#*
+		*##else#*
+			*##set($numImage = $Image.getSiblings().size())#*
+		*##end#*
+		*##if(!$numImage)#*
+			*##set ($numImage = -1)#*
+		*##end#*
+		*##if($numImage > 0)#*
+			*##set ($Multimedia = "")#*
+			*##getTagMacro($Multimedia, '', 'Multimedia', -1, '', '')#*
+			*##set ($Jwplayer = "")#*
+			*##getTagMacro($Jwplayer, '', 'Jwplayer', -1, '', '')#*
+			*##set ($Vimeo = "")#*
+			*##getTagMacro($Vimeo, '', 'Vimeo', -1, '', '')#*
+			*##set ($Youtube = "")#*
+			*##getTagMacro($Youtube, '', 'Youtube', -1, '', '')#*
+
+			*##if(($Multimedia && $Multimedia.Document.data) || ($Jwplayer && $Jwplayer.data) || ($Vimeo && $Vimeo.data ) || ($Youtube && $Youtube.data))#*
+				*##set ($hasMultimedia = true)#*
+			*##else#*
+				*##set ($hasMultimedia = false)#*
+			*##end#*
+
+			*#<div class="multimediaIconMacroWrapper">#*
+				*##if($disableLink == "")#*
+					*#<a href="#printAcUrl()" class="cutlineShow">#*
+				*##end#*
+					*##set($tempImage = $articleToolbox.getImageNode($tipoContenido, '0', "true"))#*
+					*##set($AltImage = "#getAltImage($tempImage)")#*
+					*##set($TitleImage = "#getTitleImage($tempImage)")#*
+					*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "0"))#*
+					*##set($elcutline = $tempcutline.Cutline.data)#*
+					*##set($elcutlinemlnid = $tempcutline.Cutline.Milenium.data)#*
+					*##set($tempbylineimage = $articleToolbox.getImageNode("$tipoContenido", "0"))#*
+					*##set($elbylineimage = $tempbylineimage.Byline.data)#*
+					*##set($elbylineimagemlnid = $tempbylineimage.Byline.Milenium.data)#*
+					*##if($enviromentVersion == "new")#*
+						*##set($imgHtml = $!articleToolbox.getImageTag2("$tipoContenido","0","$encuadre","","$!frameHighRes","$!frameName","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+					*##else#*
+						*##set($imgHtml = $!articleToolbox.getImageTag("$tipoContenido","0","$encuadre","","$!frameHighRes","$!frameName","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+					*##end#*
+					*##if($imgHtml)#*
+						*#$imgHtml#*
+					*##end#*
+					*##if($elcutline)#*
+						*#<div class="cutline"><span class="cutline-text" mlnid="$!elcutlinemlnid">$!elcutline</span>#*
+							*##if($elbylineimage)#*
+								*#(<span class="byline-image" mlnid="$!elbylineimagemlnid"> $!elbylineimage </span>)#*
+							*##end#*
+						*#</div>#*
+					*##end#*
+					
+					*##if($hasMultimedia)#*
+						*##set ($iconClass = "iconPlay")#*
+					*##elseif($numImage > 1)#*
+						*##set ($iconClass = "iconGallery")#*
+					*##else#*
+						*##set ($iconClass = "")#*
+					*##end#*
+
+					*##if($iconClass)#*
+						*#<span class="$!iconClass $!tamanoIcono $!valign $!halign"></span>#*
+					*##end#*
+				*##if($disableLink == "")#*		
+					*#</a>#*
+				*##end#*	
+			*#</div>#*
+		*##end#*
+*##end
+
+##Macro que pinta la url de una página de cronología recibiendo como parámetro el friendlyname del metadato
+#macro (getMetadataUrl $sectionColor)#*
+	*##set($metaUrl = "#metadataUrl()")#*
+	*##set($hmResult = {})#*
+	*##getAcAssignedCatMain($hmResult)#*
+	*##if($hmResult.size() > 0 )#*
+		*#<span class="separador-meta before">|</span>#*
+		*##if($sectionColor)#*
+			*#<span class="metadataLink"><a href="$hmResult.get(0).friendlyname" style="color:$varColorIter;">$hmResult.get(0).name</a></span>#*
+		*##else#*
+			*#<span class="metadataLink"><a href="$hmResult.get(0).friendlyname">$hmResult.get(0).name</a></span>#*
+		*##end#*
+		*#<span class="separador-meta after">|</span>#*
+	*##end#*
+*##end
+
+
+##Macro que pinta la sección y la fecha de asignación del artículo
+##Parámetro 1: Color en hexadecimal (#FFFFFF) en el que se deben pintar los links
+#macro (getNewsData $sectionColor)#*
+	*#<h4 class="news-data"  #if($sectionColor) style='color:${sectionColor}' #end >#*
+		*#<a href="#printURLAssignedSection()">#printAssignedSection("${sectionColor}")</a> <span class="separador-barra">|</span>#*
+		*#<span class="hora">#printDateTeaser("dd/MM/yyyy", "HH:mm a")</span>#*
+		*##getMetadataUrl("$sectionColor")#*
+		*#<span class="separador-barra">|</span> <span class="icon-disqus-wrapper"> <i class="icono-disqus" style='color:${sectionColor}'></i> </span>#*
+		*#<span class="numComments">#renderDisqusComments()</span>#*
+		*##set ($Topheadline = "")#*
+		*##getTagMacro($Topheadline, '', 'Topheadline', -1, '', '')#*
+		*##if($Topheadline && $Topheadline.data !="")#*
+			*#<div class="topheadline">$Topheadline.data</a></div>#*
+		*##end#*
+	*#</h4>#*
+*##end
+
+##Macro indica si un artículo tiene contenidos multimedia
+#macro (hasMultimedia $templateType)#*
+	*##set($numMultimedia = 0)#*
+	*##if($templateType == "teaser")#*
+		*##set ($TeaserImage = "")#*
+		*##getTagMacro($TeaserImage, '', 'TeaserImage', -1, '', '')#*
+		*##if($TeaserImage)#*
+			*##set ($numImage = $TeaserImage.getSiblings().size())#*
+			*##set($tipoContenido = "TeaserImage")#*
+		*##else#*
+			*##set($numImage = $Image.getSiblings().size())#*
+			*##set($tipoContenido = "Image")#*
+		*##end#*
+	*##else#*
+		*##set ($numImage = $Image.getSiblings().size())#*
+		*##set($tipoContenido = "Image")#*
+	*##end#*
+	*##if(!$numImage)#*
+		*##set ($numImage = 0)#*
+	*##end#*
+	*##set($numMultimedia = $numMultimedia + $numImage)#*
+	
+	*##set ($Multimedia = "")#*
+	*##getTagMacro($Multimedia, '', 'Multimedia', -1, '', '')#*
+	*##if($Multimedia && $Multimedia.Document.data)#*
+		*##set($numMultimedia = $numMultimedia + $Multimedia.getSiblings().size())#*
+	*##end#*
+	
+	
+	*##set ($Jwplayer = "")#*
+	*##getTagMacro($Jwplayer, '', 'Jwplayer', -1, '', '')#*
+	*##if($Jwplayer && $Jwplayer.data)#*
+		*##set($numMultimedia = $numMultimedia + $Jwplayer.getSiblings().size())#*
+	*##end#*
+	
+	*##set ($Vimeo = "")#*
+	*##getTagMacro($Vimeo, '', 'Vimeo', -1, '', '')#*
+	*##if($Vimeo && $Vimeo.data !="")#*
+		*##set($numMultimedia = $numMultimedia + $Vimeo.getSiblings().size())#*
+	*##end#*
+	
+	
+	*##set ($Youtube = "")#*
+	*##getTagMacro($Youtube, '', 'Youtube', -1, '', '')#*
+	*##if($Youtube && $Youtube.data)#*
+		*##set($numMultimedia = $numMultimedia + $Youtube.getSiblings().size())#*
+	*##end#*
+	
+	*#$numMultimedia#*
+	
+*##end
+
+##Macro que inicializa los servicios necesarios para crear una plantilla de encuesta
+#macro(initPoll)#*
+	*##set($myservice = $serviceLocator.findService("news-portlet","com.protecmedia.iter.news.service.ArticlePollLocalService"))#*
+	*##set($questionId = $myservice.getPoll($getterUtil.getLong($groupId), $reserved-article-id.data))#*
+	*##set($questionLocalService = $serviceLocator.findService("com.liferay.portlet.polls.service.PollsQuestionLocalService"))#*
+	*##set($question = $questionLocalService.getPollsQuestion($questionId))#*
+	*##set($userId = $getterUtil.getLong($request.remote-user))#*
+	*##set($totalVotes = $question.getVotesCount())#*
+	*##set($count = 0)#*
+	*##set($choicesId = [])#*
+	*##set($choicesVotesCount = [])#*
+	*##foreach ($choice in $question.getChoices())#*
+	*#	#set($choiceEscaped = $choice.toEscapedModel())#*
+	*#	#set($choiceId = $choiceEscaped.getChoiceId())#*
+	*#	#set($temp = $choicesId.add($choiceId))#*
+	*#	#set($choicesVotesCount = $choiceEscaped.getVotesCount())#*
+	*#	#set($temp = $choiceVotesCount.add($choiceVotesCount))#*
+	*##end#*
+*##end
+
+##Macro que recupera información sobre la encuesta actual
+#macro(getPollJson)#*
+	*#{#*
+	*#	"groupId":"$groupId" ,#*
+	*#	"articleId":"$reserved-article-id.data" ,#*
+	*#	"pollAnswerData":#*
+	*#		{#*
+	*#			"answers":#*
+	*#				[#*
+	*#				#foreach ($choice in $question.getChoices())#*
+	*#					#set($choiceEscaped = $choice.toEscapedModel())#*
+	*#					#set($choiceVoteCount = $choiceEscaped.getVotesCount())#*
+	*#					#set($document = $saxReaderUtil.read("$choiceEscaped.description"))#*
+	*#					#set($root = $document.getRootElement())#*
+	*#					#set($choiceDescription = $root.selectSingleNode("/root/Description").getText())#*
+	*#					{"answer":{ "id": "$!choiceEscaped.choiceId", "name": "$!choiceEscaped.name", "description": "$!choiceDescription","votes":"$!choiceVoteCount"}}#*
+	*#					#if($Question.Answer.getSiblings().size() != $velocityCount) , #end#*
+	*#				#end#*
+	*#				]#*
+	*#		}#*
+	*#}#*
+*##end
+
+##Macro que recupera el alt de una foto
+#macro(getAltImage $tempImage)#*
+	*##set($tempAlt = "")#*
+	*##set($tempAlt = $!tempImage.Alt.data)#*
+	*##set ($headlineTag = "")#*
+	*##getTagMacro($headlineTag, '', 'Headline', -1, '', '')#*
+	*##if($tempAlt && $tempAlt != "")#*
+		*#$tempAlt.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+	*##else#*
+		*##set($tempAlt = $!tempImage.Title.data)#*
+		*##if($tempAlt && $tempAlt != "")#*
+			*#$tempAlt.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+		*##else#*
+			*##set($tempAlt = $!tempImage.Cutline.data)#*
+			*##if($tempAlt && $tempAlt != "")#*
+				*#$tempAlt.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+			*##elseif($headlineTag.data && $headlineTag.data != "")#*
+				*##set($tempAlt = $!headlineTag.data)#*
+				*#$tempAlt.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+			*##elseif($Question && $Question.data != "")#*
+				*##set($tempAlt = $!Question.data)#*
+				*#$tempAlt.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+			*##end#*
+		*##end#*
+	*##end#*
+*##end
+
+##Macro que recupera el title de una foto
+#macro(getTitleImage $tempImage)#*
+	*##set($tempTitle = "")#*
+	*##set($tempTitle = $!tempImage.Title.data)#*
+	*##if($tempTitle && $tempTitle != "")#*
+		*#$tempTitle.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+	*##else#*
+		*##set($tempTitle = $!tempImage.Alt.data)#*
+		*##if($tempTitle && $tempTitle != "")#*
+			*#$tempTitle.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+		*##else#*
+			*##set($tempTitle = $!tempImage.Cutline.data)#*
+			*##if($tempTitle && $tempTitle != "")#*
+				*#$tempTitle.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+			*##else#*
+				*##set ($tempTitle = "")#*
+				*##getTagMacro($tempTitle, '', 'Headline', -1, '', '')#*
+				*#$tempTitle.data.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+			*##end#*
+		*##end#*	
+	*##end#*
+*##end
+##Macro que pinta un video, una galería de imágenes en loop o una imagen.
+#macro (getMultimediaStandardLoop $minImagesGallery $templateType $encuadre $widthMultimedia $heightMultimedia $cropHD $cropSizes)#*
+		*##if($templateType == "teaser")#*/
+			*##if($TeaserImage)#*
+				*##set ($numImage = $TeaserImage.getSiblings().size())#*
+				*##set($tipoContenido = "TeaserImage")#*
+			*##else#*
+				*##set($numImage = $Image.getSiblings().size())#*
+				*##set($tipoContenido = "Image")#*
+			*##end#*
+		*##else#*
+			*##set ($numImage = $Image.getSiblings().size())#*
+			*##set($tipoContenido = "Image")#*
+		*##end#*
+		*##if(!$numImage)#*
+			*##set ($numImage = -1)#*
+		*##end#*
+		*##set ($Multimedia = "")#*
+		*##getTagMacro($Multimedia, '', 'Multimedia', -1, '', '')#*
+		*##if($Multimedia && $Multimedia.Document.data)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-video interno">#*
+					*#<div class="responsive-video">#*
+						*#<div id="multimediaPlayer${reserved-article-id.data}">Cargando reproductor ...</div>#*		
+						*#<script type="text/javascript">#*
+							
+							*#
+								if (typeof asyncJwplayerList === 'undefined') {
+									window.asyncJwplayerList = [];
+								}
+								
+								if (typeof jwplayer === 'undefined') {
+								    var tempAsyncJwplayerElement = {};
+								    tempAsyncJwplayerElement.preview = "$Multimedia.Preview.data;
+								    tempAsyncJwplayerElement.document = "$Multimedia.Document.data";
+								    tempAsyncJwplayerElement.id = "multimediaPlayer${reserved-article-id.data}";
+								    tempAsyncJwplayerElement.width = "$widthMultimedia";
+								    tempAsyncJwplayerElement.height = "$heightMultimedia";
+								    window.asyncJwplayerList.push(tempAsyncJwplayerElement);
+								}else{
+									initJwPlayer("$Multimedia.Preview.data","$Multimedia.Document.data","multimediaPlayer${reserved-article-id.data}","$widthMultimedia","$heightMultimedia")
+								};
+							#*											
+						*#</script>#*
+					*#</div>#*
+				*#</div>#*
+			*#</div>#*
+		*##set ($Jwplayer = "")#*
+		*##getTagMacro($Jwplayer, '', 'Jwplayer', -1, '', '')#*
+		*##elseif($Jwplayer && $Jwplayer.data)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-video externo">#*
+					*#<div style="width:${widthMultimedia}px;height:${heightMultimedia}px;">#*
+						*#<div id='botr_${Jwplayer.data}_isitqcrW_div' style="width:100%;height:100%;" class="jwplayerMultimedia"></div>#*
+					*#</div>#*
+					*#<script>#*
+						*#if(mobileBrowser){#*
+							*#var htmlJwPlayerDiv = "";#*
+							*#htmlJwPlayerDiv +="<video class='html5Jw' style='width:${widthMultimedia}px;height:${heightMultimedia}px;' controls='' tabindex='0' poster='http://content.jwplatform.com/thumbs/${Jwplayer.data}-480.jpg'>";#*
+								*#htmlJwPlayerDiv +="<source type='video/mp4' src='http://content.jwplatform.com/videos/${Jwplayer.data}.mp4'></source>";#*
+							*#htmlJwPlayerDiv +="</video>";#*
+							*#jQuery("#botr_${Jwplayer.data}_isitqcrW_div").append(htmlJwPlayerDiv);#*
+						*#}#*		
+						*#else{#*
+							*#var script = $('<script>', {#*
+							    *#type: 'text/javascript',#*
+							    *#async: true,#*
+							    *#src: 'http://content.jwplatform.com/players/${Jwplayer.data}-isitqcrW.js'#*
+							*#});#*
+							*#$('script:first').before(script);#*
+						*#}#*	
+					*#</script>#*
+				*#</div>#*
+			*#</div>#*
+		*##set ($Vimeo = "")#*
+		*##getTagMacro($Vimeo, '', 'Vimeo', -1, '', '')#*
+		*##elseif($Vimeo && $Vimeo.data !="")#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-vimeo">#*
+					*#<div class="responsive-video">#*
+						*#<iframe class="vimeo-player" src="//player.vimeo.com/video/$Vimeo.data" width="$widthMultimedia" height="$heightMultimedia" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>#*
+					*#</div>#*
+				*#</div>#*
+			*#</div>#*
+		*##set ($Youtube = "")#*
+		*##getTagMacro($Youtube, '', 'Youtube', -1, '', '')#*
+		*##elseif($Youtube && $Youtube.data)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-youtube">#*
+					*#<div class="responsive-video">#*
+						*##set ($timeParameter ="")#*
+						*##set ($index1 = $Youtube.data.indexOf("?t="))#*
+						*##set ($index2 = $Youtube.data.indexOf("?start="))#*
+
+						*##if($index1 >= 0){#*
+							*##set ($timeParameter = $Youtube.data.substring($index1))#*
+							*##set ($timeParameter = $timeParameter.replace("?t=",""))#*
+							*##set ($Youtube.data = $Youtube.data.substring(0,$Youtube.data.indexOf("?t=")))#*
+						*##end#*
+						*##if($index2 >= 0){#*
+							*##set ($timeParameter = $Youtube.data.substring($index2))#*
+							*##set ($timeParameter = $timeParameter.replace("?start=",""))#*
+							*##set ($Youtube.data = $Youtube.data.substring(0,$Youtube.data.indexOf("?start=")))#*
+						*##end#*
+						*##if($timeParameter && $timeParameter != "")#*
+							*##set ($timeParameter = "&start=" + $timeParameter)#*
+						*##end#*
+							
+						*#<iframe allowfullscreen="" frameborder="0" height="$heightMultimedia"  width="$widthMultimedia" src="//www.youtube.com/embed/$Youtube.data?wmode=transparent&showinfo=0&theme=light$timeParameter"></iframe>#*
+					*#</div>#*	
+				*#</div>#*
+			*#</div>#*
+		*##elseif($numImage >= $minImagesGallery)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-gallery">#*
+					*#<ul class="bxMultimedia${reserved-article-id.data}">#*
+					    *##set ($numImageFor = $numImage - 1)#*
+						*##foreach($i in [0..$numImageFor])#*
+							*#<li>#*
+								*##if($templateType == "teaser")#*
+									*#<a href="#printAcUrl()" class="cutlineShow">#*
+								*##end#*
+										*#<figure class="cutlineShow">#*
+											*##set($tempImage = $articleToolbox.getImageNode($tipoContenido, $i, "true"))#*
+											*##set($AltImage = "#getAltImage($tempImage)")#*
+											*##set($TitleImage = "#getTitleImage($tempImage)")#*
+											*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+											*##set($elcutline = $tempcutline.Cutline.data)#*
+											*##set($elcutlinemlnid = $tempcutline.Cutline.Milenium.data)#*
+											*##set($tempbylineimage = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+											*##set($elbylineimage = $tempbylineimage.Byline.data)#*
+											*##set($elbylineimagemlnid = $tempbylineimage.Byline.Milenium.data)#*
+											*##if($enviromentVersion == "new")#*
+												*##set($imgHtml = $!articleToolbox.getImageTag2("$tipoContenido","$i","$encuadre","","$!cropHD","galleryHD","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+											*##else#*
+												*##set($imgHtml = $!articleToolbox.getImageTag("$tipoContenido","$i","$encuadre","","$!cropHD","galleryHD","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+											*##end#*
+											*##if($imgHtml)#*
+												*#$imgHtml#*
+											*##end#*
+											**##if($elcutline)#*
+												*#<div class="cutline"><span class="cutline-text" mlnid="$!elcutlinemlnid">$!elcutline</span>#*
+													*##if($elbylineimage)#*
+														*#(<span class="byline-image" mlnid="$!elbylineimagemlnid"> $!elbylineimage </span>)#*
+													*##end#*
+												*#</div>#*
+											*##end#*
+										*#</figure>#*
+								*##if($templateType == "teaser")#*
+									*#</a>#*
+								*##end#*
+							*#</li>#*				
+						*##end#*		
+					*#</ul>#*
+				*#</div>#*
+			*#</div>#*
+			*#<script>IniciarBxsliderLoop(".bxMultimedia${reserved-article-id.data}","$widthMultimedia","$heightMultimedia")</script>#*
+		*##elseif($numImage > 0)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-img">#*
+					*##if($templateType == "teaser")#*
+						*#<a href="#printAcUrl()">#*
+					*##end#*
+						*#<figure class="cutlineShow">#*
+							*##set($tempImage = $articleToolbox.getImageNode($tipoContenido, '0', "true"))#*
+							*##set($AltImage = "#getAltImage($tempImage)")#*
+							*##set($TitleImage = "#getTitleImage($tempImage)")#*
+							*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "0"))#*
+							*##set($elcutline = $tempcutline.Cutline.data)#*
+							*##set($elcutlinemlnid = $tempcutline.Cutline.Milenium.data)#*
+							*##set($tempbylineimage = $articleToolbox.getImageNode("$tipoContenido", "0"))#*
+							*##set($elbylineimage = $tempbylineimage.Byline.data)#*
+							*##set($elbylineimagemlnid = $tempbylineimage.Byline.Milenium.data)#*
+							*##if($enviromentVersion == "new")#*
+								*##set($imgHtml = $!articleToolbox.getImageTag2("$tipoContenido","$i","$encuadre","","$!cropHD","galleryHD","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+							*##else#*
+								*##set($imgHtml = $!articleToolbox.getImageTag("$tipoContenido","$i","$encuadre","","$!cropHD","galleryHD","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+							*##end#*
+							*##if($imgHtml)#*
+								*#$imgHtml#*
+							*##end#*
+							*##if($elcutline)#*
+								*#<div class="cutline"><span class="cutline-text" mlnid="$!elcutlinemlnid">$!elcutline</span>#*
+									*##if($elbylineimage)#*
+										*#(<span class="byline-image" mlnid="$!elbylineimagemlnid"> $!elbylineimage </span>)#*
+									*##end#*
+								*#</div>#*
+							*##end#*
+						*#</figure>#*
+					*##if($templateType == "teaser")#*
+						*#</a>#*
+					*##end#*
+				*#</div>#*
+			*#</div>#*
+		*##end#*
+*##end
+
+## Supermecados Macro que pinta un video todos los contenidos multimedia juntos
+#macro (getMultimediaMixedLive $templateType $postID $encuadre $widthMultimedia $heightMultimedia $cropSizes)#*
+*##set ($Multimedia = "")#*
+*##getTagMacro($Multimedia, '', 'Multimedia', -1, '', '')#*
+*##set ($Image = "")#*
+*##getTagMacro($Image, '', 'Image', -1, '', '')#*
+
+		*##if($templateType == "teaser")#*/
+			*##if($TeaserImage)#*
+				*##set ($numImage = $TeaserImage.getSiblings().size())#*
+				*##set($tipoContenido = "TeaserImage")#*
+			*##else#*
+				*##set($numImage = $Image.getSiblings().size())#*
+				*##set($tipoContenido = "Image")#*
+			*##end#*
+		*##else#*
+			*##set ($numImage = $Image.getSiblings().size())#*
+			*##set($tipoContenido = "Image")#*
+		*##end#*
+		*##if(!$numImage)#*
+			*##set ($numImage = 0)#*
+		*##end#*
+
+		*##set ($numContents = $numImage)#*
+		
+		*#<div class="multimediaMacroWrapper">#*
+			*#<ul class="bxMultimedia${postID}">#*
+
+				*##if($!Multimedia && $Multimedia.Document.data)#*
+					*##set ($numContents = $numContents + $Multimedia.getSiblings().size())#*
+					*##foreach ($el in $Multimedia.getSiblings())#*
+						*#<li class="contentMedia art-video interno" iterhtmlid="$el.Milenium.data">#*
+							*#<div class="responsive-video">#*
+								*#<div id="multimediaPlayer${postID}-${velocityCount}">Cargando reproductor ...</div>#*		
+								*#<script type="text/javascript">#*
+									*#initJwPlayer("$el.Preview.data","$el.Document.data","multimediaPlayer${postID}-${velocityCount}","$widthMultimedia","$heightMultimedia")#*									
+								*#</script>#*
+							*#</div>#*
+						*#</li>#* 
+					*##end#*
+				*##end#*
+				
+				*##if($Jwplayer && $Jwplayer.data)#*
+					*##set ($numContents = $numContents + $Jwplayer.getSiblings().size())#*
+					*##foreach ($el in $Jwplayer.getSiblings())#*
+						*#<li class="contentMedia art-video externo" iterhtmlid="$el.Milenium.data">#*
+							*#<div style="width:${widthMultimedia}px;height:${heightMultimedia}px;">#*
+								*#<div id='botr_${$el.data}_isitqcrW_div' style="width:100%;height:100%;" class="jwplayerMultimedia"></div>#*
+							*#</div>#*
+							*#<script>#*
+								*#if(mobileBrowser){#*
+									*#var htmlJwPlayerDiv = "";#*
+									*#htmlJwPlayerDiv +="<video class='html5Jw' style='width:${widthMultimedia}px;height:${heightMultimedia}px;' controls='' tabindex='0' poster='http://content.jwplatform.com/thumbs/${el.data}-480.jpg'>";#*
+										*#htmlJwPlayerDiv +="<source type='video/mp4' src='http://content.jwplatform.com/videos/${el.data}.mp4'></source>";#*
+									*#htmlJwPlayerDiv +="</video>";#*
+									*#jQuery("#botr_${el.data}_isitqcrW_div").append(htmlJwPlayerDiv);#*
+								*#}#*		
+								*#else{#*
+									*#var script = $('<script>', {#*
+										*#type: 'text/javascript',#*
+										*#async: true,#*
+										*#src: 'http://content.jwplatform.com/players/${el.data}-isitqcrW.js'#*
+									*#});#*
+									*#$('script:first').before(script);#*
+								*#}#*	
+							*#</script>#*
+						*#</li>#*
+					*##end#*
+				*##end#*
+				
+				*##if($Vimeo && $Vimeo.data !="")#*
+					*##set ($numContents = $numContents + $Vimeo.getSiblings().size())#*
+					*##foreach ($el in $Vimeo.getSiblings())#*
+						*#<li class="contentMedia art-vimeo" iterhtmlid="$el.Milenium.data">#*
+							*#<div class="responsive-video">#*
+								*#<iframe class="vimeo-plaayer" src="//player.vimeo.com/video/$el.data" width="$widthMultimedia" height="$heightMultimedia" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>#*
+							*#</div>#*
+						*#</li>#*
+					*##end#*
+				*##end#*
+				
+				*##if($Youtube && $Youtube.data)#*
+					*##set ($numContents = $numContents + $Youtube.getSiblings().size())#*
+					*##foreach ($el in $Youtube.getSiblings())#*
+						*#<li class="contentMedia art-youtube" iterhtmlid="$el.Milenium.data">#*
+							*#<div class="responsive-video">#*
+								*#<iframe allowfullscreen="" frameborder="0" height="$heightMultimedia"  width="$widthMultimedia" src="//www.youtube.com/embed/$el.data?wmode=transparent&showinfo=0&theme=light"></iframe>#*
+							*#</div>#*	
+						*#</li>#*
+					*##end#*		
+				*##end#*
+				
+				*##if($numImage > 0)#*				
+					*##set ($numImageFor = $numImage - 1)#*
+					*##foreach($i in [0..$numImageFor])#*
+						*#<li class="contentMedia art-gallery">#*
+							*##if($templateType == "teaser")#*
+								*#<a href="#printAcUrl()" class="cutlineShow">#*
+							*##end#*
+									*#<figure class="cutlineShow">#*
+										*##set($tempImage = $articleToolbox.getImageNode($tipoContenido, $i, "true"))#*
+										*##set($AltImage = "#getAltImage($tempImage)")#*
+										*##set($TitleImage = "#getTitleImage($tempImage)")#*
+										*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+										*##set($elcutline = $tempcutline.Cutline.data)#*
+										*##set($elcutlinemlnid = $tempcutline.Cutline.Milenium.data)#*
+										*##set($tempbylineimage = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+										*##set($elbylineimage = $tempbylineimage.Byline.data)#*
+										*##set($elbylineimagemlnid = $tempbylineimage.Byline.Milenium.data)#*
+										*##if($enviromentVersion == "new")#*
+											*##set($imgHtml = $!articleToolbox.getImageTag2("$tipoContenido","$i","$encuadre","","","","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+										*##else#*
+											*##set($imgHtml = $!articleToolbox.getImageTag("$tipoContenido","$i","$encuadre","","","","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+										*##end#*
+										*##if($imgHtml)#*
+											*#$imgHtml#*
+										*##end#*
+										**##if($elcutline)#*
+											*#<div class="cutline"><span class="cutline-text" mlnid="$!elcutlinemlnid">$!elcutline</span>#*
+												*##if($elbylineimage)#*
+													*# (<span class="byline-image" mlnid="$!elbylineimagemlnid">$!elbylineimage</span>)#*
+												*##end#*
+											*#</div>#*
+										*##end#*
+									*#</figure>#*
+							*##if($templateType == "teaser")#*
+								*#</a>#*
+							*##end#*
+						*#</li>#*				
+					*##end#*		
+				*##end#*
+			*#</ul>#*
+		*#</div>#*
+		
+		*##if($numContents > 1)#*
+			*#<script>IniciarBxsliderMultimedia(".bxMultimedia${postID}","$widthMultimedia","$heightMultimedia")</script>#*
+		*##end#*
+*##end
+
+
+
+##PLANTILLAS V1
+
+
+##Macro que recupera el título
+#macro (getTitle_v1 $titleCustom)#*
+	*##set ($mobileTag="")#*
+	*##getTagMacro_v1($mobileTag, '', 'MobileHeadline', -1, '', '')#*
+
+	*##set ($headlineTag="")#*
+	*##getTagMacro_v1($headlineTag, '', 'Headline', -1, '', '')#*
+
+	*##if($mobileTag && $mobileTag != "")#*
+		*##if ($environment == 'PREVIEW')#*
+			*#<span class="visible-xs-block priority-content" mlnid="$!mobileTag.Milenium.data">$!mobileTag.data</span>#*
+			*##if($fullaccess=="false")<span class="premium"></span>#end#*
+			*#<span class="hidden-xs priority-content" mlnid="$!mobileTag.Milenium.data">$!headlineTag.data</span>#* 
+    		*##if($fullaccess=="false")<span class="premium"></span>#end#*
+		*##else#*
+			*#$!mobileTag.data#*
+			*##if($fullaccess=="false")<span class="premium"></span>#end#*
+			*#$!headlineTag.data#* 
+    		*##if($fullaccess=="false")<span class="premium"></span>#end#*
+		*##end#*
+	 *##else#*
+		*##if($titleCustom)#*
+			*##if ($environment == 'PREVIEW')#*
+				*##set($mlnid = $titleCustom.Milenium.data)#*
+				*#<span class="priority-content" mlnid="$!mlnid">#*
+				*#$!titleCustom.data.length#*
+				*#</span>#*
+				*##if($fullaccess=="false")<span class="premium"></span>#end#*
+			*##else#*
+				*#$!titleCustom.data.length#*
+				*##if($fullaccess=="false")<span class="premium"></span>#end#*
+			*##end#*
+		*##elseif($headlineTag.data && $headlineTag != "")#*
+			*##if ($environment == 'PREVIEW')#*
+				*##set($mlnid = $headlineTag.Milenium.data)#*
+				*#<span class="priority-content" mlnid="$!mlnid">#*
+				*#$!headlineTag.data#*
+				*#</span>#*
+				*##if($fullaccess=="false")<span class="premium"></span>#end#*
+			*##else#*
+				*#$!headlineTag.data#*
+				*##if($fullaccess=="false")<span class="premium"></span>#end#*
+			*##end#*
+		*##end#*
+	*##end#*
+*##end
+
+##Macro que pinta un video todos los contenidos multimedia juntos
+#macro (getMultimediaMixed_v1 $templateType $encuadre $widthMultimedia $heightMultimedia $cropSizes)#*
+		
+		##Recuperar el número de imágenes------------------------------------->
+		*##if ($environment == 'PREVIEW')
+			#set($tempIter = " iterhtmlid='$el.Milenium.data' ")
+		#else
+			#set($tempIter = "")		
+		#end#*
+		*##if($templateType == "teaser")#*/
+			*##set ($TeaserImage = "")#*
+			*##getTagMacro_v1($TeaserImage, '', 'TeaserImage', -1, '', '')#*
+			*##if($TeaserImage)#*
+				*##set ($numImage = $TeaserImage.getSiblings().size())#*
+				*##set($tipoContenido = "TeaserImage")#*
+			*##else#*
+			*##set ($Image = "")#*
+			*##getTagMacro_v1($Image, '', 'Image', -1, '', '')#*
+				*##set($numImage = $Image.getSiblings().size())#*
+				*##set($tipoContenido = "Image")#*
+			*##end#*
+		*##else#*
+			*##set ($numImage = $Image.getSiblings().size())#*
+			*##set($tipoContenido = "Image")#*
+		*##end#*
+		*##if(!$numImage)#*
+			*##set ($numImage = 0)#*
+		*##end#*
+
+		*##set ($numContents = $numImage)#*
+		##<--------------------------------------------------------------
+		*#<div class="multimediaMacroWrapper">#*
+			*#<ul class="bxMultimedia${reserved-article-id.data}">#*
+				*##set ($Multimedia = "")#*
+				*##getTagMacro_v1($Multimedia, '', 'Multimedia', -1, '', '')#*
+				*##if($Multimedia && $Multimedia != '')#*
+					*##set ($numContents = $numContents + $Multimedia.getSiblings().size())#*
+					*##foreach ($el in $Multimedia.getSiblings())#*
+						*#<div class="contentMedia art-video interno" $!tempIter>#*
+							*#<div class="responsive-video">#*
+								*#<div id="multimediaPlayer${reserved-article-id.data}-${velocityCount}">Cargando reproductor ...</div>#*		
+								*#<script type="text/javascript">#*
+									*#
+									if (typeof asyncJwplayerList === 'undefined') {
+										window.asyncJwplayerList = [];
+									}
+									
+									if (typeof jwplayer === 'undefined') {
+									    var tempAsyncJwplayerElement = {};
+									    tempAsyncJwplayerElement.preview = "$el.Preview.data";
+									    tempAsyncJwplayerElement.document = "$el.Document.data";
+									    tempAsyncJwplayerElement.id = "multimediaPlayer${reserved-article-id.data}-${velocityCount}";
+									    tempAsyncJwplayerElement.width = "$widthMultimedia";
+									    tempAsyncJwplayerElement.height = "$heightMultimedia";
+									    window.asyncJwplayerList.push(tempAsyncJwplayerElement);
+									}else{
+										initJwPlayer("$el.Preview.data","$el.Document.data","multimediaPlayer${reserved-article-id.data}-${velocityCount}","$widthMultimedia","$heightMultimedia");
+									};																						
+									#*									
+								*#</script>#*
+							*#</div>#*
+						*#</div>#*
+						*##set($elcutline = $el.Cutline.data)#*
+						*##if($el.Cutline && $el.Cutline.data != "")#*
+							*##if ($environment == 'PREVIEW')#*
+									*##set($tempIter = "mlnid='$el.Cutline.Milenium.data' ")#*
+									*##set($tempIter2 = " mlnid='$el.Byline.Milenium.data' ")#*
+							*##else#*
+								*##set($tempIter = "")#*
+								*##set($tempIter2 = "")#*		
+							*##end#*
+							*#<div class="cutline-byline" tempIter>#*
+							*#<span class="cutline-text" tempIter>$!el.Cutline</span>#*
+							*##if($elbylineimage)#*
+							*#<span class="byline-image" tempIter2> ($!elbylineimage) </span>#*
+							*##end#*
+							*#</div>#*
+						*##end#*
+					*##end#*
+				*##end#*
+				*##set ($Jwplayer = "")#*
+				*##getTagMacro_v1($Jwplayer, '', 'Jwplayer', -1, '', '')#*
+				*##if($Jwplayer && $Jwplayer != '')#*
+					*##set ($numContents = $numContents + $Jwplayer.getSiblings().size())#*
+					*##foreach ($el in $Jwplayer.getSiblings())#*
+						*#<div class="contentMedia art-video externo" $!tempIter>#*
+							*#<div style="width:${widthMultimedia}px;height:${heightMultimedia}px;">#*
+								*#<div id='botr_${$el.data}_isitqcrW_div' style="width:100%;height:100%;" class="jwplayerMultimedia"></div>#*
+							*#</div>#*
+							*#<script>#*
+								*#if(mobileBrowser){#*
+									*#var htmlJwPlayerDiv = "";#*
+									*#htmlJwPlayerDiv +="<video class='html5Jw' style='width:${widthMultimedia}px;height:${heightMultimedia}px;' controls='' tabindex='0' poster='http://content.jwplatform.com/thumbs/${el.data}-480.jpg'>";#*
+										*#htmlJwPlayerDiv +="<source type='video/mp4' src='http://content.jwplatform.com/videos/${el.data}.mp4'></source>";#*
+									*#htmlJwPlayerDiv +="</video>";#*
+									*#jQuery("#botr_${el.data}_isitqcrW_div").append(htmlJwPlayerDiv);#*
+								*#}#*		
+								*#else{#*
+									*#var script = $('<script>', {#*
+										*#type: 'text/javascript',#*
+										*#async: true,#*
+										*#src: 'http://content.jwplatform.com/players/${el.data}-isitqcrW.js'#*
+									*#});#*
+									*#$('script:first').before(script);#*
+								*#}#*	
+							*#</script>#*
+						*#</div>#*
+					*##end#*
+				*##end#*
+				*##set ($Vimeo = "")#*
+				*##getTagMacro_v1($Vimeo, '', 'Vimeo', -1, '', '')#*
+				*##if($Vimeo && $Vimeo !='')#*
+					*##set ($numContents = $numContents + $Vimeo.getSiblings().size())#*
+					*##foreach ($el in $Vimeo.getSiblings())#*
+						*#<div class="contentMedia art-vimeo" $!tempIter>#*
+							*#<div class="responsive-video">#*
+								*##set ($timeParameter ="")#*
+								*##set ($index1 = $el.data.indexOf("?t="))#*
+								*##set ($index2 = $el.data.indexOf("?start="))#*
+	
+								*##if($index1 >= 0){#*
+									*##set ($timeParameter = $el.data.substring($index1))#*
+									*##set ($timeParameter = $timeParameter.replace("?t=",""))#*
+									*##set ($el.data = $el.data.substring(0,$el.data.indexOf("?t=")))#*
+								*##end#*
+								*##if($index2 >= 0){#*
+									*##set ($timeParameter = $el.data.substring($index2))#*
+									*##set ($timeParameter = $timeParameter.replace("?start=",""))#*
+									*##set ($el.data = $el.data.substring(0,$el.data.indexOf("?start=")))#*
+								*##end#*
+								*##if($timeParameter && $timeParameter != "")#*
+									*##set ($timeParameter = "&start=" + $timeParameter)#*
+								*##end#*
+								*#<iframe class="vimeo-plaayer" src="//player.vimeo.com/video/$el.data" width="$widthMultimedia" height="$heightMultimedia" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>#*
+									*##set($elcutline = $el.Cutline.data)#*
+									*##if($el.Cutline && $el.Cutline.data != "")#*
+										*##if ($environment == 'PREVIEW')#*
+												*##set($tempIter = "mlnid='$el.Cutline.Milenium.data' ")#*
+												*##set($tempIter2 = " mlnid='$el.Byline.Milenium.data' ")#*
+										*##else#*
+											*##set($tempIter = "")#*
+											*##set($tempIter2 = "")#*		
+										*##end#*
+										*#<div class="cutline-byline" tempIter>#*
+										*#<span class="cutline-text" tempIter>$!el.Cutline</span>#*
+										*##if($elbylineimage)#*
+										*#<span class="byline-image" tempIter2> ($!elbylineimage) </span>#*
+										*##end#*
+										*#</div>#*
+									*##end#*
+							
+							*#</div>#*
+						*#</div>#*
+					*##end#*
+				*##end#*
+				*##set ($Youtube = "")#*
+				*##getTagMacro_v1($Youtube, '', 'Youtube', -1, '', '')#*
+				*##if($Youtube && $Youtube != '')#*
+					*##set ($numContents = $numContents + $Youtube.getSiblings().size())#*
+					*##foreach ($el in $Youtube.getSiblings())#*
+						*#<div class="contentMedia art-youtube" $!tempIter>#*
+							*#<div class="responsive-video">#*
+								*##set ($timeParameter ="")#*
+								*##set ($index1 = $el.data.indexOf("?t="))#*
+								*##set ($index2 = $el.data.indexOf("?start="))#*
+	
+								*##if($index1 >= 0){#*
+									*##set ($timeParameter = $el.data.substring($index1))#*
+									*##set ($timeParameter = $timeParameter.replace("?t=",""))#*
+									*##set ($el.data = $el.data.substring(0,$el.data.indexOf("?t=")))#*
+								*##end#*
+								*##if($index2 >= 0){#*
+									*##set ($timeParameter = $el.data.substring($index2))#*
+									*##set ($timeParameter = $timeParameter.replace("?start=",""))#*
+									*##set ($el.data = $el.data.substring(0,$el.data.indexOf("?start=")))#*
+								*##end#*
+								*##if($timeParameter && $timeParameter != "")#*
+									*##set ($timeParameter = "&start=" + $timeParameter)#*
+								*##end#*
+							
+								*#<iframe allowfullscreen="" frameborder="0" height="$heightMultimedia"  width="$widthMultimedia" src="//www.youtube.com/embed/$el.data?wmode=transparent&showinfo=0&theme=light$timeParameter"></iframe>#*
+									*##set($elcutline = $el.Cutline.data)#*
+									*##if($el.Cutline && $el.Cutline.data != "")#*
+										*##if ($environment == 'PREVIEW')#*
+												*##set($tempIter = "mlnid='$el.Cutline.Milenium.data' ")#*
+												*##set($tempIter2 = " mlnid='$el.Byline.Milenium.data' ")#*
+										*##else#*
+											*##set($tempIter = "")#*
+											*##set($tempIter2 = "")#*		
+										*##end#*
+										*#<div class="cutline-byline" tempIter>#*
+										*#<span class="cutline-text" tempIter>$!el.Cutline</span>#*
+										*##if($elbylineimage)#*
+										*#<span class="byline-image" tempIter2>($!elbylineimage)</span>#*
+										*##end#*
+										*#</div>#*
+									*##end#*
+								*#</div>#*	
+						*#</div>#*
+					*##end#*		
+				*##end#*
+				*##if($numImage > 0)#*		
+					*##set ($numImageFor = $numImage - 1)#*
+					*##foreach($i in [0..$numImageFor])#*
+						*#<div class="contentMedia art-gallery">#*
+							*##if($templateType == "teaser")#*
+								*#<a href="#printAcUrl_v1()" class="cutlineShow">#*
+							*##end#*
+									*#<figure class="cutlineShow">#*
+										*##set($tempImage = $articleToolbox.getImageNode($tipoContenido, $i, "true"))#*
+										*##set($AltImage = "#getAltImage_v1($tempImage)")#*
+										*##set($TitleImage = "#getTitleImage_v1($tempImage)")#*
+										*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+										*##set($elcutline = $tempcutline.Cutline.data)#*
+										*##set($elcutlinemlnid = $tempcutline.Cutline.Milenium.data)#*
+										*##set($tempbylineimage = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+										*##set($elbylineimage = $tempbylineimage.Byline.data)#*
+										*##set($elbylineimagemlnid = $tempbylineimage.Byline.Milenium.data)#*
+										*##if($enviromentVersion == "new")#*
+											*##set($imgHtml = $!articleToolbox.getImageTag2("$tipoContenido","$i","$encuadre","","","","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+										*##else#*
+											*##set($imgHtml = $!articleToolbox.getImageTag("$tipoContenido","$i","$encuadre","","","","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+										*##end#*
+										*##if($imgHtml)#*
+											*#$imgHtml#*
+										*##end#*
+										*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+										*##if($el.Cutline && $el.Cutline.data != "")#*
+											*##if ($environment == 'PREVIEW')#*
+													*##set($tempIter = "mlnid='$el.Cutline.Milenium.data' ")#*
+													*##set($tempIter2 = " mlnid='$el.Byline.Milenium.data' ")#*
+											*##else#*
+												*##set($tempIter = "")#*
+												*##set($tempIter2 = "")#*		
+											*##end#*
+											*#<div class="cutline-byline" tempIter>#*
+											*#<span class="cutline-text" tempIter>$!el.Cutline</span>#*
+											*##if($elbylineimage)#*
+											*#<span class="byline-image" tempIter2> ($!elbylineimage) </span>#*
+											*##end#*
+											*#</div>#*
+										*##end#*
+									*#</figure>#*
+							*##if($templateType == "teaser")#*
+								*#</a>#*
+							*##end#*
+						*#</div>#*				
+					*##end#*		
+				*##end#*
+			*#</ul>#*
+		*#</div>#*
+		*##if($numContents > 1)#*
+			*#<script>IniciarBxsliderMultimedia(".bxMultimedia${reserved-article-id.data}","$widthMultimedia","$heightMultimedia")</script>#*
+		*##end#*
+		
+
+*##end
+
+
+
+
+
+
+##Macro para llamar a getTag2 o getTag
+#macro (getTagMacro_v1 $rtag $context $contentType $totalChars $elem2Rm $elipsis)#*
+	*##if($context == '')#*
+		*##if($enviromentVersion == 'new')#*
+			*##set ($rtag = $!articleToolbox.getTag2(null, $contentType, $totalChars, $elem2Rm, $elipsis))#*
+		*##else#*
+			*##if($contentType == 'TeaserText')#*
+				*##getTeaserTextOld_v1(600)#*
+			*##else#*
+				*##set ($rtag = $!articleToolbox.getTag(null, $contentType))#*
+			*##end#*
+		*##end#*
+	*##else#*
+		*##if($enviromentVersion == 'new')#*
+			*##set ($rtag = $!articleToolbox.getTag2($context, $contentType, $totalChars, $elem2Rm, $elipsis))#*
+		*##else#*
+			*##if($contentType == 'TeaserText')#*
+				*##getTeaserTextOld_v1(600)#*
+			*##else#*
+				*##set ($rtag = $!articleToolbox.getTag(null, $contentType))#*
+			*##end#*
+		*##end#*
+	*##end#*
+*##end
+
+##Macro que recupera el título para los TEASERS
+#macro (getTeaserTitle_v1 $titleCustom)#*
+	*##set ($mobileTag="")#*
+	*##getTagMacro_v1($mobileTag, '', 'MobileHeadline', -1, '', '')#*
+
+	*##set ($headlineTag="")#*
+	*##getTagMacro_v1($headlineTag, '', 'TeaserHeadline', -1, '', '')#*
+
+	*##if($mobileTag && $mobileTag != "")#*
+		*##if ($environment == 'PREVIEW')#*
+			*#<span class="visible-xs-block priority-content" mlnid="$!mobileTag.Milenium.data">$!mobileTag.data</span>#*
+			*##if($fullaccess=="false")<span class="premium"></span>#end#*
+			*#<span class="hidden-xs priority-content" mlnid="$!mobileTag.Milenium.data">$!headlineTag.data</span>#* 
+    		*##if($fullaccess=="false")<span class="premium"></span>#end#*
+		*##else#*
+			*#$!mobileTag.data#*
+			*##if($fullaccess=="false")<span class="premium"></span>#end#*
+			*#$!headlineTag.data#* 
+    		*##if($fullaccess=="false")<span class="premium"></span>#end#*
+		*##end#*
+	 *##else#*
+		*##if($titleCustom)#*
+			*##if ($environment == 'PREVIEW')#*
+				*##set($mlnid = $titleCustom.Milenium.data)#*
+				*#<span class="priority-content" mlnid="$!mlnid">#*
+				*#$!titleCustom.data.length#*
+				*#</span>#*
+				*##if($fullaccess=="false")<span class="premium"></span>#end#*
+			*##else#*
+				*#$!titleCustom.data.length#*
+				*##if($fullaccess=="false")<span class="premium"></span>#end#*
+			*##end#*
+		*##elseif($headlineTag.data && $headlineTag != "")#*
+			*##if ($environment == 'PREVIEW')#*
+				*##set($mlnid = $headlineTag.Milenium.data)#*
+				*#<span class="priority-content" mlnid="$!mlnid">#*
+				*#$!headlineTag.data#*
+				*#</span>#*
+				*##if($fullaccess=="false")<span class="premium"></span>#end#*
+			*##else#*
+				*#$!headlineTag.data#*
+				*##if($fullaccess=="false")<span class="premium"></span>#end#*
+			*##end#*
+		*##end#*
+	*##end#*
+*##end
+
+##Macro to recover TopHeadline
+##Use $lookForSubheadline to look for Subheadline if Topheadline doesnt exist  
+#macro (getTeaserTopheadline_v1 $lookForSubheadline)#*
+	*##getTagMacro_v1($topheadlineTag, '', 'Topheadline', -1, '', '')#*
+	*##if($topheadlineTag && $!topheadlineTag.data != "")#*
+		*##if ($environment == 'PREVIEW')#*
+			*#<span class="priority-content" mlnid="$!topheadlineTag.Milenium.data">#*
+				*#$!topheadlineTag.data#*
+			*#</span>#*
+		*##else#*
+			*#$!topheadlineTag.data#*
+		*##end#*
+	*##end#*
+*##end
+
+##Macro to recover SubHeadline
+##Use $lookForTopheadline to look for Topheadline if Subheadline doesnt exist  
+#macro (getTeaserSubheadline_v1 $lookForTopheadline)#*
+	*##set ($subheadlineTag="")#*
+	*##getTagMacro_v1($subheadlineTag, '', 'Subheadline', -1, '', '')#*
+	*##if($subheadlineTag && $!subheadlineTag.data != "")#*
+		*##if ($environment == 'PREVIEW')#*
+			*#<span class="priority-content" mlnid="$!subheadlineTag.Milenium.data">#*
+				*#$!subheadlineTag.data#*
+			*#</span>#*
+		*##else#*
+			*#$!subheadlineTag.data#*
+		*##end#*
+	*##end#*
+*##end
+
+##Macro que recupera el título para los FULL CONTENT GENERAL
+#macro (getFullContentTitleGeneral_v1)#*
+   *##set ($mobileHeadlineTag = "")#*
+   *##getTagMacro_v1($mobileHeadlineTag, '', 'MobileHeadline', -1, '', '')#*
+   *##set ($headlineTag = "")#*
+   *##getTagMacro_v1($headlineTag, '', 'Headline', -1, '', '')#*
+   *##set($mlnid = $headlineTag.Milenium.data)#*
+   *##if ($environment == 'PREVIEW')#*
+		*##if($mobileHeadlineTag != "")#*
+			*#<span class="visible-xs-block priority-content" mlnid="$!mobileHeadlineTag.Milenium.data">$!mobileHeadlineTag.data</span>#*
+			*#<span class="hidden-xs priority-content" mlnid="$!mlnid">$!headlineTag.data</span>#*
+   		*##else#*
+			*#<span class="priority-content" mlnid="$!mlnid">#*
+			*#$!headlineTag.data#*
+			*#</span>#*
+			*##if($fullaccess=="false")<span class="premium"></span>#end#*
+		*##end#*
+	*##else#*
+		*##if($mobileHeadlineTag != "")#*
+			*#<span class="visible-xs-block priority-content">$!mobileHeadlineTag.data</span>#*
+			*#<span class="hidden-xs priority-content">$!headlineTag.data</span>#*
+   		*##else#*
+			*#<span class="priority-content">#*
+			*#$!headlineTag.data#*
+			*#</span>#*
+			*##if($fullaccess=="false")<span class="premium"></span>#end#*
+		*##end#*
+	*##end#*
+*##end
+
+##Macro que recupera el texto para los TEASER
+#macro (getTeaserText_v1 $maximumSize $textCustom $ellipsis)#*
+	*##set($TeaserTexto = $articleToolbox.getTag(null,"TeaserText"))#*
+	*##if($textCustom)#*
+		*##if ($environment == 'PREVIEW')#*
+			*##set ($tc = "")#*
+			*##getTagMacro_v1($tc, '', $textCustom, -1, '', '')#*
+			*#<div class="text-wrapper" mlnid="$!tc.Milenium.data">#*
+			*##if($fullaccess=="false")<span class="premium-icon fl"></span>#end#*
+			*#$!tc.data#*
+			*#</div>#*
+		*##else#*
+			*##set ($tc = "")#*
+			*##getTagMacro_v1($tc, '', $textCustom, -1, '', '')#*
+			*#<div class="text-wrapper">#*
+				*##if($fullaccess=="false")<span class="premium-icon fl"></span>#end#*
+				*#$!tc.data#*
+			*#</div>#*
+		*##end#*
+	*##elseif($TeaserTexto && $TeaserTexto.data != "")#*
+		*##if ($environment == 'PREVIEW')#*
+			*##if($TeaserTexto.name == "Text")#*
+				*#<div class="text-wrapper" mlnid="$!Text.Milenium.data">#*
+				*##if($fullaccess=="false")<span class="premium-icon fl"></span>#end#*
+				*##set ($arraText = [])#*
+				*##recuperarParrafosTexto_v1($Text true true $arraText)#*
+				*##set ($textoRecortado ="")#*
+				*##recortarTexto_v1($arraText $maximumSize $textoRecortado $ellipsis)#*
+				*#</div>#*
+			*##else#*
+				*#<div class="text-wrapper" mlnid="$!TeaserText.Milenium.data">#*
+				*##if($fullaccess=="false")<span class="premium-icon fl"></span>#end#*
+				*##set($stringResultado = $TeaserTexto.data)#*
+				*#$!stringResultado#*
+				*#</div>#*
+			*##end#*
+		*##else#*
+			*##if($TeaserTexto.name == "Text")#*
+				*#<div class="text-wrapper">#*
+				*##if($fullaccess=="false")<span class="premium-icon fl"></span>#end#*
+				*##set ($arraText = [])#*
+				*##recuperarParrafosTexto_v1($Text true true $arraText)#*
+				*##set ($textoRecortado ="")#*
+				*##recortarTexto_v1($arraText $maximumSize $textoRecortado $ellipsis)#*
+				*#</div>#*
+			*##else#*
+				*#<div class="text-wrapper">#*
+				*##if($fullaccess=="false")<span class="premium-icon fl"></span>#end#*
+				*##set($stringResultado = $TeaserText.data)#*
+				*#$!stringResultado#*
+				*#</div>#*
+			*##end#*
+		*##end#*
+	*##else#*
+		*#<div class="text-wrapper" mlnid="$!Text.Milenium.data">#*
+		*##if($fullaccess=="false")<span class="premium-icon fl"></span>#end#*
+		*##set ($arraText = [])#*
+		*##recuperarParrafosTexto_v1($Text true true $arraText)#*
+		*##set ($textoRecortado ="")#*
+		*##recortarTexto_v1($arraText $maximumSize $textoRecortado $ellipsis)#*
+		*#</div>#*
+	*##end#*
+*##end
+
+##Macro que recupera el texto para los TEASER
+#macro (getTeaserTextOld_v1 $maximumSize $textCustom)#*
+	*##set($TeaserTexto = $articleToolbox.getTag(null,"TeaserText"))#*
+	*##set($Texto = $articleToolbox.getTag(null,"Text"))#*
+	*##if($textCustom)#*
+		*##set($tc = $articleToolbox.getTag(null,$textCustom))#*
+		*##if($fullaccess=="false")<span class="premium-icon fl"></span>#end#*
+			*#<div class="text-wrapper" mlnid="$!tc.Milenium.data">#*
+			*##set ($arraText = [])#*
+			*##recuperarParrafosTexto_v1($tc true true $arraText)#*
+			*##set ($textoRecortado ="")#*
+			*##recortarTexto_v1($arraText $maximumSize $textoRecortado)#*
+			*#</div>#*
+		*##elseif($TeaserTexto && $TeaserTexto.data != "")#*
+			*#<div class="text-wrapper" mlnid="$!TeaserText.Milenium.data">#*
+			*##if($fullaccess=="false")<span class="premium-icon fl"></span>#end#*
+			*##set($stringResultado = $TeaserText.data)#*
+			*#$stringResultado#*
+			*#</div>#*
+		*##elseif($Texto && $Texto.data !="")#*
+			*#<div class="text-wrapper" mlnid="$!Text.Milenium.data">#*
+			*##if($fullaccess=="false")<span class="premium-icon fl"></span>#end#*
+			*##set ($arraText = [])#*
+			*##recuperarParrafosTexto_v1($Text true true $arraText)#*
+			*##set ($textoRecortado ="")#*
+			*##recortarTexto_v1($arraText $maximumSize $textoRecortado)#*
+			*#</div>#*
+		*##end#*
+*##end
+
+##Macro que pinta un video, una galería de imágenes o una imagen.
+#macro (getMultimediaStandard_v1 $minImagesGallery $templateType $encuadre $widthMultimedia $heightMultimedia $cropHD $cropSizes)#*
+		*##if($templateType == "teaser")#*/
+			*##set ($TeaserImage = "")#*
+			*##getTagMacro_v1($TeaserImage, '', 'TeaserImage', -1, '', '')#*
+			*##if($TeaserImage)#*
+				*##set ($numImage = $TeaserImage.getSiblings().size())#*
+				*##set($tipoContenido = "TeaserImage")#*
+			*##else#*
+				*##set($numImage = $Image.getSiblings().size())#*
+				*##set($tipoContenido = "Image")#*
+			*##end#*
+		*##else#*
+			*##set ($numImage = $Image.getSiblings().size())#*
+			*##set($tipoContenido = "Image")#*
+		*##end#*
+		*##if(!$numImage)#*
+			*##set ($numImage = -1)#*
+		*##end#*
+		*##set ($Multimedia = "")#*
+		*##getTagMacro_v1($Multimedia, '', 'Multimedia', -1, '', '')#*
+		*##if($Multimedia && $Multimedia.Document.data)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-video interno">#*
+					*#<div class="responsive-video">#*
+						*#<div id="multimediaPlayer${reserved-article-id.data}">Cargando reproductor ...</div>#*		
+						*#<script type="text/javascript">#*
+							*#
+								if (typeof asyncJwplayerList === 'undefined') {
+									window.asyncJwplayerList = [];
+								}
+								
+								if (typeof jwplayer === 'undefined') {
+								    var tempAsyncJwplayerElement = {};
+								    tempAsyncJwplayerElement.preview = "$Multimedia.Preview.data;
+								    tempAsyncJwplayerElement.document = "$Multimedia.Document.data";
+								    tempAsyncJwplayerElement.id = "multimediaPlayer${reserved-article-id.data}";
+								    tempAsyncJwplayerElement.width = "$widthMultimedia";
+								    tempAsyncJwplayerElement.height = "$heightMultimedia";
+								    window.asyncJwplayerList.push(tempAsyncJwplayerElement);
+								}else{
+									initJwPlayer("$Multimedia.Preview.data","$Multimedia.Document.data","multimediaPlayer${reserved-article-id.data}","$widthMultimedia","$heightMultimedia")
+								};
+							#*		
+																
+						*#</script>#*
+					*#</div>#*
+				*#</div>#*
+			*#</div>#*
+		*##set ($Jwplayer = "")#*
+		*##getTagMacro_v1($Jwplayer, '', 'Jwplayer', -1, '', '')#*
+		*##elseif($Jwplayer && $Jwplayer.data)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-video externo">#*
+					*#<div style="width:${widthMultimedia}px;height:${heightMultimedia}px;">#*
+						*#<div id='botr_${Jwplayer.data}_isitqcrW_div' style="width:100%;height:100%;" class="jwplayerMultimedia"></div>#*
+					*#</div>#*
+					*#<script>#*
+						*#if(mobileBrowser){#*
+							*#var htmlJwPlayerDiv = "";#*
+							*#htmlJwPlayerDiv +="<video class='html5Jw' style='width:${widthMultimedia}px;height:${heightMultimedia}px;' controls='' tabindex='0' poster='http://content.jwplatform.com/thumbs/${Jwplayer.data}-480.jpg'>";#*
+								*#htmlJwPlayerDiv +="<source type='video/mp4' src='http://content.jwplatform.com/videos/${Jwplayer.data}.mp4'></source>";#*
+							*#htmlJwPlayerDiv +="</video>";#*
+							*#jQuery("#botr_${Jwplayer.data}_isitqcrW_div").append(htmlJwPlayerDiv);#*
+						*#}#*		
+						*#else{#*
+							*#var script = $('<script>', {#*
+							    *#type: 'text/javascript',#*
+							    *#async: true,#*
+							    *#src: 'http://content.jwplatform.com/players/${Jwplayer.data}-isitqcrW.js'#*
+							*#});#*
+							*#$('script:first').before(script);#*
+						*#}#*	
+					*#</script>#*
+				*#</div>#*
+			*#</div>#*
+		*##set ($Vimeo = "")#*
+		*##getTagMacro_v1($Vimeo, '', 'Vimeo', -1, '', '')#*
+		*##elseif($Vimeo && $Vimeo.data !="")#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-vimeo">#*
+					*#<div class="responsive-video">#*
+						*#<iframe class="vimeo-player" src="//player.vimeo.com/video/$Vimeo.data" width="$widthMultimedia" height="$heightMultimedia" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>#*
+					*#</div>#*
+				*#</div>#*
+			*#</div>#*
+		*##set ($Youtube = "")#*
+		*##getTagMacro_v1($Youtube, '', 'Youtube', -1, '', '')#*
+		*##elseif($Youtube && $Youtube.data)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-youtube">#*
+					*#<div class="responsive-video">#*
+						*##set ($timeParameter ="")#*
+						*##set ($index1 = $Youtube.data.indexOf("?t="))#*
+						*##set ($index2 = $Youtube.data.indexOf("?start="))#*
+
+						*##if($index1 >= 0){#*
+							*##set ($timeParameter = $Youtube.data.substring($index1))#*
+							*##set ($timeParameter = $timeParameter.replace("?t=",""))#*
+							*##set ($Youtube.data = $Youtube.data.substring(0,$Youtube.data.indexOf("?t=")))#*
+						*##end#*
+						
+						*##if($index2 >= 0){#*
+							*##set ($timeParameter = $Youtube.data.substring($index2))#*
+							*##set ($timeParameter = $timeParameter.replace("?start=",""))#*
+							*##set ($Youtube.data = $Youtube.data.substring(0,$Youtube.data.indexOf("?start=")))#*
+						*##end#*
+						
+						*##if($timeParameter && $timeParameter != "")#*
+							*##set ($timeParameter = "&start=" + $timeParameter)#*
+						*##end#*
+					
+						*#<iframe allowfullscreen="" frameborder="0" height="$heightMultimedia"  width="$widthMultimedia" src="//www.youtube.com/embed/$Youtube.data?wmode=transparent&showinfo=0&theme=light$timeParameter"></iframe>#*
+					*#</div>#*	
+				*#</div>#*
+			*#</div>#*
+		*##elseif($numImage >= $minImagesGallery)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-gallery">#*
+					*#<ul class="bxMultimedia${reserved-article-id.data}">#*
+					    *##set ($numImageFor = $numImage - 1)#*
+						*##foreach($i in [0..$numImageFor])#*
+							*#<li>#*
+								*##if($templateType == "teaser")#*
+									*#<a href="#printAcUrl_v1()" class="cutlineShow">#*
+								*##end#*
+										*#<figure class="cutlineShow">#*
+											*##set($tempImage = $articleToolbox.getImageNode($tipoContenido, $i, "true"))#*
+											*##set($AltImage = "#getAltImage_v1($tempImage)")#*
+											*##set($TitleImage = "#getTitleImage_v1($tempImage)")#*
+											*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+											*##set($elcutline = $tempcutline.Cutline.data)#*
+											*##set($elcutlinemlnid = $tempcutline.Cutline.Milenium.data)#*
+											*##set($tempbylineimage = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+											*##set($elbylineimage = $tempbylineimage.Byline.data)#*
+											*##set($elbylineimagemlnid = $tempbylineimage.Byline.Milenium.data)#*
+											*##if($enviromentVersion == "new")#*
+												*##set($imgHtml = $!articleToolbox.getImageTag2("$tipoContenido","$i","$encuadre","","$!cropHD","galleryHD","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+											*##else#*
+												*##set($imgHtml = $!articleToolbox.getImageTag("$tipoContenido","$i","$encuadre","","$!cropHD","galleryHD","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+											*##end#*
+											*##if($imgHtml)#*
+												*#$imgHtml#*
+											*##end#*
+											**##if($elcutline)#*
+												*##if ($environment == 'PREVIEW')#*
+													*##set($tempIter = " mlnid='$!elcutlinemlnid' ")#*
+													*##set($tempIter2 = " mlnid='$!elbylineimagemlnid' ")#*
+												*##else#*
+													*##set($tempIter = "")#*
+													*##set($tempIter2 = "")#*		
+												*##end#*
+												*#<span class="cutline-text" tempIter>$!elcutline</span>#*
+												*##if($elbylineimage)#*
+													*#<span class="byline-image" tempIter2> ($!elbylineimage) </span>#*
+												*##end#*
+											*##end#*
+										*#</figure>#*
+								*##if($templateType == "teaser")#*
+									*#</a>#*
+								*##end#*
+							*#</li>#*				
+						*##end#*		
+					*#</ul>#*
+				*#</div>#*
+			*#</div>#*
+			*#<script>IniciarBxsliderMultimedia(".bxMultimedia${reserved-article-id.data}","$widthMultimedia","$heightMultimedia")</script>#*
+		*##elseif($numImage > 0)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-img">#*
+					*##if($templateType == "teaser")#*
+						*#<a href="#printAcUrl()">#*
+					*##end#*
+						*#<figure class="cutlineShow">#*
+							*##set($tempImage = $articleToolbox.getImageNode($tipoContenido, '0', "true"))#*
+							*##set($AltImage = "#getAltImage_v1($tempImage)")#*
+							*##set($TitleImage = "#getTitleImage_v1($tempImage)")#*
+							*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "0"))#*
+							*##set($elcutline = $tempcutline.Cutline.data)#*
+							*##set($elcutlinemlnid = $tempcutline.Cutline.Milenium.data)#*
+							*##set($tempbylineimage = $articleToolbox.getImageNode("$tipoContenido", "0"))#*
+							*##set($elbylineimage = $tempbylineimage.Byline.data)#*
+							*##set($elbylineimagemlnid = $tempbylineimage.Byline.Milenium.data)#*
+							*##if($enviromentVersion == "new")#*
+								*##set($imgHtml = $!articleToolbox.getImageTag2("$tipoContenido","$i","$encuadre","","$!cropHD","galleryHD","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+							*##else#*
+								*##set($imgHtml = $!articleToolbox.getImageTag("$tipoContenido","$i","$encuadre","","$!cropHD","galleryHD","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+							*##end#*
+							*##if($imgHtml)#*
+								*#$imgHtml#*
+							*##end#*
+							*##if($elcutline)#*
+								*##if ($environment == 'PREVIEW')#*
+									*##set($tempIter = " mlnid='$!elcutlinemlnid' ")#*
+									*##set($tempIter2 = " mlnid='$!elbylineimagemlnid' ")#*
+								*##else#*
+									*##set($tempIter = "")#*
+									*##set($tempIter2 = "")#*		
+								*##end#*
+								*#<span class="cutline-text" tempIter>$!elcutline</span>#*
+								*##if($elbylineimage)#*
+									*#<span class="byline-image" tempIter2>($!elbylineimage)</span>#*
+								*##end#*
+							*##end#*
+						*#</figure>#*
+					*##if($templateType == "teaser")#*
+						*#</a>#*
+					*##end#*
+				*#</div>#*
+			*#</div>#*
+		*##end#*
+*##end
+
+
+##2
+
+
+##Macro que pinta una galería de videos
+#macro (getMultimediaVideoGallery_v1 $widthMultimedia $heightMultimedia)#*
+	*#<div class="multimediaMacroWrapper">#*
+		*#<ul class="bxMultimedia${reserved-article-id.data}">#*
+			*##set ($Multimedia = "")#*
+			*##getTagMacro_v1($Multimedia, '', 'Multimedia', -1, '', '')#*
+			*##if($Multimedia && $Multimedia.Document.data)#*
+				*##foreach ($el in $Multimedia.getSiblings())#*
+					*#<li class="contentMedia art-video interno">#*
+						*#<div class="responsive-video">#*
+							*#<div id="multimediaPlayer${reserved-article-id.data}$velocityCount">Cargando reproductor ...</div>#*		
+							*#<script type="text/javascript">#*
+							*#
+								if (typeof asyncJwplayerList === 'undefined') {
+									window.asyncJwplayerList = [];
+								}
+								
+								if (typeof jwplayer === 'undefined') {
+								    var tempAsyncJwplayerElement = {};
+								    tempAsyncJwplayerElement.preview = "$el.Preview.data";
+								    tempAsyncJwplayerElement.document = "$el.Document.data";
+								    tempAsyncJwplayerElement.id = "multimediaPlayer${reserved-article-id.data}-${velocityCount}";
+								    tempAsyncJwplayerElement.width = "$widthMultimedia";
+								    tempAsyncJwplayerElement.height = "$heightMultimedia";
+								    window.asyncJwplayerList.push(tempAsyncJwplayerElement);
+								}else{
+									initJwPlayer("$el.Preview.data","$el.Document.data","multimediaPlayer${reserved-article-id.data}-${velocityCount}","$widthMultimedia","$heightMultimedia");
+								};
+							#*			
+							*#</script>#*
+						*#</div>#*
+						*##if($el.Multimedia_Cutline && $el.Multimedia_Cutline.data !="")#*
+							*#<div class="multimedia-cutline">#*
+								*#$el.Multimedia_Cutline.data#*
+							*#</div>#*
+						*##end#*
+					*#</li>#*
+				*##end#*		
+			*##end#*
+			*##set ($Jwplayer = "")#*
+			*##getTagMacro($Jwplayer, '', 'Jwplayer', -1, '', '')#*
+			*##if($Jwplayer && $Jwplayer.data)#*
+				*##foreach ($el in $Jwplayer.getSiblings())#*
+					*#<li class="contentMedia art-video externo">#*
+						*#<div style="width:${widthMultimedia}px;height:${heightMultimedia}px;">#*
+							*#<div id='botr_${$el.data}_isitqcrW_div' style="width:100%;height:100%;" class="jwplayerMultimedia"></div>#*
+						*#</div>#*
+						*#<script>#*
+							*#if(mobileBrowser){#*
+								*#var htmlJwPlayerDiv = "";#*
+								*#htmlJwPlayerDiv +="<video class='html5Jw' style='width:${widthMultimedia}px;height:${heightMultimedia}px;' controls='' tabindex='0' poster='http://content.jwplatform.com/thumbs/${$el.data}-480.jpg'>";#*
+									*#htmlJwPlayerDiv +="<source type='video/mp4' src='http://content.jwplatform.com/videos/${$el.data}.mp4'></source>";#*
+								*#htmlJwPlayerDiv +="</video>";#*
+								*#jQuery("#botr_${$el.data}_isitqcrW_div").append(htmlJwPlayerDiv);#*
+							*#}#*		
+							*#else{#*
+								*#var script = $('<script>', {#*
+									*#type: 'text/javascript',#*
+									*#async: true,#*
+									*#src: 'http://content.jwplatform.com/players/${$el.data}-isitqcrW.js'#*
+								*#});#*
+								*#$('script:first').before(script);#*
+							*#}#*	
+						*#</script>#*
+						*##if($el.Multimedia_Cutline && $el.Multimedia_Cutline.data !="")#*
+							*#<div class="multimedia-cutline">#*
+								*#$el.Multimedia_Cutline.data#*
+							*#</div>#*
+						*##end#*
+					*#</li>#*
+				*##end#*	
+			*##end#*
+			*##set ($Vimeo = "")#*
+			*##getTagMacro_v1($Vimeo, '', 'Vimeo', -1, '', '')#*
+			*##if($Vimeo && $Vimeo.data !="")#*
+				*##foreach ($el in $Vimeo.getSiblings())#*
+					*#<li class="contentMedia art-vimeo">#*
+						*#<div class="responsive-video">#*
+							*#<iframe class="vimeo-player" src="//player.vimeo.com/video/$el.data" width="$widthMultimedia" height="$heightMultimedia" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>#*
+						*#</div>#*
+						*##if($el.Multimedia_Cutline && $el.Multimedia_Cutline.data !="")#*
+							*#<div class="multimedia-cutline">#*
+								*#$el.Multimedia_Cutline.data#*
+							*#</div>#*
+						*##end#*
+					*#</li>#*
+				*##end#*
+			*##end#*
+			*##set ($Youtube = "")#*
+			*##getTagMacro_v1($Youtube, '', 'Youtube', -1, '', '')#*
+			*##if($Youtube && $Youtube.data)#*
+				*##foreach ($el in $Youtube.getSiblings())#*
+					*#<li class="contentMedia art-youtube">#*
+						*#<div class="responsive-video">#*
+							*##set ($timeParameter ="")#*
+							*##set ($index1 = $el.data.indexOf("?t="))#*
+							*##set ($index2 = $el.data.indexOf("?start="))#*
+
+							*##if($index1 >= 0){#*
+								*##set ($timeParameter = $el.data.substring($index1))#*
+								*##set ($timeParameter = $timeParameter.replace("?t=",""))#*
+								*##set ($el.data = $el.data.substring(0,$el.data.indexOf("?t=")))#*
+							*##end#*
+							*##if($index2 >= 0){#*
+								*##set ($timeParameter = $el.data.substring($index2))#*
+								*##set ($timeParameter = $timeParameter.replace("?start=",""))#*
+								*##set ($el.data = $el.data.substring(0,$el.data.indexOf("?start=")))#*
+							*##end#*
+							*##if($timeParameter && $timeParameter != "")#*
+								*##set ($timeParameter = "&start=" + $timeParameter)#*
+							*##end#*
+						
+							*#<iframe allowfullscreen="" frameborder="0" height="$heightMultimedia"  width="$widthMultimedia" src="//www.youtube.com/embed/$el.data?wmode=transparent&showinfo=0&theme=light$timeParameter"></iframe>#*
+						*#</div>#*	
+						*##if($el.Multimedia_Cutline && $el.Multimedia_Cutline.data !="")#*
+							*#<div class="multimedia-cutline">#*
+								*#$el.Multimedia_Cutline.data#*
+							*#</div>#*
+						*##end#*
+					*#</li>#*
+				*##end#*
+			*##end#*
+		*#</ul>#*
+		*#<script>IniciarBxsliderMultimedia(".bxMultimedia${reserved-article-id.data}","$widthMultimedia","$heightMultimedia")</script>#*
+		
+	*#</div>#*
+*##end
+
+
+##Macro que pinta los icono de multimedia
+		
+#macro (getMultimediaIcon_v1 $encuadre $tamanoIcono $valign $halign $frameHighRes $frameName $disableLink $cropSizes $noCutline)#*
+		*##set($tipoContenido = "TeaserImage")#*
+		
+		*##set ($hasImagesTotal = $articleToolbox.getNumImageTags("TeaserImage", "true"))#*
+		*##set ($hasImages = $articleToolbox.getNumImageTags("Image", "true"))#*
+
+		*##if($hasImagesTotal > 0)#*
+			*##set ($Multimedia = "")#*
+			*##getTagMacro_v1($Multimedia, '', 'Multimedia', -1, '', '')#*
+			*##set ($Jwplayer = "")#*
+			*##getTagMacro_v1($Jwplayer, '', 'Jwplayer', -1, '', '')#*
+			*##set ($Vimeo = "")#*
+			*##getTagMacro_v1($Vimeo, '', 'Vimeo', -1, '', '')#*
+			*##set ($Youtube = "")#*
+			*##getTagMacro_v1($Youtube, '', 'Youtube', -1, '', '')#*
+
+			*##if(($Multimedia && $Multimedia.Document.data) || ($Jwplayer && $Jwplayer.data) || ($Vimeo && $Vimeo.data ) || ($Youtube && $Youtube.data))#*
+				*##set ($hasMultimedia = true)#*
+			*##else#*
+				*##set ($hasMultimedia = false)#*
+			*##end#*
+
+			*#<div class="multimediaIconMacroWrapper">#*
+				*##if($disableLink == "")#*
+					*#<a href="#printAcUrl_v1()" class="cutlineShow">#*
+				*##end#*
+					*##set($tempImage = $articleToolbox.getImageNode($tipoContenido, '0', "true"))#*
+					*##set($AltImage = "#getAltImage_v1($tempImage)")#*
+					*##set($TitleImage = "#getTitleImage_v1($tempImage)")#*
+					*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "0"))#*
+					*##set($elcutline = $tempcutline.Cutline.data)#*
+					*##set($elcutlinemlnid = $tempcutline.Cutline.Milenium.data)#*
+					*##set($tempbylineimage = $articleToolbox.getImageNode("$tipoContenido", "0"))#*
+					*##set($elbylineimage = $tempbylineimage.Byline.data)#*
+					*##set($elbylineimagemlnid = $tempbylineimage.Byline.Milenium.data)#*
+					*##if($enviromentVersion == "new")#*
+						*##set($imgHtml = $!articleToolbox.getImageTag2("$tipoContenido","0","$encuadre","","$!frameHighRes","$!frameName","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+					*##else#*
+						*##set($imgHtml = $!articleToolbox.getImageTag("$tipoContenido","0","$encuadre","","$!frameHighRes","$!frameName","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+					*##end#*
+					*##if($imgHtml)#*
+						*#$imgHtml#*
+					*##end#*
+					*##if($elcutline && $noCutline != true)#*
+						*##if ($environment == 'PREVIEW')#*
+							*##set($tempIter = " mlnid='$!elcutlinemlnid' ")#*
+							*##set($tempIter2 = " mlnid='$!elbylineimagemlnid' ")#*
+						*##else#*
+							*##set($tempIter = "")#*
+							*##set($tempIter2 = "")#*		
+						*##end#*
+						*#<span class="cutline-text" tempIter>$!elcutline</span>#*
+						*##if($elbylineimage)#*
+							*#<span class="byline-image" tempIter2>($!elbylineimage)</span>)#*
+						*##end#*
+					*##end#*
+					*##if($hasMultimedia)#*
+						*##set ($iconClass = "iconPlay")#*
+					*##elseif($hasImages > 1)#*
+						*##set ($iconClass = "iconGallery")#*
+					*##else#*
+						*##set ($iconClass = "")#*
+					*##end#*
+					*##if($iconClass)#*
+						*#<span class="$!iconClass $!tamanoIcono $!valign $!halign"></span>#*
+					*##end#*
+				*##if($disableLink == "")#*		
+					*#</a>#*
+				*##end#*	
+			*#</div>#*
+		*##end#*
+*##end
+
+##Macro que pinta la url de una página de cronología recibiendo como parámetro el friendlyname del metadato
+#macro (getMetadataUrl_v1 $sectionColor)#*
+	*##set($metaUrl = "#metadataUrl_v1()")#*
+	*##set($hmResult = {})#*
+	*##getAcAssignedCatMain_v1($hmResult)#*
+	*##if($hmResult.size() > 0 )#*
+		*#<span class="separador-meta before">|</span>#*
+		*##if($sectionColor)#*
+			*#<span class="metadataLink"><a href="$metaUrl_v1$hmResult.get(0).friendlyname" style="color:$varColorIter;">$hmResult.get(0).name</a></span>#*
+		*##else#*
+			*#<span class="metadataLink"><a href="$metaUrl_v1$hmResult.get(0).friendlyname">$hmResult.get(0).name</a></span>#*
+		*##end#*
+		*#<span class="separador-meta after">|</span>#*
+	*##end#*
+*##end
+
+
+##Macro que pinta la sección y la fecha de asignación del artículo
+##Parámetro 1: Color en hexadecimal (#FFFFFF) en el que se deben pintar los links
+#macro (getNewsData_v1 $sectionColor)#*
+	*#<h4 class="news-data"  #if($sectionColor) style='color:${sectionColor}' #end >#*
+		*#<a href="#printURLAssignedSection()">#printAssignedSection_v1("${sectionColor}")</a> <span class="separador-barra">|</span>#*
+		*#<span class="hora">#printDateTeaser("dd/MM/yyyy", "HH:mm a")</span>#*
+		*##getMetadataUrl_v1("$sectionColor")#*
+		*#<span class="separador-barra">|</span> <span class="icon-disqus-wrapper"> <i class="icono-disqus" style='color:${sectionColor}'></i> </span>#*
+		*#<span class="numComments">#renderDisqusComments()</span>#*
+		*##set ($Topheadline = "")#*
+		*##getTagMacro_v1($Topheadline, '', 'Topheadline', -1, '', '')#*
+		*##if($Topheadline && $Topheadline.data !="")#*
+			*#<div class="topheadline">$Topheadline.data</a></div>#*
+		*##end#*
+	*#</h4>#*
+*##end
+
+##Macro indica si un artículo tiene contenidos multimedia
+#macro (hasMultimedia_v1 $templateType)#*
+		*##set($numMultimedia = 0)#*
+		*##if($templateType == "teaser")#*
+			*##set ($TeaserImage = "")#*
+			*##getTagMacro_v1($TeaserImage, '', 'TeaserImage', -1, '', '')#*
+			*##if($TeaserImage)#*
+				*##set ($numImage = $TeaserImage.getSiblings().size())#*
+				*##set($tipoContenido = "TeaserImage")#*
+			*##else#*
+				*##set($numImage = $Image.getSiblings().size())#*
+				*##set($tipoContenido = "Image")#*
+			*##end#*
+		*##else#*
+			*##set ($numImage = $Image.getSiblings().size())#*
+			*##set($tipoContenido = "Image")#*
+		*##end#*
+		*##if(!$numImage)#*
+			*##set ($numImage = 0)#*
+		*##end#*
+		*##set($numMultimedia = $numMultimedia + $numImage)#*
+		
+		*##set ($Multimedia = "")#*
+		*##getTagMacro_v1($Multimedia, '', 'Multimedia', -1, '', '')#*
+		*##if($Multimedia && $Multimedia.Document.data)#*
+			*##set($numMultimedia = $numMultimedia + $Multimedia.getSiblings().size())#*
+		*##end#*
+		
+		
+		*##set ($Jwplayer = "")#*
+		*##getTagMacro_v1($Jwplayer, '', 'Jwplayer', -1, '', '')#*
+		*##if($Jwplayer && $Jwplayer.data)#*
+			*##set($numMultimedia = $numMultimedia + $Jwplayer.getSiblings().size())#*
+		*##end#*
+		
+		*##set ($Vimeo = "")#*
+		*##getTagMacro_v1($Vimeo, '', 'Vimeo', -1, '', '')#*
+		*##if($Vimeo && $Vimeo.data !="")#*
+			*##set($numMultimedia = $numMultimedia + $Vimeo.getSiblings().size())#*
+		*##end#*
+		
+		
+		*##set ($Youtube = "")#*
+		*##getTagMacro_v1($Youtube, '', 'Youtube', -1, '', '')#*
+		*##if($Youtube && $Youtube.data)#*
+			*##set($numMultimedia = $numMultimedia + $Youtube.getSiblings().size())#*
+		*##end#*
+		
+		*#$numMultimedia#*
+	
+*##end
+
+##Macro que inicializa los servicios necesarios para crear una plantilla de encuesta
+#macro(initPoll_v1)#*
+	*##set($myservice = $serviceLocator.findService("news-portlet","com.protecmedia.iter.news.service.ArticlePollLocalService"))#*
+	*##set($questionId = $myservice.getPoll($getterUtil.getLong($groupId), $reserved-article-id.data))#*
+	*##set($questionLocalService = $serviceLocator.findService("com.liferay.portlet.polls.service.PollsQuestionLocalService"))#*
+	*##set($question = $questionLocalService.getPollsQuestion($questionId))#*
+	*##set($userId = $getterUtil.getLong($request.remote-user))#*
+	*##set($totalVotes = $question.getVotesCount())#*
+	*##set($count = 0)#*
+	*##set($choicesId = [])#*
+	*##set($choicesVotesCount = [])#*
+	*##foreach ($choice in $question.getChoices())#*
+	*#	#set($choiceEscaped = $choice.toEscapedModel())#*
+	*#	#set($choiceId = $choiceEscaped.getChoiceId())#*
+	*#	#set($temp = $choicesId.add($choiceId))#*
+	*#	#set($choicesVotesCount = $choiceEscaped.getVotesCount())#*
+	*#	#set($temp = $choiceVotesCount.add($choiceVotesCount))#*
+	*##end#*
+*##end
+
+##Macro que recupera información sobre la encuesta actual
+#macro(getPollJson_v1)#*
+	*#{#*
+	*#	"groupId":"$groupId" ,#*
+	*#	"articleId":"$reserved-article-id.data" ,#*
+	*#	"pollAnswerData":#*
+	*#		{#*
+	*#			"answers":#*
+	*#				[#*
+	*#				#foreach ($choice in $question.getChoices())#*
+	*#					#set($choiceEscaped = $choice.toEscapedModel())#*
+	*#					#set($choiceVoteCount = $choiceEscaped.getVotesCount())#*
+	*#					#set($document = $saxReaderUtil.read("$choiceEscaped.description"))#*
+	*#					#set($root = $document.getRootElement())#*
+	*#					#set($choiceDescription = $root.selectSingleNode("/root/Description").getText())#*
+	*#					{"answer":{ "id": "$!choiceEscaped.choiceId", "name": "$!choiceEscaped.name", "description": "$!choiceDescription","votes":"$!choiceVoteCount"}}#*
+	*#					#if($Question.Answer.getSiblings().size() != $velocityCount) , #end#*
+	*#				#end#*
+	*#				]#*
+	*#		}#*
+	*#}#*
+*##end
+
+##Macro que recupera el alt de una foto
+#macro(getAltImage_v1 $tempImage)#*
+	*##set($tempAlt = "")#*
+	*##set($tempAlt = $!tempImage.Alt.data)#*
+	*##set ($headlineTag = "")#*
+	*##getTagMacro_v1($headlineTag, '', 'Headline', -1, '', '')#*
+	*##if($tempAlt && $tempAlt != "")#*
+		*#$tempAlt.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+	*##else#*
+		*##set($tempAlt = $!tempImage.Title.data)#*
+		*##if($tempAlt && $tempAlt != "")#*
+			*#$tempAlt.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+		*##else#*
+			*##set($tempAlt = $!tempImage.Cutline.data)#*
+			*##if($tempAlt && $tempAlt != "")#*
+				*#$tempAlt.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+			*##elseif($headlineTag.data && $headlineTag.data != "")#*
+				*##set($tempAlt = $!headlineTag.data)#*
+				*#$tempAlt.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+			*##elseif($Question && $Question.data != "")#*
+				*##set($tempAlt = $!Question.data)#*
+				*#$tempAlt.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+			*##end#*
+		*##end#*
+	*##end#*
+*##end
+
+##Macro que recupera el title de una foto
+#macro(getTitleImage_v1 $tempImage)#*
+	*##set($tempTitle = "")#*
+	*##set($tempTitle = $!tempImage.Title.data)#*
+	*##if($tempTitle && $tempTitle != "")#*
+		*#$tempTitle.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+	*##else#*
+		*##set($tempTitle = $!tempImage.Alt.data)#*
+		*##if($tempTitle && $tempTitle != "")#*
+			*#$tempTitle.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+		*##else#*
+			*##set($tempTitle = $!tempImage.Cutline.data)#*
+			*##if($tempTitle && $tempTitle != "")#*
+				*#$tempTitle.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+			*##else#*
+				*##set ($tempTitle = "")#*
+				*##getTagMacro_v1($tempTitle, '', 'Headline', -1, '', '')#*
+				*#$tempTitle.data.replaceAll('"','').replaceAll('<p>','').replaceAll('</p>','').replaceAll('<br>','').replaceAll('<br/>','').replaceAll('<br />','').trim()#*
+			*##end#*
+		*##end#*	
+	*##end#*
+*##end
+##Macro que pinta un video, una galería de imágenes en loop o una imagen.
+#macro (getMultimediaStandardLoop_v1 $minImagesGallery $templateType $encuadre $widthMultimedia $heightMultimedia $cropHD $cropSizes)#*
+		*##if($templateType == "teaser")#*/
+			*##if($TeaserImage)#*
+				*##set ($numImage = $TeaserImage.getSiblings().size())#*
+				*##set($tipoContenido = "TeaserImage")#*
+			*##else#*
+				*##set($numImage = $Image.getSiblings().size())#*
+				*##set($tipoContenido = "Image")#*
+			*##end#*
+		*##else#*
+			*##set ($numImage = $Image.getSiblings().size())#*
+			*##set($tipoContenido = "Image")#*
+		*##end#*
+		*##if(!$numImage)#*
+			*##set ($numImage = -1)#*
+		*##end#*
+		*##set ($Multimedia = "")#*
+		*##getTagMacro_v1($Multimedia, '', 'Multimedia', -1, '', '')#*
+		*##if($Multimedia && $Multimedia.Document.data)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-video interno">#*
+					*#<div class="responsive-video">#*
+						*#<div id="multimediaPlayer${reserved-article-id.data}">Cargando reproductor ...</div>#*		
+						*#<script type="text/javascript">#*
+							
+							*#
+								if (typeof asyncJwplayerList === 'undefined') {
+									window.asyncJwplayerList = [];
+								}
+								
+								if (typeof jwplayer === 'undefined') {
+								    var tempAsyncJwplayerElement = {};
+								    tempAsyncJwplayerElement.preview = "$Multimedia.Preview.data;
+								    tempAsyncJwplayerElement.document = "$Multimedia.Document.data";
+								    tempAsyncJwplayerElement.id = "multimediaPlayer${reserved-article-id.data}";
+								    tempAsyncJwplayerElement.width = "$widthMultimedia";
+								    tempAsyncJwplayerElement.height = "$heightMultimedia";
+								    window.asyncJwplayerList.push(tempAsyncJwplayerElement);
+								}else{
+									initJwPlayer("$Multimedia.Preview.data","$Multimedia.Document.data","multimediaPlayer${reserved-article-id.data}","$widthMultimedia","$heightMultimedia")
+								};
+							#*											
+						*#</script>#*
+					*#</div>#*
+				*#</div>#*
+			*#</div>#*
+		*##set ($Jwplayer = "")#*
+		*##getTagMacro_v1($Jwplayer, '', 'Jwplayer', -1, '', '')#*
+		*##elseif($Jwplayer && $Jwplayer.data)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-video externo">#*
+					*#<div style="width:${widthMultimedia}px;height:${heightMultimedia}px;">#*
+						*#<div id='botr_${Jwplayer.data}_isitqcrW_div' style="width:100%;height:100%;" class="jwplayerMultimedia"></div>#*
+					*#</div>#*
+					*#<script>#*
+						*#if(mobileBrowser){#*
+							*#var htmlJwPlayerDiv = "";#*
+							*#htmlJwPlayerDiv +="<video class='html5Jw' style='width:${widthMultimedia}px;height:${heightMultimedia}px;' controls='' tabindex='0' poster='http://content.jwplatform.com/thumbs/${Jwplayer.data}-480.jpg'>";#*
+								*#htmlJwPlayerDiv +="<source type='video/mp4' src='http://content.jwplatform.com/videos/${Jwplayer.data}.mp4'></source>";#*
+							*#htmlJwPlayerDiv +="</video>";#*
+							*#jQuery("#botr_${Jwplayer.data}_isitqcrW_div").append(htmlJwPlayerDiv);#*
+						*#}#*		
+						*#else{#*
+							*#var script = $('<script>', {#*
+							    *#type: 'text/javascript',#*
+							    *#async: true,#*
+							    *#src: 'http://content.jwplatform.com/players/${Jwplayer.data}-isitqcrW.js'#*
+							*#});#*
+							*#$('script:first').before(script);#*
+						*#}#*	
+					*#</script>#*
+				*#</div>#*
+			*#</div>#*
+		*##set ($Vimeo = "")#*
+		*##getTagMacro_v1($Vimeo, '', 'Vimeo', -1, '', '')#*
+		*##elseif($Vimeo && $Vimeo.data !="")#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-vimeo">#*
+					*#<div class="responsive-video">#*
+						*#<iframe class="vimeo-player" src="//player.vimeo.com/video/$Vimeo.data" width="$widthMultimedia" height="$heightMultimedia" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>#*
+					*#</div>#*
+				*#</div>#*
+			*#</div>#*
+		*##set ($Youtube = "")#*
+		*##getTagMacro_v1($Youtube, '', 'Youtube', -1, '', '')#*
+		*##elseif($Youtube && $Youtube.data)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-youtube">#*
+					*#<div class="responsive-video">#*
+						*##set ($timeParameter ="")#*
+						*##set ($index1 = $Youtube.data.indexOf("?t="))#*
+						*##set ($index2 = $Youtube.data.indexOf("?start="))#*
+
+						*##if($index1 >= 0){#*
+							*##set ($timeParameter = $Youtube.data.substring($index1))#*
+							*##set ($timeParameter = $timeParameter.replace("?t=",""))#*
+							*##set ($Youtube.data = $Youtube.data.substring(0,$Youtube.data.indexOf("?t=")))#*
+						*##end#*
+						*##if($index2 >= 0){#*
+							*##set ($timeParameter = $Youtube.data.substring($index2))#*
+							*##set ($timeParameter = $timeParameter.replace("?start=",""))#*
+							*##set ($Youtube.data = $Youtube.data.substring(0,$Youtube.data.indexOf("?start=")))#*
+						*##end#*
+						*##if($timeParameter && $timeParameter != "")#*
+							*##set ($timeParameter = "&start=" + $timeParameter)#*
+						*##end#*
+							
+						*#<iframe allowfullscreen="" frameborder="0" height="$heightMultimedia"  width="$widthMultimedia" src="//www.youtube.com/embed/$Youtube.data?wmode=transparent&showinfo=0&theme=light$timeParameter"></iframe>#*
+					*#</div>#*	
+				*#</div>#*
+			*#</div>#*
+		*##elseif($numImage >= $minImagesGallery)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-gallery">#*
+					*#<ul class="bxMultimedia${reserved-article-id.data}">#*
+					    *##set ($numImageFor = $numImage - 1)#*
+						*##foreach($i in [0..$numImageFor])#*
+							*#<li>#*
+								*##if($templateType == "teaser")#*
+									*#<a href="#printAcUrl_v1()" class="cutlineShow">#*
+								*##end#*
+										*#<figure class="cutlineShow">#*
+											*##set($tempImage = $articleToolbox.getImageNode($tipoContenido, $i, "true"))#*
+											*##set($AltImage = "#getAltImage_v1($tempImage)")#*
+											*##set($TitleImage = "#getTitleImage_v1($tempImage)")#*
+											*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+											*##set($elcutline = $tempcutline.Cutline.data)#*
+											*##set($elcutlinemlnid = $tempcutline.Cutline.Milenium.data)#*
+											*##set($tempbylineimage = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+											*##set($elbylineimage = $tempbylineimage.Byline.data)#*
+											*##set($elbylineimagemlnid = $tempbylineimage.Byline.Milenium.data)#*
+											*##if($enviromentVersion == "new")#*
+												*##set($imgHtml = $!articleToolbox.getImageTag2("$tipoContenido","$i","$encuadre","","$!cropHD","galleryHD","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+											*##else#*
+												*##set($imgHtml = $!articleToolbox.getImageTag("$tipoContenido","$i","$encuadre","","$!cropHD","galleryHD","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+											*##end#*
+											*##if($imgHtml)#*
+												*#$imgHtml#*
+											*##end#*
+											**##if($elcutline)#*
+												*##if ($environment == 'PREVIEW')#*
+													*##set($tempIter = " mlnid='$!elcutlinemlnid' ")#*
+													*##set($tempIter2 = " mlnid='$!elbylineimagemlnid' ")#*
+												*##else#*
+													*##set($tempIter = "")#*
+													*##set($tempIter2 = "")#*		
+												*##end#*
+												*#<span class="cutline-text" tempIter>$!elcutline</span>#*
+												*##if($elbylineimage)#*
+													*#<span class="byline-image" tempIter2>($!elbylineimage)</span>#*
+												*##end#*
+											*##end#*
+										*#</figure>#*
+								*##if($templateType == "teaser")#*
+									*#</a>#*
+								*##end#*
+							*#</li>#*				
+						*##end#*		
+					*#</ul>#*
+				*#</div>#*
+			*#</div>#*
+			*#<script>IniciarBxsliderLoop(".bxMultimedia${reserved-article-id.data}","$widthMultimedia","$heightMultimedia")</script>#*
+		*##elseif($numImage > 0)#*
+			*#<div class="multimediaMacroWrapper">#*
+				*#<div class="contentMedia art-img">#*
+					*##if($templateType == "teaser")#*
+						*#<a href="#printAcUrl()">#*
+					*##end#*
+						*#<figure class="cutlineShow">#*
+							*##set($tempImage = $articleToolbox.getImageNode($tipoContenido, '0', "true"))#*
+							*##set($AltImage = "#getAltImage_v1($tempImage)")#*
+							*##set($TitleImage = "#getTitleImage_v1($tempImage)")#*
+							*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "0"))#*
+							*##set($elcutline = $tempcutline.Cutline.data)#*
+							*##set($elcutlinemlnid = $tempcutline.Cutline.Milenium.data)#*
+							*##set($tempbylineimage = $articleToolbox.getImageNode("$tipoContenido", "0"))#*
+							*##set($elbylineimage = $tempbylineimage.Byline.data)#*
+							*##set($elbylineimagemlnid = $tempbylineimage.Byline.Milenium.data)#*
+							*##if($enviromentVersion == "new")#*
+								*##set($imgHtml = $!articleToolbox.getImageTag2("$tipoContenido","$i","$encuadre","","$!cropHD","galleryHD","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+							*##else#*
+								*##set($imgHtml = $!articleToolbox.getImageTag("$tipoContenido","$i","$encuadre","","$!cropHD","galleryHD","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+							*##end#*
+							*##if($imgHtml)#*
+								*#$imgHtml#*
+							*##end#*
+							**##if($elcutline)#*
+								*##if ($environment == 'PREVIEW')#*
+										*##set($tempIter = " mlnid='$!elcutlinemlnid' ")#*
+										*##set($tempIter2 = " mlnid='$!elbylineimagemlnid' ")#*
+								*##else#*
+										*##set($tempIter = "")#*
+										*##set($tempIter2 = "")#*		
+								*##end#*
+								*#<span class="cutline-text" tempIter>$!elcutline</span>#*
+								*##if($elbylineimage)#*
+									*#<span class="byline-image" tempIter2>($!elbylineimage)</span>#*
+								*##end#*
+							*##end#*
+						*#</figure>#*
+					*##if($templateType == "teaser")#*
+						*#</a>#*
+					*##end#*
+				*#</div>#*
+			*#</div>#*
+		*##end#*
+*##end
+
+## Supermecados Macro que pinta un video todos los contenidos multimedia juntos
+#macro (getMultimediaMixedLive_v1 $templateType $postID $encuadre $widthMultimedia $heightMultimedia $cropSizes)#*
+*##set ($Multimedia = "")#*
+*##getTagMacro_v1($Multimedia, '', 'Multimedia', -1, '', '')#*
+*##set ($Image = "")#*
+*##getTagMacro_v1($Image, '', 'Image', -1, '', '')#*
+
+		*##if($templateType == "teaser")#*/
+			*##if($TeaserImage)#*
+				*##set ($numImage = $TeaserImage.getSiblings().size())#*
+				*##set($tipoContenido = "TeaserImage")#*
+			*##else#*
+				*##set($numImage = $Image.getSiblings().size())#*
+				*##set($tipoContenido = "Image")#*
+			*##end#*
+		*##else#*
+			*##set ($numImage = $Image.getSiblings().size())#*
+			*##set($tipoContenido = "Image")#*
+		*##end#*
+		*##if(!$numImage)#*
+			*##set ($numImage = 0)#*
+		*##end#*
+
+		*##set ($numContents = $numImage)#*
+		
+		*#<div class="multimediaMacroWrapper">#*
+			*#<ul class="bxMultimedia${postID}">#*
+
+				*##if($!Multimedia && $Multimedia.Document.data)#*
+					*##set ($numContents = $numContents + $Multimedia.getSiblings().size())#*
+					*##foreach ($el in $Multimedia.getSiblings())#*
+						*#<li class="contentMedia art-video interno" iterhtmlid="$el.Milenium.data">#*
+							*#<div class="responsive-video">#*
+								*#<div id="multimediaPlayer${postID}-${velocityCount}">Cargando reproductor ...</div>#*		
+								*#<script type="text/javascript">#*
+									*#initJwPlayer("$el.Preview.data","$el.Document.data","multimediaPlayer${postID}-${velocityCount}","$widthMultimedia","$heightMultimedia")#*									
+								*#</script>#*
+							*#</div>#*
+						*#</li>#* 
+					*##end#*
+				*##end#*
+				
+				*##if($Jwplayer && $Jwplayer.data)#*
+					*##set ($numContents = $numContents + $Jwplayer.getSiblings().size())#*
+					*##foreach ($el in $Jwplayer.getSiblings())#*
+						*#<li class="contentMedia art-video externo" iterhtmlid="$el.Milenium.data">#*
+							*#<div style="width:${widthMultimedia}px;height:${heightMultimedia}px;">#*
+								*#<div id='botr_${$el.data}_isitqcrW_div' style="width:100%;height:100%;" class="jwplayerMultimedia"></div>#*
+							*#</div>#*
+							*#<script>#*
+								*#if(mobileBrowser){#*
+									*#var htmlJwPlayerDiv = "";#*
+									*#htmlJwPlayerDiv +="<video class='html5Jw' style='width:${widthMultimedia}px;height:${heightMultimedia}px;' controls='' tabindex='0' poster='http://content.jwplatform.com/thumbs/${el.data}-480.jpg'>";#*
+										*#htmlJwPlayerDiv +="<source type='video/mp4' src='http://content.jwplatform.com/videos/${el.data}.mp4'></source>";#*
+									*#htmlJwPlayerDiv +="</video>";#*
+									*#jQuery("#botr_${el.data}_isitqcrW_div").append(htmlJwPlayerDiv);#*
+								*#}#*		
+								*#else{#*
+									*#var script = $('<script>', {#*
+										*#type: 'text/javascript',#*
+										*#async: true,#*
+										*#src: 'http://content.jwplatform.com/players/${el.data}-isitqcrW.js'#*
+									*#});#*
+									*#$('script:first').before(script);#*
+								*#}#*	
+							*#</script>#*
+						*#</li>#*
+					*##end#*
+				*##end#*
+				
+				*##if($Vimeo && $Vimeo.data !="")#*
+					*##set ($numContents = $numContents + $Vimeo.getSiblings().size())#*
+					*##foreach ($el in $Vimeo.getSiblings())#*
+						*#<li class="contentMedia art-vimeo" iterhtmlid="$el.Milenium.data">#*
+							*#<div class="responsive-video">#*
+								*#<iframe class="vimeo-plaayer" src="//player.vimeo.com/video/$el.data" width="$widthMultimedia" height="$heightMultimedia" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>#*
+							*#</div>#*
+						*#</li>#*
+					*##end#*
+				*##end#*
+				
+				*##if($Youtube && $Youtube.data)#*
+					*##set ($numContents = $numContents + $Youtube.getSiblings().size())#*
+					*##foreach ($el in $Youtube.getSiblings())#*
+						*#<li class="contentMedia art-youtube" iterhtmlid="$el.Milenium.data">#*
+							*#<div class="responsive-video">#*
+								*#<iframe allowfullscreen="" frameborder="0" height="$heightMultimedia"  width="$widthMultimedia" src="//www.youtube.com/embed/$el.data?wmode=transparent&showinfo=0&theme=light"></iframe>#*
+							*#</div>#*	
+						*#</li>#*
+					*##end#*		
+				*##end#*
+				
+				*##if($numImage > 0)#*				
+					*##set ($numImageFor = $numImage - 1)#*
+					*##foreach($i in [0..$numImageFor])#*
+						*#<li class="contentMedia art-gallery">#*
+							*##if($templateType == "teaser")#*
+								*#<a href="#printAcUrl_v1()" class="cutlineShow">#*
+							*##end#*
+									*#<figure class="cutlineShow">#*
+										*##set($tempImage = $articleToolbox.getImageNode($tipoContenido, $i, "true"))#*
+										*##set($AltImage = "#getAltImage_v1($tempImage)")#*
+										*##set($TitleImage = "#getTitleImage_v1($tempImage)")#*
+										*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+										*##set($elcutline = $tempcutline.Cutline.data)#*
+										*##set($elcutlinemlnid = $tempcutline.Cutline.Milenium.data)#*
+										*##set($tempbylineimage = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+										*##set($elbylineimage = $tempbylineimage.Byline.data)#*
+										*##set($elbylineimagemlnid = $tempbylineimage.Byline.Milenium.data)#*
+										*##if($enviromentVersion == "new")#*
+											*##set($imgHtml = $!articleToolbox.getImageTag2("$tipoContenido","$i","$encuadre","","","","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+										*##else#*
+											*##set($imgHtml = $!articleToolbox.getImageTag("$tipoContenido","$i","$encuadre","","","","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+										*##end#*
+										*##if($imgHtml)#*
+											*#$imgHtml#*
+										*##end#*
+										**##if($elcutline)#*
+											*##if ($environment == 'PREVIEW')#*
+												*##set($tempIter = " mlnid='$!elcutlinemlnid' ")#*
+												*##set($tempIter2 = " mlnid='$!elbylineimagemlnid' ")#*
+											*##else#*
+												*##set($tempIter = "")#*
+												*##set($tempIter2 = "")#*		
+											*##end#*
+											*#<span class="cutline-text" tempIter>$!elcutline</span>#*
+											*##if($elbylineimage)#*
+												*#<span class="byline-image" tempIter2>($!elbylineimage)</span>#*
+											*##end#*
+										*##end#*
+									*#</figure>#*
+							*##if($templateType == "teaser")#*
+								*#</a>#*
+							*##end#*
+						*#</li>#*				
+					*##end#*		
+				*##end#*
+			*#</ul>#*
+		*#</div>#*
+		
+		*##if($numContents > 1)#*
+			*#<script>IniciarBxsliderMultimedia(".bxMultimedia${postID}","$widthMultimedia","$heightMultimedia")</script>#*
+		*##end#*
+*##end
