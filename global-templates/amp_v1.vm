@@ -1,0 +1,782 @@
+##Macro que pinta un carousel de imagenes en AMP.
+#macro (getCarousel_AMP_v1  $templateType $encuadre $widthMultimedia $heightMultimedia $cropSizes)#*
+##Recuperar el número de imágenes------------------------------------->
+		*##if($templateType == "teaser")#*/
+			*##set ($TeaserImage = "")#*
+			*##getTagMacro($TeaserImage, '', 'TeaserImage', -1, '', '')#*
+			*##if($TeaserImage)#*
+				*##set ($numImage = $TeaserImage.getSiblings().size())#*
+				*##set($tipoContenido = "TeaserImage")#*
+			*##else#*
+			*##set ($Image = "")#*
+			*##getTagMacro($Image, '', 'Image', -1, '', '')#*
+				*##set($numImage = $Image.getSiblings().size())#*
+				*##set($tipoContenido = "Image")#*
+			*##end#*
+		*##else#*
+			*##set ($numImage = $Image.getSiblings().size())#*
+			*##set($tipoContenido = "Image")#*
+		*##end#*
+		*##if(!$numImage)#*
+			*##set ($numImage = 0)#*
+		*##end#*
+
+		*##set ($numContents = $numImage)#*
+		##<--------------------------------------------------------------
+		*#<amp-carousel width="300" height="200" layout="responsive" type="slides" controls>#*
+		
+		*##if($numImage > 0)#*		
+			*##set ($numImageFor = $numImage - 1)#*
+			*##foreach($i in [0..$numImageFor])#*
+			    *#<div  width="300" height="190">#*
+				*#$!articleToolbox.getImageTag("Image","$i","$encuadre","","","", "false", "", "", "100%")#*
+				*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+				*##set($elcutline = $tempcutline.Cutline.data)#*
+				**##if($elcutline)#*
+				    *#<div class="caption">#*
+					*#<span class="cutline-text">$!elcutline</span>#*
+					*##set($tempbylineimage = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+					*##set($elbylineimage = $tempbylineimage.Byline.data)#*
+					*##if($elbylineimage)#*
+					    *#(<span class="byline-image"> $!elbylineimage </span>)#*
+					*##end#*
+				    *#</div>#*
+				*##end#*
+			    *#</div>#*	
+			*##end#*
+		*##end#*
+		*#<amp-youtube data-videoid="Fg46N6VJPpI" layout="responsive" width="480" height="270"></amp-youtube>#*
+		*##set($Youtube = $!articleToolbox.getTag(null,"HTML"))#*
+		*#---xxx--#*
+		*#$Youtube#*
+		*#---xxx--#*
+		*##if($Youtube && $Youtube.data)#*
+			*##set ($numContents = $numContents + $Youtube.getSiblings().size())#*
+			*##foreach ($el in $Youtube.getSiblings())#*
+				*#<amp-youtube data-videoid="$el.data" layout="responsive" width="480" height="270"></amp-youtube>#*
+			*##end#*		
+		*##end#*
+        *#</amp-carousel>#*	
+*##end
+
+
+##Personaliza la URL base de las cronologÃ­as
+#macro (metadataUrl_v1 $url_tag)#*
+		*#/$url_tag/-/meta/#*
+*##end
+
+#macro (getText_AMP_v1 $imageFrame)
+	#set($childrenTags = $articleToolbox.getChildrenTags(null))
+	#foreach($element in $childrenTags)
+		
+		##<!-- IMAGES AND GALLERIES -->
+		#if(($element.name == "Image_Text") && $velocityCount < $childrenTags.size())
+			#*IMAGEN Y NO ES EL ULTIMO TIPO DE CONTENIDO*#
+			#*GUARDO IMAGEN*#
+			#if($element && $element.trim() != "")
+				#set($temp = $arraImgTemp.add($element))
+			#end
+		#elseif(($element.name == "Image_Text")) 
+			#*ULTIMO TIPO DE CONTENIDO Y ES IMAGEN*#
+			#*GUARDO IMAGEN Y PINTO SEGUN CORRESPONDA*#
+			#set($temp = $arraImgTemp.add($element))
+			#*PINTO LA/LAS IMÃGENES*#
+			#if(($arraImgTemp.size() > 0))
+				<amp-carousel width="700"  height="394" layout="responsive" type="slides">
+					#foreach($el in $arraImgTemp)
+						$!articleToolbox.getImageTag("$el.name","$el.Milenium.data","$imageFrame","","","","false","$!articleToolbox.getTag(null,'Headline').data","$!articleToolbox.getTag(null,'Headline').data")
+					#end
+				</amp-carousel>
+			#end
+			#set($arraImgTemp = [])
+		#else
+			#*NI ES EL ULTIMO NI ES UNA IMAGEN*#
+			#*PINTO LA/LAS IMÃGENES*#	
+			#if($arraImgTemp)
+			#if(($arraImgTemp.size() > 0))
+				<amp-carousel width="700"  height="394" layout="responsive" type="slides">
+					#foreach($el in $arraImgTemp)
+						$!articleToolbox.getImageTag("$el.name","$el.Milenium.data","$imageFrame","","","","false","$!articleToolbox.getTag(null,'Headline').data","$!articleToolbox.getTag(null,'Headline').data")
+					#end
+				</amp-carousel>		
+			#end
+			#end
+			#set($arraImgTemp = [])
+		#end
+		
+		##<!--YOUTUBE_TEXT-->
+		#if($element.name == "Youtube_Text")
+			<amp-youtube
+				data-videoid="$element.data"
+				layout="responsive"
+				width="480" height="270">
+			</amp-youtube>
+		#end
+		
+		##<!--VIMEO_TEXT-->
+		#if($element.name == "Vimeo_Text")
+			<amp-vimeo
+				data-videoid="$element.data"
+				layout="responsive"
+				width="480" height="270">
+			</amp-vimeo>
+		#end
+		
+		##<!--MULTIMEDIA_TEXT-->
+		#if($element.name == "Multimedia_Text")
+			<amp-video controls width=480 height=270 layout="responsive" src="$element.Document.data" poster="$element.Preview.data">
+				<div fallback>
+					<p>Your browser doesnâ€™t support HTML5 video</p>
+				</div>
+				<source type="video/mp4"  src="$Multimedia.Document.data">
+			</amp-video>
+		#end
+		
+		##<!--TEXT-->
+		#if($element.name == "Text")
+			#if($element && $element.trim() != "")
+				#set($tempText = $element.data.trim().replaceAll("&amp;","&"))
+				$!tempText
+			#end
+		#end	
+	
+		##<!--QUOTE-->
+		#if($element.name == "Quote")
+			#if($element && $element.trim() != "")
+				<blockquote class='$element.name'>
+					<span>$!element.data.trim().replaceAll("&amp;","&")</span>
+				</blockquote>	
+			#end
+		#end
+		
+		##<!--INTEXT -->
+		 #if($element.name == "Intext")
+			#if($element && $element.trim() != "")
+				<div class='$element.name'>
+					$element.data.trim().replaceAll("&amp;","&")	
+				</div>
+			#end
+		#end
+		
+		##<!--LEAD-->
+		#if($element.name == "Lead")
+			#if($element && $element.trim() != "")
+				<h3 class='$element.name cita'>$!element.data.trim().replaceAll("&amp;","&")</h3>
+			#end                                    
+		#end
+	#end
+#end
+
+#macro(printHTMLContentDetalle_AMP_v1 $hashNames $cropName $cropSizes $widthMultimedia $heightMultimedia)
+
+    Prueba
+
+    #set($arraImgTemp = [])
+    #set($childrenTags = $articleToolbox.getChildrenTags(null))
+    #set($arraContentsSize = 0)
+    #set($currentElement = 0)
+    #***************************************************************************#
+
+    #foreach($el in $childrenTags)
+        #set ($cssclass=$hashNames.get($el.name))
+        #if($cssclass)
+            #set ($arraContentsSize = $arraContentsSize + 1)
+        #end
+    #end
+    #set($indexp = 0) ##index parrafos
+    #foreach($el in $childrenTags)
+        #set ($element = {})
+        
+        #set ($cssclass=$hashNames.get($el.name))
+        #if($cssclass)
+            #set($currentElement = $currentElement + 1)
+            #set ($temp = $element.put("name",$el.name))
+            #set ($temp = $element.put("cssclass",$cssclass))
+        
+            ##NOMBRE ELEMENTO : $element.name <BR>
+            ##NOMBRE CLASE : $element.cssclass <br>
+            
+            #if($element.name == 'Image_Text' && $currentElement != $arraContentsSize)
+                #*IMAGEN Y NO ES EL ULTIMO TIPO DE CONTENIDO*#
+                #*GUARDO IMAGEN*#
+                    #if($el && $el.trim() != "")
+                    #set($temp = $arraImgTemp.add($el))
+                #end
+            #elseif(($element.name == "Image_Text")) 
+                    #*ULTIMO TIPO DE CONTENIDO Y ES IMAGEN*#
+                    #*GUARDO IMAGEN Y PINTO SEGUN CORRESPONDA*#
+                    #set($temp = $arraImgTemp.add($el))
+                    #if($arraImgTemp.size() == 1)
+                        #*PINTO UNA IMAGEN*#
+                        #foreach($el in $arraImgTemp)
+                            <div class="multimediaMacroWrapper">
+                                <div class="contentMedia art-img">
+                                        <figure class="cutlineShow">
+                                            #set($tempImage = $articleToolbox.getImageNode($el.name, $el.Milenium.data, "true"))
+                                            #set($AltImage = "#getAltImage_v1($tempImage)")
+                                            #set($TitleImage = "#getTitleImage_v1($tempImage)")
+                                            
+                                            ##COMPROBACIÃ“N DE VERSIÃ“N DE ITER PARA PARÃMETRO SIZES
+                                            #if($enviromentVersion == "new")#*
+                                                *##set($imgHtml = $!articleToolbox.getImageTag2("$el.name","$el.Milenium.data","$cropName","","","","false","$!$AltImage","$!TitleImage","$!cropSizes"))#*
+                                            *##else#*
+                                                *##set($imgHtml = $!articleToolbox.getImageTag("$el.name","$el.Milenium.data","$cropName","","","","false","$!$AltImage","$!TitleImage","$!cropSizes"))#*
+                                            *##end
+                                            #if($imgHtml)
+                                                ##SOPORTE PARA PARÃMETRO SIZES
+                                                $imgHtml
+                                            #end
+                                                                                
+                                            #if($el.Cutline && $el.Cutline.data != "")
+                                                #if ($environment == 'PREVIEW')
+                                                    #set($tempIter = "mlnid='$el.Cutline.Milenium.data' ")
+                                                    #set($tempIter2 = " mlnid='$el.Byline.Milenium.data' ")
+                                                #else
+                                                    #set($tempIter = "")
+                                                    #set($tempIter2 = "")		
+                                                #end
+                                                <span class="cutline-text" tempIter>$!elcutline</span>
+                                                #if($elbylineimage)
+                                                    (<span class="byline-image" tempIter2> $!elbylineimage </span>)
+                                                #end
+                                            #end
+                                        </figure>
+                                </div>
+                            </div>
+                        #end
+                    #elseif(($arraImgTemp.size() > 1))
+                        #*PINTO UNA GALERÃA*#
+                        <div class="multimediaMacroWrapper">
+                            <div class="contentMedia art-gallery">
+                                <ul class="bxMultimediaText${reserved-article-id.data}">
+                                    #foreach($el in $arraImgTemp)
+                                        <li>
+                                            <figure class="cutlineShow">
+                                                #set($tempImage = $articleToolbox.getImageNode($el.name, $el.Milenium.data, "true"))
+                                                #set($AltImage = "#getAltImage_v1($tempImage)")
+                                                #set($TitleImage = "#getTitleImage_v1($tempImage)")
+                                                
+                                                ##COMPROBACIÃ“N DE VERSIÃ“N DE ITER PARA PARÃMETRO SIZES
+                                                #if($enviromentVersion == "new")#*
+                                                    *##set($imgHtml = $!articleToolbox.getImageTag2("$el.name","$el.Milenium.data","$cropName","","","","false","$!$AltImage","$!TitleImage","$!cropSizes"))#*
+                                                *##else#*
+                                                    *##set($imgHtml = $!articleToolbox.getImageTag("$el.name","$el.Milenium.data","$cropName","","","","false","$!$AltImage","$!TitleImage","$!cropSizes"))#*
+                                                *##end
+                                                #if($imgHtml)
+                                                    ##SOPORTE PARA PARÃMETRO SIZES
+                                                    $imgHtml
+                                                #end
+                                                #if($el.Cutline && $el.Cutline.data != "")
+                                                    #if ($environment == 'PREVIEW')
+														#set($tempIter = "mlnid='$el.Cutline.Milenium.data' ")
+														#set($tempIter2 = " mlnid='$el.Byline.Milenium.data' ")
+													#else
+														#set($tempIter = "")
+														#set($tempIter2 = "")		
+													#end
+													<span class="cutline-text" tempIter>$!elcutline</span>
+													#if($elbylineimage)
+														(<span class="byline-image" tempIter2> $!elbylineimage </span>)
+													#end
+                                                #end
+                                            </figure>
+                                        </li>               
+                                    #end        
+                                </ul>
+                            </div>
+                        </div>
+                        <script>IniciarBxsliderMultimedia(".bxMultimediaText${reserved-article-id.data}","$widthMultimedia","$heightMultimedia")</script>
+                    #end
+                #set($arraImgTemp = [])
+            #else
+                #*NI ES EL ULTIMO NI ES UNA IMAGEN*#
+                #*PINTO SEGUN CORRESPONDA*# 
+                #if($arraImgTemp.size()> 0)
+                    #if($arraImgTemp.size() == 1)
+                        #foreach($el in $arraImgTemp)
+                            <div class="multimediaMacroWrapper">
+                                <div class="contentMedia art-img">
+					## #if($el.Image_Link.data != "")
+					##	<a href="$el.Image_Link.data" target="_blank">
+					## #end
+                                        <figure class="cutlineShow">
+                                            #set($tempImage = $articleToolbox.getImageNode($el.name, $el.Milenium.data, "true"))
+                                            #set($AltImage = "#getAltImage_v1($tempImage)")
+                                            #set($TitleImage = "#getTitleImage_v1($tempImage)")
+                                            
+                                            ##COMPROBACIÃ“N DE VERSIÃ“N DE ITER PARA PARÃMETRO SIZES
+                                            #if($enviromentVersion == "new")#*
+                                                *##set($imgHtml = $!articleToolbox.getImageTag2("$el.name","$el.Milenium.data","$cropName","","","","false","$!$AltImage","$!TitleImage","$!cropSizes"))#*
+                                            *##else#*
+                                                *##set($imgHtml = $!articleToolbox.getImageTag("$el.name","$el.Milenium.data","$cropName","","","","false","$!$AltImage","$!TitleImage","$!cropSizes"))#*
+                                            *##end
+                                            #if($imgHtml)
+                                                ##SOPORTE PARA PARÃMETRO SIZES
+                                                $imgHtml
+                                            #end
+                                            #if($el.Cutline && $el.Cutline.data != "")
+                                                #if ($environment == 'PREVIEW')
+                                                    #set($tempIter = "mlnid='$el.Cutline.Milenium.data' ")
+                                                    #set($tempIter2 = " mlnid='$el.Byline.Milenium.data' ")
+                                                #else
+                                                    #set($tempIter = "")
+                                                    #set($tempIter2 = "")		
+                                                #end
+                                                <span class="cutline-text" tempIter>$!elcutline</span>
+                                                #if($elbylineimage)
+                                                    (<span class="byline-image" tempIter2> $!elbylineimage </span>)
+                                                #end
+                                            #end
+                                        </figure>
+					## #if($el.Image_Link.data != "")
+					##	</a>
+					## #end
+                                </div>
+                            </div>
+                        #end
+                    #elseif(($arraImgTemp.size() > 1))
+                        <div class="multimediaMacroWrapper">
+                            <div class="contentMedia art-gallery">
+                                <ul class="bxMultimediaText${reserved-article-id.data}">
+                                    #foreach($el in $arraImgTemp)
+                                        <li>
+                                            <figure class="cutlineShow">
+                                                #set($tempImage = $articleToolbox.getImageNode($el.name, $el.Milenium.data, "true"))
+                                                #set($AltImage = "#getAltImage_v1($tempImage)")
+                                                #set($TitleImage = "#getTitleImage_v1($tempImage)")
+                                                
+                                                ##COMPROBACIÃ“N DE VERSIÃ“N DE ITER PARA PARÃMETRO SIZES
+                                                #if($enviromentVersion == "new")#*
+                                                    *##set($imgHtml = $!articleToolbox.getImageTag2("$el.name","$el.Milenium.data","$cropName","","","","false","$!$AltImage","$!TitleImage","$!cropSizes"))#*
+                                                *##else#*
+                                                    *##set($imgHtml = $!articleToolbox.getImageTag("$el.name","$el.Milenium.data","$cropName","","","","false","$!$AltImage","$!TitleImage","$!cropSizes"))#*
+                                                *##end
+                                                #if($imgHtml)
+                                                    ##SOPORTE PARA PARÃMETRO SIZES
+                                                    $imgHtml
+                                                #end
+                                                #if($el.Cutline && $el.Cutline.data != "")
+                                                    #if ($environment == 'PREVIEW')
+														#set($tempIter = "mlnid='$el.Cutline.Milenium.data' ")
+														#set($tempIter2 = " mlnid='$el.Byline.Milenium.data' ")
+													#else
+														#set($tempIter = "")
+														#set($tempIter2 = "")		
+													#end
+													<span class="cutline-text" tempIter>$!elcutline</span>
+													#if($elbylineimage)
+														(<span class="byline-image" tempIter2> $!elbylineimage </span>)
+													#end
+                                                #end
+                                            </figure>
+                                        </li>               
+                                    #end        
+                                </ul>
+                            </div>
+                        </div>
+                        <script>IniciarBxsliderMultimedia(".bxMultimediaText${reserved-article-id.data}","$widthMultimedia","$heightMultimedia")</script>
+                    #end
+                    #set($arraImgTemp = [])
+                #end
+            #end
+    
+
+			#if ($environment == 'PREVIEW')
+                #set($tempIter = " iterhtmlid='$el.Milenium.data' ")
+            #else
+                #set($tempIter = "")		
+            #end
+
+
+            #if($element.name == "Youtube_Text")
+                #if($el && $el.trim() != "")
+                    <div class="multimediaMacroWrapper">
+                        <div class="contentMedia art-youtube"  $!tempIter>
+                            <div class="responsive-video" itemprop="video">
+                                <iframe allowfullscreen="" frameborder="0" height="$heightMultimedia"  width="$widthMultimedia" src="//www.youtube.com/embed/$el.data?wmode=transparent&showinfo=0&theme=light"></iframe>
+                            </div>  
+                        </div>
+                    </div>
+                #end
+            #end
+            
+             #if($element.name == "Vimeo_Text")
+                #if($el && $el.trim() != "")
+                    <div class="multimediaMacroWrapper">
+                        <div class="contentMedia art-vimeo"   $!tempIter>
+                            <div class="responsive-video" itemprop="video">
+                                <iframe class="vimeo-player" src="//player.vimeo.com/video/$el.data" width="$widthMultimedia" height="$heightMultimedia" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                #end
+            #end
+
+        #if($element.name == "Twitter_Text")
+                #if($el && $el.trim() != "")
+                        <div class="art-twitter"  $!tempIter>
+                            <div class="twitter-content" itemprop="tweet">
+                                <blockquote class="twitter-tweet">
+                                <a href='$!el.data'></a>
+                            </blockquote> 
+                            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                            </div>
+                        </div>
+                #end
+            #end
+            
+            #if($element.name == "Multimedia_TextX")
+               #if($el && $el.trim() != "")
+                    <div class="multimediaMacroWrapper">
+                        <div class="contentMedia art-video interno"  $!tempIter>
+                            <div class="responsive-video">
+                                <div id="multimediaPlayer${reserved-article-id.data}${velocityCount}">Cargando reproductor ...</div>        
+                                <script type="text/javascript">
+                                    initJwPlayer("$el.Preview.data","$el.Document.data","multimediaPlayer${reserved-article-id.data}${velocityCount}","$widthMultimedia","$heightMultimedia");                                  
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                #end             
+            #end     
+
+            #if($element.name == "Multimedia_Text")
+               #if($el && $el.trim() != "")
+                    ##<div class="multimediaMacroWrapper">
+                       ## <div class="contentMedia art-video interno"  iterhtmlid="$el.Milenium.data">
+                            <div class="multimedia_text embed-responsive embed-responsive-16by9">
+				#if($el.Extension.data == "mp4")
+                                <video class="embed-responsive-item" width="700" height="394" controls>    
+					<source src="#siteUrl_v1()$el.Document.data" type="video/mp4"/>    
+				</video>
+				#end
+                            </div>
+                        ##</div>
+                    ##</div>
+                #end             
+            #end      
+      
+            #if($element.name == "HTML_Text")
+                #if($el.data && $el.data.trim() != "")
+                    <div class='${element.cssclass}'>$!el.data.trim().replaceAll("&amp;","&")</div>
+                #end                                    
+            #end
+               
+            
+            #if($element.name == "Lead")
+                #if($el && $el.trim() != "")
+                    <h2 class='${element.cssclass} cita'  $!tempIter>$!el.data.trim().replaceAll("&amp;","&")</h2>
+                #end                                    
+            #end
+
+            #if($element.name == "Descanso")
+                #if($el && $el.trim() != "")
+                    <div class='${element.cssclass}'  $!tempIter>$!el.data.trim().replaceAll("&amp;","&")</div>
+                #end                                    
+            #end
+
+	#if($element.name == "Audio_Text")
+		#if($el && $el.trim() != "")
+			<div class='${element.cssclass}'  $!tempIter>
+				<audio src="$!el.Document.data" controls></audio>
+			</div>
+		#end
+	#end
+
+	    #if($element.name == "Article_Text")
+		    #if($el && $el.trim() != "")
+				#set($articletext = $!el.data.trim())
+				#foreach ($element in $$articletext.split("-"))
+					#set($urlid = $element)
+				#end
+				#set($urlid = $urlid.substring(2))
+				<div class='${element.cssclass} $urlid'  $!tempIter> 
+					<script>
+						jQuery.get("/news-portlet/renderArticle/$urlid/L1QvVEVNUExBVEUtTk8tNTE=", function(data, status) {
+							jQuery(".Article_Text.$urlid").append(data);
+						});
+					</script>
+				</div>
+		    #end
+	   #end
+            
+    
+            #if($element.name == "Text")
+                #if($el && $el.trim() != "")
+
+
+				
+					<div class='paragraph' $!tempIter>
+                        #set($tempArrayText = $el.data.trim().replaceAll("&amp;","&").split("</p>"))
+                        #foreach($parrafo in $tempArrayText)
+                            #set($parrafo = $parrafo.replaceAll("<p>", "").replaceAll("</p>", "").trim()) 
+                            #if($parrafo != "")
+								#set($indexp = $indexp + 1)
+                               <p>$!parrafo</p>
+								#Pub_Text_v1($indexp)
+                            #end
+                        #end
+                    </div>
+				
+					
+
+
+
+                    
+                #end
+            #end    
+            
+            #if($element.name == "Intext")
+                #if($el && $el.trim() != "")
+                    <div class='${element.cssclass}'  $!tempIter>
+                        $!el.data.trim().replaceAll("&amp;","&")    
+                    </div>
+                #end
+            #end
+
+            #if($element.name == "Frase_Web")
+                #if($el && $el.trim() != "")
+                    <div class='${element.cssclass}'  $!tempIter>
+                        $!el.data.trim().replaceAll("&amp;","&")    
+                    </div>
+                #end
+            #end
+            
+            #if($element.name == "Quote")
+                #if($el && $el.trim() != "")
+                    <blockquote class='${element.cssclass}'  $!tempIter>
+                        <span>$!el.data.trim().replaceAll("&amp;","&")</span>
+                    </blockquote>   
+                #end
+            #end    
+            
+            
+            #if($element.name == "Destacado")
+                #if($el && $el.trim() != "")
+                    <div class='${element.cssclass}'  $!tempIter>
+                        <span>$!el.data.trim().replaceAll("&amp;","&")</span>
+                    </div>  
+                #end
+            #end    
+
+            #if($element.name == "Image_Text_GIF")
+                #if($el && $el.trim() != "")
+                    <div class='${element.cssclass}'  $!tempIter>
+                        $!articleToolbox.getImageTag2("$el.name","$el.Milenium.data","crop_full","","","","false","","","100%")
+                    </div>  
+                #end
+            #end    
+
+
+        #end
+    #end    
+#end        
+
+##Macro que recupera el texto para los textos del teaser de interna .
+#macro (getTextFlow_AMP_v1 $cropName $widthMultimedia $heightMultimedia $cropSizes)#*
+    *##if($fullaccess=="true")#*
+            *#
+            #set ($hashNames ={})
+            #set ($temp = $hashNames.put("Text","text"))
+            #set ($temp = $hashNames.put("HTML_Text","html"))
+            #set ($temp = $hashNames.put("Frase_Web","Frase_Web"))
+	        #set ($temp = $hashNames.put("Descanso","Descanso"))
+            #set ($temp = $hashNames.put("Image_Text","Image_Text"))
+            #set ($temp = $hashNames.put("Quote","quote"))
+            #set ($temp = $hashNames.put("Youtube_Text","Youtube_Text"))
+            #set ($temp = $hashNames.put("Twitter_Text","Twitter_Text"))
+            #set ($temp = $hashNames.put("Facebook_Text","Facebook_Text"))
+            #set ($temp = $hashNames.put("Maps_Text","Maps_Text"))
+            #set ($temp = $hashNames.put("Multimedia_Text","Multimedia_Text"))
+            #set ($temp = $hashNames.put("Audio_Text","Audio_Text"))
+            #set ($temp = $hashNames.put("Vimeo_Text","Vimeo_Text"))
+            #set ($temp = $hashNames.put("Intext","intext"))
+            #set ($temp = $hashNames.put("Destacado","Destacado"))
+	    #set ($temp = $hashNames.put("Article_Text","Article_Text"))
+	    #set ($temp = $hashNames.put("Image_Text_GIF","Image_Text_GIF"))
+            #*
+        
+        *##printHTMLContentDetalle_AMP_v1($hashNames $cropName $widthMultimedia $heightMultimedia $cropSizes)#*
+    *##else#*
+        *##getTeaserText_v1(600)#*
+        *#<a href="/users/login"><div class="premium-detail"></div></a>#*
+    *##end#*
+*##end
+
+#macro (printDateMod_AMP_v1 $dateFormat $checkToday $hourFormat)#*
+	 *##set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))#*
+	 *##set ($dateFormatFactory = $portalBeanLocator.locate('com.liferay.portal.kernel.util.DateFormatFactoryUtil'))#*
+	 *##set ($indexFormat = $dateFormatFactory.getSimpleDateFormat('EEE, dd MMM yyyy HH:mm:ss Z'))#*
+	 *##set ($dResultado = $indexFormat.parse("$reserved-article-modified-date.data"))#*
+	 *##if($checkToday == true)#*
+		*##set($hoy = $dateTool.getDate())#*
+		*##set($dia_a = $dateTool.getDay($hoy))#*
+		*##set($mes_a = $dateTool.getMonth($hoy) + 1)#*
+		*##set($anio_a = $dateTool.getYear($hoy))#*
+		
+		*##set($dia_n = $dateTool.getDay($dResultado))#*
+		*##set($mes_n = $dateTool.getMonth($dResultado) + 1)#*
+		*##set($anio_n = $dateTool.getYear($dResultado))#*
+
+		*##if( ($dia_a == $dia_n) && ($mes_a == $mes_n) && ($anio_a == $anio_n) )#*
+  			*#$dateTool.format($hourFormat,$dResultado)#*
+		*##else#*
+  			*#$dateTool.format($dateFormat,$dResultado)#*
+		*##end#*
+	  *##else#*
+		*#$dateTool.format($dateFormat,$dResultado)#*
+	  *##end#*
+*##end
+
+#macro (TopInfo_AMP_v1 $section $fs)#*
+
+	*#<div class="top-info d-flex">#*
+	
+		*##if($section == "section")#*
+			*#<div class="section">#*
+				*#<a class="font-2 bold $fs" href="#printURLAssignedSection_v1">#printAssignedSection</a>#*
+			*#</div>#*
+		*##end#*
+
+		*##set($vTopheadline = $!articleToolbox.getTag(null, "Topheadline"))#*
+		*##if($vTopheadline && $vTopheadline.data != "")#*
+			*##if($section == "section")#*
+				*#<span class="iseparator ml-1 mr-1">|</span>#*
+			*##end#*
+			*#<div class="topheadline font-2 $fs">$vTopheadline.data</div>#*
+		*##else#*
+		    *##set($hmTopics = {})#*
+		    *##getAcAssignedCatMain_v1($hmTopics "Topic")#*
+		    *##if($hmTopics.size() > 0)#*
+			*#<div class="topic font-2 $fs">#*
+			*##set($hmTopic = $hmTopics.get(0))#*
+			*##if($section == "section")#*
+				*#<span class="separator ms-1 me-1">|</span>#*
+			*##end#*
+			*#<a href="metadataUrl_novosol${hmTopic.friendlyname}">$hmTopic.name</a>#*
+			*#</div>#*
+		    *##end#*
+		*##end#*
+
+	*#</div>#*
+*##end
+
+#macro (getMultimediaIcon_AMP_v1 $encuadre $tamanoIcono $valign $halign $frameHighRes $frameName $disableLink $cropSizes)#*
+		*##set($tipoContenido = "TeaserImage")#*
+		*##if($TeaserImage)#*
+			*##set ($numImage = $TeaserImage.getSiblings().size())#*
+		*##else#*
+			*##set($numImage = $Image.getSiblings().size())#*
+		*##end#*
+		*##if(!$numImage)#*
+			*##set ($numImage = -1)#*
+		*##end#*
+		*##set ($numImageYoutube = 0)#*
+		*##if($numImage == -1)#*
+		*##if($Youtube && $Youtube.data)#*
+			*##set ($numImageYoutube = $Youtube.getSiblings().size())#*
+		*##end#*
+		*##end#*
+		*##if($numImage > 0 || $numImageYoutube > 0)#*
+			*##set ($Multimedia = "")#*
+			*##getTagMacro_v1($Multimedia, '', 'Multimedia', -1, '', '')#*
+			*##set ($Jwplayer = "")#*
+			*##getTagMacro_v1($Jwplayer, '', 'Jwplayer', -1, '', '')#*
+			*##set ($Vimeo = "")#*
+			*##getTagMacro_v1($Vimeo, '', 'Vimeo', -1, '', '')#*
+			*##set ($Youtube = "")#*
+			*##getTagMacr_v1($Youtube, '', 'Youtube', -1, '', '')#*
+
+			*##if(($Multimedia && $Multimedia.Document.data) || ($Jwplayer && $Jwplayer.data) || ($Vimeo && $Vimeo.data ) || ($Youtube && $Youtube.data))#*
+				*##set ($hasMultimedia = true)#*
+			*##else#*
+				*##set ($hasMultimedia = false)#*
+			*##end#*
+
+			*#<div class="multimediaIconMacroWrapper">#*
+				*##if($disableLink == "")#*
+					*#<a href="#printAcUrl_v1()" class="cutlineShow">#*
+				*##end#*
+				
+					*##if($numImage > 0)#*
+						*##set($tempImage = $articleToolbox.getImageNode($tipoContenido, '0', "true"))#*
+						*##set($AltImage = "#getAltImage_v1($tempImage)")#*
+						*##set($TitleImage = "#getTitleImage_v1($tempImage)")#*
+						*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "0"))#*
+						*##set($elcutline = $tempcutline.Cutline.data)#*
+						*##set($elcutlinemlnid = $tempcutline.Cutline.Milenium.data)#*
+						*##set($tempbylineimage = $articleToolbox.getImageNode("$tipoContenido", "0"))#*
+						*##set($elbylineimage = $tempbylineimage.Byline.data)#*
+						*##set($elbylineimagemlnid = $tempbylineimage.Byline.Milenium.data)#*
+						*##if($enviromentVersion == "new")#*
+							*##set($imgHtml = $!articleToolbox.getImageTag2("$tipoContenido","0","$encuadre","","$!frameHighRes","$!frameName","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+						*##else#*
+							*##set($imgHtml = $!articleToolbox.getImageTag("$tipoContenido","0","$encuadre","","$!frameHighRes","$!frameName","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+						*##end#*
+						*##if($imgHtml)#*
+							*#$imgHtml#*
+						*##end#*
+						*##if($elcutline)#*
+							*#<div class="cutline"><span class="cutline-text" mlnid="$!elcutlinemlnid">$!elcutline</span>#*
+								*##if($elbylineimage)#*
+									*#(<span class="byline-image" mlnid="$!elbylineimagemlnid"> $!elbylineimage </span>)#*
+								*##end#*
+							*#</div>#*
+						*##end#*
+					*##end#*
+					
+					*##if($numImageYoutube > 0)#*
+						*#<img class="img-fluid img-youtube" src="https://img.youtube.com/vi/${Youtube.data}/hqdefault.jpg"/>#*
+					*##end#*
+					
+					*##if($hasMultimedia)#*
+						*##set ($iconClass = "iconPlay")#*
+					*##elseif($numImage > 1)#*
+						*##set ($iconClass = "iconGallery")#*
+					*##else#*
+						*##set ($iconClass = "")#*
+					*##end#*
+
+					*##if($iconClass)#*
+						*#<span class="$!iconClass $!tamanoIcono $!valign $!halign"></span>#*
+					*##end#*
+				*##if($disableLink == "")#*		
+					*#</a>#*
+				*##end#*	
+			*#</div>#*
+		*##end#*
+*##end
+
+#macro (Pub_Text_v1 $ind)#*
+
+	*##set($pub = "")#*
+	*##if($ind == 6)#*
+		*##set($pub = "0")#*
+	*##end#*
+
+	*##if($pub != "")#*
+		*#<div class="in-content text-center mB15">#*
+			*#<div id="Contenido-Incrustado"><script>googletag.cmd.push(function(){ googletag.display("Contenido-Incrustado")});</script></div>#*
+		*#</div>#*
+	*##end#*
+
+*##end
+
+#macro (printAssignedSection_AMP_v1)#*
+	*##set($ac-sectionDateFrom =  $articleContext.selectNodes('articlectx/sections//section[@from]'))#*
+	*##if($ac-sectionDateFrom.size() > 0)#*
+		*##foreach ($atrib in $ac-sectionDateFrom.get(0).attributes()  )#*         
+			*##if($atrib.name == "name")#*
+				*#$!atrib.data#*			  
+			*##end#*
+		*##end#*
+	*##end#*
+*##end
+
+#macro (printOnlyDateModExtend_AMP_v1 $dateFormat)#*
+	*##set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))#*
+	*##set ($dateFormatFactory = $portalBeanLocator.locate('com.liferay.portal.kernel.util.DateFormatFactoryUtil'))#*
+	*##set ($indexFormat = $dateFormatFactory.getSimpleDateFormat('EEE, dd MMM yyyy HH:mm:ss Z'))#*
+	*##set ($dResultado = $indexFormat.parse($reserved-article-modified-date.getData()))#*
+	*#$dateTool.format($dateFormat,$dResultado)#*	
+*##end
