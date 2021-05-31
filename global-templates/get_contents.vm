@@ -1,0 +1,636 @@
+## -----------------------------------------------------------------------------------------------------
+## CREA EL ELEMENTO DE CINTILLO DEL ARTICULO DEPENDIENDO DEL CONTENIDO ELEGIDO ($cont_cintillo)
+## OPCIONES DE "$cont_cintillo" : "sectionArt" (secciÃ³n principal), "keywordArt" (metadato principal del Tema), un contenido del articulo (referencia web "Topheadline", "Cintillo", etc)
+## -----------------------------------------------------------------------------------------------------
+#macro (printTopcontainer_v1 $topcontent $varColorIter $vocabulary)#*
+		*##if($topcontent == "section")#*
+			*#<div class="article-section" itemprop="articleSection">#*
+				*#<a class="section" href="#printURLAssignedSection_v1">#printAssignedSection_v1</a>#*
+			*#</div>#*
+		*##elseif($topcontent == "keywordArt")#*
+			*##if($vocabulary && $vocabulary == "")#*
+				*#set($vocabulary="Topic")#*
+			*##end#*
+			*##set($hmTopics = {})#*
+			*##getAcAssignedCatMain_v1($hmTopics $vocabulary)#*
+			*##if($hmTopics.size() > 0)#*
+			*#<div class="article-meta" itemprop="keywords">#*
+				*##set($hmTopic = $hmTopics.get(0))#*
+				*#<a href="#metadataUrl_v1{$hmTopic.friendlyname}">$hmTopic.name</a>#*
+			*#</div>#*
+			*##end#*
+		*##else#*
+			*#<div class="article-cont">#*
+				*#$!articleToolbox.getTag(null,$topcontent)#*
+			*#</div>#*
+		*##end#*
+*##end
+
+## -----------------------------------------------------------------------------------------------------
+## CREA EL ELEMENTO DE INFO DEL ARTICULO DEPENDIENDO DEL ORDEN Y LOS CONTENIDOS ELEGIDOS
+## OPCIONES DEL ARRAY: "byline,location,date,comments,read_later"
+## -----------------------------------------------------------------------------------------------------
+#macro (printInfo_v1 $info $separador $date $classAuthorSelected $separadorAuthor)#*
+    *#<ul>#*
+    *##foreach ($el in $info.split("\,"))#*
+        *##if($el && $el != "")#*
+            *##set($read_later = false)#*
+            *##if($el == "author")#*
+		*##set($hmAutores = {})#*
+		*##set($countAutores =0)#*
+		*##getAcAssignedCatExtended_v1($hmAutores "Author")#*
+		*##set($hmAutores2 = {})#*
+		*##getAcAssignedExtendedAllCat_v1($hmAutores2 "Author")#*
+		*#<li class="byline" itemprop="author">#*
+                *##if($hmAutores.size() == 1)#*
+			*##foreach( $name in $hmAutores )#*
+				*##set($hmAutor = $hmAutores.get(0))#*
+				*#<a href="#metadataUrl_v1${hmAutor.friendlyname}">$hmAutor.name</a>#*
+				*##set($hmAutor2 = $hmAutores2.get($hmAutor2.name))#*
+				*##foreach($hmAutor2 in $sortTool.sort($hmAutores2, 'name:asc'))#*
+					*##if($hmAutor2.name == $hmAutor.name)#* 
+						*##set($hmAutor2.name  = "")#*
+					*##end#*
+					*#$countAutores#*
+					*#$hmAutores2.size()#*
+					*##if($countAutores != ($hmAutores2.size() - 1) && $hmAutor2.name != "" )#*
+						*##set($bar = $separadorAuthor)#*
+						*#Entra#*
+					*##else#*
+						*##set($bar = "")#*
+					*##end#*
+					*#<a href="#metadataUrl_v1()$hmAutor2.friendlyname" class="$classAuthorSelected">$hmAutor2.name $bar </a>#*
+					*##set($countAutores = $countAutores + 1)#*
+				*##end#*
+			*##end#*
+		*##else#*
+			*##set($hmAutor2 = $hmAutores2.get($hmAutor2.name))#*
+			*##foreach($hmAutor2 in $sortTool.sort($hmAutores2, 'name:asc'))#*
+				
+				*##if($countAutores != ($hmAutores2.size() - 1) )#*
+					*##set($bar = $separadorAuthor)#*
+				*##else#*
+					*##set($bar = "")#*
+				*##end#*
+				*#<a href="#metadataUrl_v1${hmAutor.friendlyname}"> $hmAutor2.name $bar </a>#*
+				*##set($countAutores = $countAutores + 1)#*
+			*##end#*
+		*##end#*
+		*##if($info.split("\,").size() > 1 && $velocityCount < $info.split("\,").size())#*
+			*#<span class="separator">$!separador</span>#*
+		*##end#*
+		*#</li>#*
+            *##elseif($el == "location")#*
+                *##set($hmLocations = {})#*
+                *##getAcAssignedCatExtended_v1($hmLocations "location")#*
+                *##if($hmLocations.size() > 0)#*
+                    *##set($hmLocation = $hmLocations.get(0))#*
+                    *#<li class="location">#*
+                        *#<a href="#metadataUrl${hmLocation.friendlyname}">$hmLocation.name</a>#*
+                        *##if($info.split("\,").size() > 1 && $velocityCount < $info.split("\,").size())#*
+                            *#<span class="separator">$!separador</span>#*
+                        *##end#*
+                    *#</li>#*
+                *##end#*
+            *##elseif($el == "date")#*
+                *##if($date && $date =="")#*
+                    *##set($dateMask = "dd.MM.yyyy, HH:mm" )#*
+                *##else#*
+                    *##set($dateMask = $date )#*
+                *##end#*
+                *#<li class="date" itemprop="datePublished">#*
+                    *##printDate_v1($dateMask)#*
+                    *##if($info.split("\,").size() > 1 && $velocityCount < $info.split("\,").size())#*
+                        *#<span class="separator">$!separador</span>#*
+                    *##end#*
+                *#</li>#*
+            *##elseif($el == "comments")#*
+                *#<li class="comments">#*
+                    *##renderDisqusComments()#*
+                    *##if($info.split("\,").size() > 1 && $velocityCount < $info.split("\,").size())#*
+                        *#<span class="separator">$!separador</span>#*
+                    *##end#*
+                *#</li>#*
+            *##elseif($el == "read_later")#*
+                *##set($read_later = true)#*
+                *#<li class="read_later">#*
+                    *#<div id="favorite-article-add-button_$!reserved-article-id.data" class="favorite-article-add-button art_$!reserved-article-id.data" data-articleid="$!reserved-article-id.data" onClick="click_readLater($!reserved-article-id.data, $('.favorite_alert.art_$!reserved-article-id.data'));" title="Enviar a leer m&aacute;s tarde"></div>#*
+                    *##if($info.split("\,").size() > 1 && $velocityCount < $info.split("\,").size())#*
+                        *#<span class="separator">$!separador</span>#*
+                    *##end#*
+                *#</li>#*
+            *##end#*
+        *##end#*
+    *##end#*
+    ## PARA VERSION 3.2.55 O SUPERIOR
+    ##set($article_is_restricted = $articleToolbox.article_is_restricted())#*
+    ##if ($article_is_restricted)#*
+    Â Â Â Â ##<li class="restricted"><div class="article_is_restricted"></div>#*
+    Â Â Â Â ##foreach($product in $articleToolbox.getProductList())#*
+    Â Â Â Â Â Â Â Â ##<div class="product">$product.get("name") $product.get("namebase64")</div>#*
+    Â Â Â Â ##end#*
+        *#</li>#*
+    ##end#*
+    *#</ul>#*
+    *##if($read_later)#*
+        *#<div id="favorite_alert_$!reserved-article-id.data" class="favorite_alert art_$!reserved-article-id.data" style="display: none;">Noticia marcada para leer m&aacute;s tarde (MyNews)</div>#*
+    *##end#*
+*##end
+
+
+## -----------------------------------------------------------------------------------------------------
+## CREA EL GRUPO DE BOTONES PARA COMPARTIR EL ARTICULO DEPENDIENDO DEL ORDEN Y LOS CONTENIDOS ELEGIDOS
+## OPCIONES DEL ARRAY: twitter,facebook,linkedin,google,meneame,whatsapp,email
+## -----------------------------------------------------------------------------------------------------
+#macro (printShareButtons_v1 $arrayElementsShare)#*
+	*##set($shareUrl = "#siteUrl_v1()#printAcCanonicalUrl_v1()")#*
+	*#<div class="share_buttons">#*
+	*##foreach ($el in $arrayElementsShare)#*
+		*##if($el && $el != "")#*
+			*##if($el == "twitter")#*
+				*#<div class="button_twitter icon-twitter" onclick="javascript:window.open('//twitter.com/intent/tweet?url=$shareUrl&text=$!escapeTool.html($!Headline.data)', '_blank')"></div>#*
+			*##elseif($el == "facebook")#*
+				*#<div class="button_facebook icon-facebook" onclick="javascript:window.open('//facebook.com/sharer.php?u=$shareUrl&text=$!escapeTool.html($!Headline.data)' , '_blank')"></div>#*
+			*##elseif($el == "linkedin")#*
+				*#<div class="button_linkedin icon-linkedin" onclick="javascript:window.open('//www.linkedin.com/shareArticle?mini=true&url=$shareUrl' , '_blank')"></div>#*
+			*##elseif($el == "google")#*
+				*#<div class="button_google icon-google-plus" onclick="javascript:window.open('//plus.google.com/share?url=$shareUrl' , '_blank')"></div>#*
+			*##elseif($el == "whatsapp")#*
+				*#<div class="button_whatsapp icon-whatsapp" onclick="javascript:window.open('whatsapp://send?text=$!escapeTool.html($!Headline.data) - $shareUrl', '_blank');"></div>#*
+			*##elseif($el == "email")#*
+				*#<div class="button_email icon-mail" onclick="javascript:window.open('mailto:?subject=$!escapeTool.html($!articleToolbox.getTag(null,'TeaserHeadline').data)&body=$shareUrl','_blank')" title="Enviar por Email" itemprop="mail"></div>#*
+			*##end#*
+		*##end#*
+	*##end#*
+	*#</div>#*
+*##end
+
+## -----------------------------------------------------------------------------------------------------
+## Macro que pinta los contenidos del articulo para los detalles
+## Parametro 1: arrayListContenidos -> ArrayList de objetos de contenidos a pasar con la lista de los contenidos a recuperar.
+## PARAMETROS DEL OBJETO CONTENIDOS
+## "name": IDENTIFICADOR WEB DEL CONTENIDO
+## "type": TIPO DE CONTENIDO, OPCIONES: "parrafos, texto, imagen, html, video-youtube, video-vimeo, video-jwplayer"
+## "cssclass": ESTILO (CLASS NAME) PARA EL CONTENIDO
+## "tag": TIPO DE TAG PARA CREAR EL ELEMENTO, EJEMPLOS: "<div> <h2> <blockquote>"
+## PARAME DEL OBJETO "addInParrafos"
+## "NUMERO DE PARRAFO TRAS EL QUE PONER LA PUBLICIDAD", "NOMBRE DEL ESPACIO PUBLICITARIO (ITER ADMIN)"  ("2","04-HP_ATF")
+## -----------------------------------------------------------------------------------------------------
+#macro(printHTMLContentArticle_v1 $arrayListContents $cropName $cropSizes $widthMultimedia $heightMultimedia $adInParagraph)
+	#set($childrenTags = $articleToolbox.getChildrenTags(null))
+	#set($currentElement = 0)
+	#set($contadorParrafos = 0)
+
+	#foreach($el in $childrenTags) ## RECORREMOS LOS CONTENIDOS DEL ARTICULO
+		#foreach($cont in $arrayListContents)## BUSCAMOS EL CONTENIDO ($el) EN LOS CONTENIDOS A MOSTRAR ($arrayListContents)
+			
+			#if($cont.name.toUpperCase() == $el.name.toUpperCase()) ## ENCONTRAMOS EL CONTENIDO EN EL LA LISTA DE CONTENIDOS A MOSTRAR
+				
+				#set($currentElement = $currentElement + 1)
+				## type tipo de contenido "parrafos, texto, imagen, html, video-youtube, video-vimeo, video-jwplayer"
+				#if($cont.type == "image") ## CONTENIDOS DE TIPO IMAGEN
+				
+					#set($tempImage = $articleToolbox.getImageNode($el.name, $el.Milenium.data, "true"))
+					#set($AltImage = "#getAltImage_v1($tempImage)")
+					#set($TitleImage = "#getTitleImage_v1($tempImage)")
+					#set($imgHtml = $!articleToolbox.getImageTag("$el.name","$el.Milenium.data","$cropName","","","","false","$!$AltImage","$!TitleImage","$!cropSizes"))
+					<$cont.tag class="multimediaMacroWrapper ${cont.cssclass}">
+						<figure class="contentMedia art-img">
+								
+                                ##COMPROBACION DE VERSION DE ITER PARA PARAMETRO SIZES
+                                #if($imgHtml)##SOPORTE PARA PARAMETRO SIZES
+                                    $imgHtml
+
+				
+
+                                #else##SIN SOPORTE PARAPARAMETRO SIZES
+
+				   
+
+                                    $!articleToolbox.getImageTag("$el.name","$el.Milenium.data","$cropName","","","","false","$!$AltImage","$!TitleImage")
+                                #end							
+                                #if($el.Cutline && $el.Cutline.data != "")
+									#if ($environment == 'PREVIEW')
+											#set($tempIter = "mlnid='$el.Cutline.Milenium.data' ")
+											#set($tempIter2 = " mlnid='$el.Byline.Milenium.data' ")
+									#else
+										#set($tempIter = "")
+										#set($tempIter2 = "")		
+									#end
+									<div class="cutline-byline" tempIter>
+									<span class="cutline-text" tempIter>$!el.Cutline</span>
+									#if($elbylineimage)
+									<span class="byline-image" tempIter2> ($!elbylineimage) </span>
+									#end
+									</div>
+                                #end
+						</figure>
+						
+					</$cont.tag>
+				#end
+				#if($cont.type == "twitter") ## CONTENIDOS DE TIPO TWITTER
+					#if($el && $el.trim() != "")
+						#if ($environment == 'PREVIEW')
+							#set($tempIter = " iterhtmlid='$el.Milenium.data' ")
+						#else
+							#set($tempIter = "")       
+						#end
+						<$cont.tag class="art-twitter ${cont.cssclass}"  $!tempIter>
+							<div class="twitter-content" itemprop="tweet">
+								<blockquote class="twitter-tweet">
+								<a href='$!el.data'></a>
+							</blockquote>
+							<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+							</div>
+						</$cont.tag>
+					#end
+				#end
+				#if($cont.type == "youtube") ## CONTENIDOS DE TIPO VIDEO YOUTUBE
+					#if($el && $el.trim() != "")
+
+                        #if ($environment == 'PREVIEW')
+                            #set($tempIter = " iterhtmlid='$el.Milenium.data' ")
+                        #else
+                            #set($tempIter = "")		
+		                #end
+
+                        <$cont.tag class="multimediaMacroWrapper ${cont.cssclass}" itemprop="video"  $!tempIter >
+                            <iframe allowfullscreen="" frameborder="0" height="$heightMultimedia"  width="$widthMultimedia" src="//www.youtube.com/embed/$el.data?wmode=transparent&controls=2&showinfo=0&theme=light"></iframe>
+                        </$cont.tag>
+
+						
+					#end
+				#end
+				#if($cont.type == "vimeo") ## CONTENIDOS DE TIPO VIDEO VIMEO
+					#if($el && $el.trim() != "")
+
+
+                         
+
+                        #if ($environment == 'PREVIEW')
+                            #set($tempIter = " iterhtmlid='$el.Milenium.data' ")
+                        #else
+                            #set($tempIter = "")		
+		                #end
+
+                         <$cont.tag class="multimediaMacroWrapper ${cont.cssclass}" itemprop="video"  $!tempIter >
+                            <iframe class="vimeo-player" src="//player.vimeo.com/video/$el.data" width="$widthMultimedia" height="$heightMultimedia" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+						 </$cont.tag>
+
+
+						
+					#end
+				#end
+				#if($cont.type == "multimedia") ## CONTENIDOS DE TIPO JWPLAYER
+				   #if($el && $el.trim() != "")
+
+
+                        #if ($environment == 'PREVIEW')
+                            #set($tempIter = " iterhtmlid='$el.Milenium.data' ")
+                        #else
+                            #set($tempIter = "")		
+		                #end
+
+                         <$cont.tag class="multimediaMacroWrapper ${cont.cssclass}"  $!tempIter >
+                            <div id="multimediaPlayer${reserved-article-id.data}${velocityCount}">Cargando reproductor ...</div>		
+                            <script type="text/javascript">
+                                initJwPlayer("$el.Preview.data","$el.Document.data","multimediaPlayer${reserved-article-id.data}${velocityCount}","$widthMultimedia","$heightMultimedia");									
+                            </script>
+                        </$cont.tag>
+
+
+						
+					#end             
+				#end
+				#if($cont.type == "paragraph") ## CONTENIDOS DE TIPO TEXTO CON PARRAFOS
+					#if($el && $el.trim() != "")
+						<$cont.tag class='paragraph ${cont.cssclass}' mlnid="$el.Milenium.data">
+							#set($tempArrayText = $el.data.trim().replaceAll("&amp;","&").split("</p>"))
+							#foreach($parrafo in $tempArrayText)
+								#set($parrafo = $parrafo.replaceAll("<p>", "").replaceAll("</p>", "").trim()) 
+								#if($parrafo != "")
+									<p class="p_$contadorParrafos">$!parrafo</p>
+									#set($n_parrafo = "$contadorParrafos")
+									#set ($item_pub = $adInParagraph.get($n_parrafo))
+									#if($item_pub)
+										$!iterVelocityTools.getAdContainer($item_pub)
+									#end
+									#set($contadorParrafos = $contadorParrafos + 1)
+								#end
+
+							#end
+						</$cont.tag>
+					#end
+				#end
+				#if($cont.type == "text") ## CONTENIDOS DE TIPO TEXTO
+					#if($el.data && $el.data.trim() != "")
+						<$cont.tag class='${cont.cssclass}'>$!el.data.trim().replaceAll("&amp;","&")</$cont.tag>
+					#end                                    
+				#end
+				#if($cont.type == "html") ## CONTENIDOS DE TIPO HTML
+					#if($el.data && $el.data.trim() != "")
+						<$cont.tag class='${cont.cssclass}'>$!el.data.trim().replaceAll("&amp;","&")</$cont.tag>
+					#end                                    
+				#end
+				#break ## SALIMOS ENCONTRADO EN LISTA DE CONTENIDOS A MOSTRAR
+			#end
+		#end
+	#end    
+#end
+
+
+## -----------------------------------------------------------------------------------------------------
+## CREA EL CARRUSEL PARA MOSTRAR POR ORDEN LOS CONTENIDOS DE TIPO GRAFICO
+## Parametro 1: arrayListContenidos -> ArrayList de objetos de contenidos a pasar con la lista de los contenidos a recuperar
+## PARAMETROS DEL OBJETO CONTENIDOS
+## "name": IDENTIFICADOR WEB DEL CONTENIDO
+## "type": TIPO DE CONTENIDO, OPCIONES: "imagenes, multimedia, iframe, html, video-youtube, video-vimeo, video-jwplayer"
+## "cssclass": ESTILO (CLASS NAME) PARA EL CONTENIDO
+## -----------------------------------------------------------------------------------------------------
+
+#macro (getMediaContent_v1 $arrayListMediaContent $templateType $crop $widthMultimedia $heightMultimedia $cropSizes)#*
+		
+        *##if($templateType == "teaser")#*
+			*##if($TeaserImage)#*
+				*##set ($numImage = $TeaserImage.getSiblings().size())#*
+				*##set($tipoContenido = "TeaserImage")#*
+			*##else#*
+				*##set ($numImage = $Image.getSiblings().size())#*
+				*##set($tipoContenido = "Image")#*
+			*##end#*
+		*##else#*
+			*##set ($numImage = $Image.getSiblings().size())#*
+			*##set($tipoContenido = "Image")#*
+		*##end#*
+		*##if(!$numImage)#*
+			*##set ($numImage = 0)#*
+		*##end#*
+		*##set ($numContents = $numImage)#*
+		*#<div class="multimediaMacroWrapper">#*
+			*#<ul class="bxMultimedia${reserved-article-id.data}">#*
+			*##foreach($cont in $arrayListMediaContent)#*
+					*##if($cont.type == "vimeo")#*
+						*##set( $objVimeo = $articleToolbox.getTag(null,$cont.name) )#*
+						*##if($objVimeo && $objVimeo.data)#*
+							*##set ($numContents = $numContents + $objVimeo.getSiblings().size())#*
+							*##foreach ($item in $objVimeo.getSiblings())#*
+                                *##if ($environment == 'PREVIEW')#*
+                                    *##set($tempIter = " iterhtmlid='$item.Milenium.data' ")#*
+                                *##else#*
+                                    *##set($tempIter = "")#*		
+                                *##end#*
+								*#<div class="se_contentMedia art-videoIframe $cont.cssclass" $tempIter>#*
+									*#<div class="responsive-video">#*
+										*#<iframe class="vimeo-player" src="$item.data" width="$widthMultimedia" height="$heightMultimedia" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>#*
+									*#</div>#*
+								*#</div>#*
+							*##end#*
+						*##end#*
+					*##end#*
+					*##if($cont.type == "multimedia")#*
+						*##set( $objMultimedia = $articleToolbox.getTag(null,$cont.name) )#*
+						*##if($objMultimedia && $objMultimedia.data)#*
+							*##set ($numContents = $numContents + $objMultimedia.getSiblings().size())#*
+							*##foreach ($item in $objMultimedia.getSiblings())#*
+                                *##if ($environment == 'PREVIEW')#*
+                                    *##set($tempIter = " iterhtmlid='$item.Milenium.data' ")#*
+                                *##else#*
+                                    *##set($tempIter = "")#*		
+                                *##end#*
+								*#<div class="se_contentMedia art-video interno $cont.cssclass" $tempIter>#*
+									*#<div class="responsive-video">#*
+										*#<div id="multimediaPlayer${reserved-article-id.data}-${velocityCount}">Cargando reproductor ...</div>#*
+										*##set ($mmedia = $articleToolbox.getImageNode( "$item.name", "$item.Milenium.data", "false" ))#*
+										*##if($mmedia.video_preview.Milenium && $mmedia.video_preview.Milenium.data)#*
+											*##set($test = $articleToolbox.getImageURL("video_preview", "$mmedia.video_preview.Milenium.data", "$crop"))#*
+											*#<script type="text/javascript">#*
+												*#initJwPlayer("$!test","$item.Document.data","multimediaPlayer${reserved-article-id.data}-${velocityCount}","$widthMultimedia","$heightMultimedia")#*
+											*#</script>#*
+										*##else#*
+											*#<script type="text/javascript">#*
+												*#initJwPlayer("$item.Preview.data","$item.Document.data","multimediaPlayer${reserved-article-id.data}-${velocityCount}","$widthMultimedia","$heightMultimedia")#*									
+											*#</script>#*
+										*##end#*
+									*#</div>#*
+								*#</div>#* 
+							*##end#*
+						*##end#*
+					*##end#*
+					*##if($cont.type == "multimedia")#*
+						*##set( $objJwPlayer = $articleToolbox.getTag(null,$cont.name) )#*
+						*##if($objJwPlayer && $objJwPlayer.data)#*
+							*##set ($numContents = $numContents + $objJwPlayer.getSiblings().size())#*
+							*##foreach ($item in $objJwPlayer.getSiblings())#*
+                                *##if ($environment == 'PREVIEW')#*
+                                    *##set($tempIter = " iterhtmlid='$item.Milenium.data' ")#*
+                                *##else#*
+                                    *##set($tempIter = "")#*		
+                                *##end#*
+								*#<div class="se_contentMedia art-video externo $cont.cssclass" $tempIter>#*
+									*#<div style="width:${widthMultimedia}px;height:${heightMultimedia}px;">#*
+										*#<div id='botr_${$item.data}_isitqcrW_div' style="width:100%;height:100%;" class="jwplayerMultimedia"></div>#*
+									*#</div>#*
+									*#<script>#*
+										*#if(mobileBrowser){#*
+											*#var htmlJwPlayerDiv = "";#*
+											*#htmlJwPlayerDiv +="<video class='html5Jw' style='width:${widthMultimedia}px;height:${heightMultimedia}px;' controls='' tabindex='0' poster='http://content.jwplatform.com/thumbs/${item.data}-480.jpg'>";#*
+												*#htmlJwPlayerDiv +="<source type='video/mp4' src='http://content.jwplatform.com/videos/${item.data}.mp4'></source>";#*
+											*#htmlJwPlayerDiv +="</video>";#*
+											*#jQuery("#botr_${item.data}_isitqcrW_div").append(htmlJwPlayerDiv);#*
+										*#}#*		
+										*#else{#*
+											*#var script = $('<script>', {#*
+												*#type: 'text/javascript',#*
+												*#async: true,#*
+												*#src: 'http://content.jwplatform.com/players/${item.data}-isitqcrW.js'#*
+											*#});#*
+											*#$('script:first').before(script);#*
+										*#}#*	
+									*#</script>#*
+								*#</div>#*
+							*##end#*
+						*##end#*
+					*##end#*
+					*##if($cont.type == "vimeo")#*
+						*##set( $objVimeo = $articleToolbox.getTag(null,$cont.name) )#*
+						*##if($objVimeo && $objVimeo.data)#*
+							*##set ($numContents = $numContents + $objVimeo.getSiblings().size())#*
+							*##foreach ($item in $objVimeo.getSiblings())#*
+                                *##if ($environment == 'PREVIEW')#*
+                                    *##set($tempIter = " iterhtmlid='$item.Milenium.data' ")#*
+                                *##else#*
+                                    *##set($tempIter = "")#*		
+                                *##end#*
+								*#<div class="se_contentMedia art-iframe $cont.cssclass" $tempIter>#*
+									*#<div class="responsive-iframe">#*
+										*#<iframe class="vimeo-plaayer" src="//player.vimeo.com/video/$item.data" width="$widthMultimedia" height="$heightMultimedia" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>#*
+									*#</div>#*	
+								*#</div>#*
+							*##end#*		
+						*##end#*
+					*##end#*
+					*##if($cont.type == "youtube")#*
+						*##set( $objYouTube = $articleToolbox.getTag(null,$cont.name) )#*
+						*##if($objYouTube && $objYouTube.data)#*
+							*##set ($numContents = $numContents + $objYouTube.getSiblings().size())#*
+							*##foreach ($item in $objYouTube.getSiblings())#*
+                                *##if ($environment == 'PREVIEW')#*
+                                    *##set($tempIter = " iterhtmlid='$item.Milenium.data' ")#*
+                                *##else#*
+                                    *##set($tempIter = "")#*		
+                                *##end#*
+								*#<div class="se_contentMedia art-iframe $cont.cssclass" $temp>#*
+									*#<div class="responsive-iframe">#*
+										*#<iframe allowfullscreen="" frameborder="0" height="$heightMultimedia"  width="$widthMultimedia" src="//www.youtube.com/embed/$item.data?wmode=transparent&controls=1&showinfo=0&theme=light"></iframe>#*
+									*#</div>#*	
+								*#</div>#*
+							*##end#*		
+						*##end#*
+					*##end#*
+					*##if($cont.type == "image")#*
+						*##if($numImage > 0)#*				
+							*##set ($numImageFor = $numImage - 1)#*
+							*##foreach($i in [0..$numImageFor])#*
+								*#<div class="se_contentMedia art-gallery $cont.cssclass">#*
+									*##if($templateType == "teaser")#*
+										*##if($URL && $URL.data != "")#*
+											*#<a href="#printAcUrl_v1()" class="cutlineShow" target="_blank">#*
+										*##else#*
+											*#<a href="#printAcUrl_v1()" class="cutlineShow">#*
+										*##end#*
+									*##end#*
+											*#<figure class="cutlineShow">#*
+												*##set($tempImage = $articleToolbox.getImageNode($tipoContenido, $i, "true"))#*
+												*##set($AltImage = "#getAltImage_v1($tempImage)")#*
+												*##set($TitleImage = "#getTitleImage_v1($tempImage)")#*
+												*##set($tempcutline = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+												*##set($elcutline = $tempcutline.Cutline.data)#*
+												*##set($elcutlinemlnid = $tempcutline.Cutline.Milenium.data)#*
+												*##set($tempbylineimage = $articleToolbox.getImageNode("$tipoContenido", "$i"))#*
+												*##set($elbylineimage = $tempbylineimage.Byline.data)#*
+												*##set($elbylineimagemlnid = $tempbylineimage.Byline.Milenium.data)#*
+												*##set($imgHtml = $!articleToolbox.getImageTag("$tipoContenido","$i","$crop","","","","true","$!AltImage","$!TitleImage","$!cropSizes"))#*
+												*##if($imgHtml)#*
+													*#$imgHtml#*
+												*##else#*
+													*#$!articleToolbox.getImageTag("$tipoContenido","$i","$crop","","","","true","$!AltImage","$!TitleImage")#*
+												*##end#*
+												**##if($elcutline)#*
+                                                    *##if ($environment == 'PREVIEW')#*
+                                                        *##set($tempIter = " mlnid='$!elcutlinemlnid' ")#*
+                                                        *##set($tempIter2 = " mlnid='$!elbylineimagemlnid' ")#*
+                                                    *##else#*
+                                                        *##set($tempIter = "")#*
+                                                        *##set($tempIter2 = "")#*		
+                                                    *##end#*
+													*#<div class="cutline-byline" tempIter>#*
+													*#<span class="cutline-text" tempIter>$!elcutline</span>#*
+													*##if($elbylineimage)#*
+													*#<span class="byline-image" tempIter2> ($!elbylineimage) </span>#*
+													*##end#*
+													*#</div>#*
+												*##end#*
+											*#</figure>#*
+									*##if($templateType == "teaser")#*
+										*#</a>#*
+									*##end#*
+								*#</div>#*				
+							*##end#*		
+						*##end#*
+					*##end#*
+					*##if($cont.type == "iframe")#*
+						*##set( $objIframe = $articleToolbox.getTag(null,$cont.name) )#*
+						*##if($objIframe && $objIframe.data)#*
+							*##set ($numContents = $numContents + $objIframe.getSiblings().size())#*
+							*##foreach ($item in $objIframe.getSiblings())#*
+                                *##if ($environment == 'PREVIEW')#*
+                                    *##set($tempIter = " iterhtmlid='$item.Milenium.data' ")#*
+                                *##else#*
+                                    *##set($tempIter = "")#*		
+                                *##end#*
+								*#<div class="se_contentMedia art-iframe $cont.cssclass" $tempIter>#*
+									*#<div class="responsive-iframe">#*
+										*#<iframe allowfullscreen="" frameborder="0" height="$heightMultimedia"  width="$widthMultimedia" src="$item.data"></iframe>#*
+									*#</div>#*	
+								*#</div>#*
+							*##end#*		
+						*##end#*
+					*##end#*
+					*##if($cont.type == "html")#*
+						*##set( $objIframe = $articleToolbox.getTag(null,$cont.name) )#*
+						*##if($objIframe && $objIframe.data)#*
+							*##set ($numContents = $numContents + $objIframe.getSiblings().size())#*
+							*##foreach ($item in $objIframe.getSiblings())#*
+                                *##if ($environment == 'PREVIEW')#*
+                                    *##set($tempIter = " iterhtmlid='$item.Milenium.data' ")#*
+                                *##else#*
+                                    *##set($tempIter = "")#*		
+                                *##end#*
+								*#<div class="se_contentMedia art-html $cont.cssclass" tempIter>#*
+									*#$item.data#*
+								*#</div>#*
+							*##end#*		
+						*##end#*
+					*##end#*
+			*##end#*
+			*#</ul>#*
+		*#</div>#*
+		*##if($numContents > 1)#*
+			*#<script>IniciarBxsliderMultimedia(".bxMultimedia${reserved-article-id.data}","$widthMultimedia","$heightMultimedia")</script>#*
+		*##end#*
+*##end
+
+## -----------------------------------------------------------------------------------------------------
+## RECUPERA LOS METADATOS DEL CATALOGO SOLICITADO PARA TAMPLATE INFINITY
+## -----------------------------------------------------------------------------------------------------
+#macro (getAcAssignedCatInfinity_v1 $hmResult $categorization)
+	#set($ac-key = $articleContext.selectNodes("articlectx/metadata//key[@name='$categorization']//key"))
+	#set($hmResult = {})
+	#set($hmtemp1 = {})
+	#set($index1 = 0)
+	#set($hasSet = 0)
+	#foreach ($key in $ac-key)
+		#set ($map-attribute = {})
+		#foreach($attrib in $key.attributes())
+			#set($temp = $map-attribute.put($attrib.name,$attrib.data))
+		#end	
+		#set($temp = $hmtemp1.put($index1,$map-attribute))
+		#set($index1 = $index1 + 1)
+		#set($hasSet = 1)
+	#end
+	#if($hasSet == 1)
+		#set($hmResult = $hmtemp1)
+	#end
+#end
+
+##Macro para obtener la fecha del articulo ( Modificación )
+##Parámetro 1: Formato de la fecha, en caso de ser anterior al día actual
+##Parámetro 2: Formatode la hora en caso de ser el dia actual
+#macro (printDate_v1 $dateFormat $hourFormat)    
+        ##Recuperacion de la fecha de modificación
+        #set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))
+        #set ($dateFormatFactory = $portalBeanLocator.locate('com.liferay.portal.kernel.util.DateFormatFactoryUtil'))
+        #set ($indexFormat = $dateFormatFactory.getSimpleDateFormat('EEE, dd MMM yyyy HH:mm:ss'))
+        #set ($idResultado = $indexFormat.parse($reserved-article-modified-date.getData()))
+        
+        #set($hoy = $dateTool.getDate())
+        #set($dia_a = $dateTool.getDay($hoy))
+        #set($mes_a = $dateTool.getMonth($hoy) + 1)
+        #set($anio_a = $dateTool.getYear($hoy))   
+        
+        #set($dia_p = $dateTool.getDay($idResultado))
+        #set($mes_p = $dateTool.getMonth($idResultado) + 1)
+        #set($anio_p = $dateTool.getYear($idResultado))
+        
+        #set($mask = $dateFormat)
+
+ 
+
+        #if ($anio_p == $anio_a && $mes_p == $mes_a && $dia_p == $dia_a)
+            #set($mask = $hourFormat)
+        #end
+
+ 
+
+        $dateTool.format($mask, $idResultado)
+#end
