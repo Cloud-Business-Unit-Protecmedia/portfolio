@@ -1,4 +1,4 @@
-##Macro para llamar a getTag2 o getTag
+##Macro searching for getTag2 or getTag
 #macro (getTagMacro $rtag $context $contentType $totalChars $elem2Rm $elipsis)#*
 	*##if($context == '')#*
 		*##if($enviromentVersion == 'new')#*
