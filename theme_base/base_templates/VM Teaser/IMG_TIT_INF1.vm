@@ -1,0 +1,54 @@
+﻿
+##----------------------##
+## IMG_TIT_INF1         ##
+##----------------------##
+#set($sectionID = "#printAssignedSectionID_v1")
+#set ($varColorIter = $!iterVelocityTools.getVariable($sectionID , "color"))
+#set ($topcontent = $!iterVelocityTools.getVariable($sectionID , "printTopcontainer"))
+#set ($info = $!iterVelocityTools.getVariable("0" , "printInfo"))
+#set ($date = $!iterVelocityTools.getVariable("0" , "date"))
+#set ($hasImages = $articleToolbox.getNumImageTags("TeaserImage", "true"))
+
+#set ($vocabulary = $!iterVelocityTools.getVariable($sectionID , "vocabulary"))
+
+#set ($position = $!iterVelocityTools.getVelocityVariable("teaseritemposition"))
+#set ($last = $!iterVelocityTools.getVelocityVariable("lastteaseritempos"))
+
+#if( $!iterVelocityTools.getVelocityVariable("oddteaseritempos") == true)
+	#set ($oddeven = "odd" )
+#else
+	#set ($oddeven = "even" )
+#end
+
+#if( $!iterVelocityTools.getVelocityVariable("lastteaseritempos") == true && $position > 1 )
+	#set ($last = "last" )
+#else
+	#set ($last = "" )
+#end
+
+#if($hasImages <= 0)
+	#set($templateClass = "no-media")
+#end
+
+<div class="IMG_TIT_INF1 $!oddeven n$!position $!last">
+	#if($hasImages > 0)
+		<div class="media_block">
+			##MULTIMEDIA IMG
+			<div class="multimedia">
+				#getMultimediaIcon_v1("crop_768x432","","right","top","","", "", "100%", true)
+			</div> <!-- multimedia -->
+		</div><!-- media_block -->
+	#end
+	<div class="text_block $!templateClass">
+		##HEADTITLE TIT
+		<div class="headline">
+			<a href="#printAcUrl_v1"><h2>#getTeaserTitle_v1</h2></a>
+		</div>
+		##SECTION INF1
+		#if($topcontent && $topcontent.data != "")
+			##Clase del div contenedor en función de lo que se pinte según la variable de diseño topcontent
+			#printTopcontainer_v1($!topcontent $!varColorIter $!vocabulary)
+		#end
+	</div><!-- text_block -->
+</div>
+

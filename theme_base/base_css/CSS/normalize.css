@@ -1,0 +1,11 @@
+﻿/*----normalize----*/
+ul,li,ol{
+	margin:0px;
+	padding:0px;
+}
+li,ol{
+	list-style-type: none;
+}
+a{
+text-decoration: none;
+}

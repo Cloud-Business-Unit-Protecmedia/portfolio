@@ -1,0 +1,36 @@
+﻿##----POLL----
+
+#set($sectionID = "#printAssignedSectionID_v1")
+#set($varColorIter = $!iterVelocityTools.getVariable($sectionID , "color"))
+#set($dateMask = "#dateMaskShort_v1()")
+#initPoll
+
+<div class="POLL template-poll">
+    <div class="top-block">
+        <div class="question-poll">
+            ##QUESTION
+            <!-- <a href="#printAcUrl"> --><h2 class="headline question font-1 extra-small bold">$!Question.data</h2><!-- </a> -->
+        </div> <!-- Fin div question-poll -->
+        ##CHOICES
+        <div class="choices visible">
+            #if ($Question && $Question.Answer && $Question.Answer.getSiblings() && $Question.Answer.getSiblings().size() > 0)
+                <form class="poll-form" name="poll-form">
+                    <input name="questionId" type="hidden" value="$question.getQuestionId()" />
+                    #foreach ($answer in $Question.Answer.getSiblings())
+                        <span class="choice">
+                        <input type="radio" value="${choicesId.get($count)}" name="choiceId">
+                        $answer.data
+                        </span><br/>
+                        #set ($count = $count + 1)
+                    #end 
+                </form>
+            #end
+        </div> <!-- Fin div choices -->
+        <div class=" results hidden"></div> <!-- Fin div results -->
+    </div> <!-- Fin div top-block -->
+    <div class="buttons-poll">
+        <span class="vote-btn btn visible">#getGlobalString_v1("voteString")</span>
+        <span class="back-btn btn hidden">#getGlobalString_v1("backString")</span>
+        <span class="result-btn btn">#getGlobalString_v1("viewResultsString")</span>
+    </div> <!-- Fin div buttons -->
+</div> <!-- Fin div template-98 -->

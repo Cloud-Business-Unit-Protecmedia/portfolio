@@ -1,0 +1,33 @@
+﻿
+##----------------------##
+## TEMPLATE TIT         ##
+##----------------------##
+#set($sectionID = "#printAssignedSectionID_v1")
+#set ($varColorIter = $!iterVelocityTools.getVariable($sectionID , "color"))
+
+#set ($position = $!iterVelocityTools.getVelocityVariable("teaseritemposition"))
+#set ($last = $!iterVelocityTools.getVelocityVariable("lastteaseritempos"))
+
+#if( $!iterVelocityTools.getVelocityVariable("oddteaseritempos") == true)
+	#set ($oddeven = "odd" )
+#else
+	#set ($oddeven = "even" )
+#end
+
+#if( $!iterVelocityTools.getVelocityVariable("lastteaseritempos") == true && $position > 1 )
+	#set ($last = "last" )
+#else
+	#set ($last = "" )
+#end
+
+
+<div class="TIT $!oddeven n$!position $!last">
+
+		##HEADTITLE
+		<div class="headline">
+			<a href="#printAcUrl_v1"><h2>#getTeaserTitle_v1</h2></a>
+		</div>
+
+
+</div>
+

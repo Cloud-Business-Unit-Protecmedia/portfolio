@@ -1,0 +1,53 @@
+﻿.portlet {
+	background-color: transparent;
+}
+
+.signed-in.controls-visible .empty.portlet-column-content {
+	min-height: 40px;
+}
+
+.signed-in.controls-visible .td-portlet {
+	min-height: 30px;
+}
+.td-portlet { 
+	clear: both;
+	position: relative;
+	width: 100%;
+}
+
+.td-portlet .portlet {
+	border: 0;
+	padding: 0;
+}
+
+.td-portlet .portlet-content {
+	padding: 0;
+}
+
+.signed-in .td-portlet .portlet-topper-toolbar .portlet-maximize,.signed-in .td-portlet .portlet-topper-toolbar .portlet-minimize
+{
+	display: none;
+}
+
+.signed-out .portlet-topper {
+	display: none;
+}
+
+.portlet-boundary .spacer {
+	clear: both;
+}
+
+.portlet-column-content {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.teaserItemPosition{
+	display:none;	
+}
+
+.signed-in.controls-visible .portlet-column {
+	border: 1px dotted gray;
+	display: block;
+	box-sizing: border-box;
+}
