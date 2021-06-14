@@ -28,7 +28,10 @@ In order to contribute to this project, you need to follow these instructions:
 
 1. Go to [the portfolio repository](https://github.com/unc-protecmedia/portfolio).
 2. Fork the repository.
-3. Establish a local repository from your forked github repository.
+3. Clone your forked repository to a local repository:
+```
+git clone https://github.com/your-user/portfolio.git
+```
 4. Establish a remote with the original repository called `upstream`:
 
 ```
@@ -44,8 +47,8 @@ git remote -v
 6. The final result should be:
 
 ```
-origin  git@github.com:your-user/portfolio.git (fetch)
-origin  git@github.com:your-user/portfolio.git (push)
+origin  https://github.com/your-user/portfolio.git (fetch)
+origin  https://github.com/your-user/portfolio.git (push)
 upstream        https://github.com/unc-protecmedia/portfolio.git (fetch)
 upstream        https://github.com/unc-protecmedia/portfolio.git (push)
 ```
