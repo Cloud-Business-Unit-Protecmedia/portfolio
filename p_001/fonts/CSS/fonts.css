@@ -1,0 +1,43 @@
+﻿/*----fonts----*/
+@font-face {
+    font-family: 'workSans_normal';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    /*src: url('https://fonts.google.com/specimen/Work+Sans?preview.text_type=custom');*/
+}
+@font-face {
+    font-family: 'workSans_bold';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+   /* src: url('https://fonts.google.com/specimen/Work+Sans?preview.text_type=custom');*/
+}
+@font-face {
+    font-family: 'workSans_black';
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    /*src: url('https://fonts.google.com/specimen/Work+Sans?preview.text_type=custom');*/
+}
+@font-face {
+    font-family: 'notoSerif_normal';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    /*src: url('https://fonts.google.com/specimen/Noto+Serif+KR?preview.text_type=custom');*/
+}
+@font-face {
+    font-family: 'notoSerif_bold';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    /*src: url('https://fonts.google.com/specimen/Noto+Serif+KR?preview.text_type=custom');*/
+}
+@font-face {
+    font-family: 'notoSerif_black';
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    /*src: url('https://fonts.google.com/specimen/Noto+Serif+KR?preview.text_type=custom');*/
+}

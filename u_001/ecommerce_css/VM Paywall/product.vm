@@ -1,0 +1,20 @@
+﻿##----product----
+<div class="subscriptions-block">
+    <div class="subscriptions-block-header">
+        <p class="subscription-block-header-title">To continue reading, go Premium</p>
+        <p>Are you already Premium? <a class="subscriptions-block-header-login-btn" href="javascript:void(0)" onclick="ITER.SUBSCRIPTION.SHOP.login('/account')">Log in<a></p>
+    </div>
+    <div class="subscriptions-block-body">
+        #set ($products = $productToolbox.getProductsByLabels("digital"))
+        #foreach($product in $products)
+            <div class="subscription-card">
+                $!product.description
+                <a class="subscription-buy-button" alt="Buy" href="javascript:void(0)" onclick="ITER.SUBSCRIPTION.SHOP.buy('$!{product.name}')">I want it</a>
+            </div>
+        #end
+    </div>
+
+   <div class="subscription-block-footer">
+       <a href="javascript:void(0)" onclick="ITER.SUBSCRIPTION.SHOP.catalog()">Check all the subscription modalities</a>
+   </div>
+</div>

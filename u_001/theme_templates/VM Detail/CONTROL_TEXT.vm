@@ -1,0 +1,12 @@
+﻿##----CONTROL_TEXT----
+#set($canonicalUrl = $!articleToolbox.getArticleViewer("canonical"))
+<div class="CONTROL_TEXT">
+ <div class="controls">
+  <span class="increaseTextSize"></span>
+  <span class="decreaseTextSize"></span>
+ </div>
+ <a href='mailto:?subject="$!articleToolbox.getTag(null,"Headline").data"&amp;body=$!articleToolbox.getTag(null,"Headline").data. http://modify-template-25.com/$!canonicalUrl'>
+  <span class="icoMail"></span>
+ </a>
+ <span class="icoDisqus">#renderDisqusComments()</span> 
+</div>

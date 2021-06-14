@@ -1,0 +1,42 @@
+﻿##----INF1_INF2----
+#set($sectionID = "#printAssignedSectionID")
+#set ($varColorIter = $!iterVelocityTools.getVariable($sectionID , "color"))
+#set($dateMask = "#dateMaskLong()")
+<div class="INF1_INF2">
+	
+	##TOPIC
+	#set($hmTopics = {})
+	#getAcAssignedCatMain($hmTopics "Topic")
+	#if($hmTopics.size() > 0)
+		#set($hmTopic = $hmTopics.get(0))
+		<div class="topic font-1 big bold">
+			<a style="color:$!varColorIter" href="#metadataUrl()$hmTopic.friendlyname">$hmTopic.name</a>  
+		</div>
+	#else
+		##PEOPLE
+		#set($hmPeople = {})
+		#getAcAssignedCatMain($hmPeople "People")
+		#if($hmPeople.size() > 0)
+			#set($hmPerson = $hmPeople.get(0))
+			<div class="topic font-1 big bold">
+				<a style="color:$!varColorIter"href="#metadataUrl()$hmPerson.friendlyname">$hmPerson.name</a>  
+			</div>
+		#end
+	#end
+	
+	
+	##DATEFROM
+	<div class="datefrom small">#printDateFrom($dateMask)</div>
+	
+	##BYLINE
+	#set($hmAutores = {})
+	#getAcAssignedCatExtended($hmAutores "Author")
+	#if($hmAutores.size() > 0)
+		#set($hmAutor = $hmAutores.get(0))
+		<div class="byline">
+			<a href="#metadataUrl()$hmAutor.friendlyname"> $hmAutor.name </a>
+		</div>
+	#end
+	
+	<div class="cl"></div>
+</div>

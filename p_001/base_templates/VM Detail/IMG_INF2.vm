@@ -1,0 +1,47 @@
+﻿##---------------------------##
+## IMG_INF2 ##
+##---------------------------##
+#set($sectionID = "#printAssignedSectionID")
+#set ($varColorIter = $!iterVelocityTools.getVariable($sectionID , "color"))
+#set ($topcontent = $!iterVelocityTools.getVariable("0" , "cintillo"))
+#set ($info = $!iterVelocityTools.getVariable("0" , "printInfo"))
+#set ($hasImages = $articleToolbox.getNumImageTags("TeaserImage", "true"))
+
+
+#set ($position = $!iterVelocityTools.getVelocityVariable("teaseritemposition"))
+#set ($last = $!iterVelocityTools.getVelocityVariable("lastteaseritempos"))
+
+#if( $!iterVelocityTools.getVelocityVariable("oddteaseritempos") == true)
+	#set ($oddeven = "odd" )
+#else
+	#set ($oddeven = "even" )
+#end
+
+#if( $!iterVelocityTools.getVelocityVariable("lastteaseritempos") == true && $position > 1 )
+	#set ($last = "last" )
+#else
+	#set ($last = "" )
+#end
+
+<div class="IMG_INF2 $!oddeven n$!position $!last">
+
+		#set($hmAutores = {})
+		#getAcAssignedCatExtended($hmAutores "Author")
+		#set($hmAutor = "")
+		#if($hmAutores.size() > 0)
+			#set($hmAutor = $hmAutores.get(0))
+			#set($catId = $hmAutor.id)
+			#set($aboutAuthor = $aboutCategoryArticles.getArticle($catId))
+			#set($imgAuthor = $!aboutAuthor.getImageTag("Image","0","crop_100x100","","","","true", "$!hmAutor.name", "$!hmAutor.name","25%"))
+			#if($imgAuthor && $imgAuthor != "")
+				<div class="multimedia">
+					$imgAuthor
+				</div>
+			#end
+		#end
+
+		<div class="inf2">
+			#printInfo_v1($info "-")
+		</div>
+
+</div>

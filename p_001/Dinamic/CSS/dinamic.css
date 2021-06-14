@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+	<xsl:output method="text"/>
+	<xsl:param name="sectid"/>
+	<xsl:variable name="currsect" select="/*/section[sectid/text()=$sectid]"/> 
+	<xsl:variable name="sections" select="/*/section"/>
+	<xsl:template match="/">
+	
+	/* INICIO DE ESTILOS PARA LA SECCION ACTUAL */
+		/* Header Logo */
+		<xsl:if test="$currsect/logo">
+			.header-logo {
+				background-image: url("<xsl:value-of select='$currsect/logo'/>");
+			}
+		</xsl:if>
+		
+		<xsl:if test="$currsect/logo_footer">
+			.footer-logo {
+				background-image: url("<xsl:value-of select='$currsect/logo_footer'/>");
+			}
+		</xsl:if>
+	/* IMAGEN SPRITE */
+		<xsl:if test="$currsect/sprite">
+			.sprite, .bx-prev, .bx-next,
+			.header_js .container-menu .parent-nav>li.sect-da7471970934e0475e416bc0025e13f9>div {
+				background-image: url("<xsl:value-of select='$currsect/sprite'/>");
+			}
+		</xsl:if>
+	/* LOADING ANIMATION */
+		/* Header Logo */
+		<xsl:if test="$currsect/loading">
+			.loading-animation {
+				background-image: url("<xsl:value-of select='$currsect/loading'/>");
+				background-repeat: no-repeat;
+				width: 204px;
+				height: 204px;
+				position: fixed;
+				top: calc(50% - 102px);
+				left: calc(50% - 102px);
+				z-index: 999999;
+			}
+		</xsl:if>
+
+	/* INICIO DE ESTILOS POR CADA SECCION */
+	<xsl:for-each select="$sections">
+		<xsl:variable name="color" select="color_section"/>
+		<xsl:if test="$color">
+
+		</xsl:if>
+	</xsl:for-each>
+
+	/* Layouts background */
+	<xsl:if test="$currsect/bglayout_1">
+		.bg-ready.bg-ready-1, .bg-ready.bg-ready-1 .container{
+			background-color: <xsl:value-of select='$currsect/bglayout_1'/> !important;			
+		}	
+	</xsl:if>
+
+	</xsl:template>
+</xsl:stylesheet>

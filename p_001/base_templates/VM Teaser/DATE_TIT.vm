@@ -1,0 +1,21 @@
+﻿##---------------------------##
+## DATE_TIT                  ##
+##---------------------------##
+
+#set($dateMask = "#dateMaskShort()")
+
+<div class="DATE_TIT">
+	<div class="text_block">
+		##BYLINE INF2
+		##INF2 (hour)	
+		<div class="info">
+			 ##printDateFrom_v1($dateMask)    ##vigencia
+			 #printDateTeaser_v1 ($dateMask) ##modificacion
+
+		</div>
+		##HEADTITLE TIT
+		<div class="headline">
+			<a href="#printAcUrl"><h2>#getTeaserTitle_v1</h2></a>
+		</div>
+	</div>
+</div>

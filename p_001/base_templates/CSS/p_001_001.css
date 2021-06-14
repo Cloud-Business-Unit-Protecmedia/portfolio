@@ -1,0 +1,77 @@
+﻿/*----p_001_001 (ranking)----*/
+
+.p_001_001 {
+    float: left;
+    width: 100%;
+    min-height: 400px;
+    margin-left: -4%;
+}
+
+.p_001_001 ul{
+    float: left;
+    width: 100%;
+    border-bottom: 2px solid #ddd;
+    padding: 0;
+}
+
+.p_001_001 li.iter-tab{
+    text-align: center;
+    padding-bottom: 2%;
+}
+
+.p_001_001 .iter-tab a {
+    color: #ddd;
+}
+.p_001_001 .iter-state-active a {
+    color: #FD9D27;
+}
+
+.p_001_001 li{
+    float: left;
+    font-weight: bold;
+    width: 50%;
+}
+
+.p_001_001 li.iter-rankingtab-mostrecent-hd {
+    border-right: 2px solid #ddd;
+    padding-right: 5%;
+    text-align: center;
+    padding-bottom: 0.5rem;
+}
+
+.iter-helper-hidden {
+    display: none;
+}
+
+.p_001_001 .iter-tabview-content-item {
+    float: left;
+    padding-left: 7%;
+}
+
+.p_001_001 .element {
+    border-bottom: 2px solid #ddd;
+    padding: 3% 0;
+}
+.p_001_001 .headline{
+    margin-bottom: 0;
+}
+.p_001_001 .DATE_TIT .info {
+    font-size: 0.8rem; 
+    font-weight: bold;
+    color: #FD9D27;
+    float: left;
+    margin-right: 2%;
+}
+.p_001_001 .h2, .p_001_001 h2 {
+    font-size: 1rem;
+    line-height: 1.3rem;
+}
+.p_001_001 .text_block{
+    min-height: auto !important;
+}
+@media (min-width: 1200px){
+	.p_001_001 .h2, .p_001_001 h2 {
+	    font-size: 1rem;
+            line-height: 1.3rem;
+	}
+}

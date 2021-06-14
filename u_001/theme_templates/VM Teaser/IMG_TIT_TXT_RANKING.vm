@@ -1,0 +1,34 @@
+﻿##----IMG_TIT_TXT_RANKING----
+#set($sectionID = "#printAssignedSectionID_v1")
+
+#set ($vocabulary = $!iterVelocityTools.getVariable($sectionID , "vocabulary"))
+#set ($position = $!iterVelocityTools.getVelocityVariable("teaseritemposition"))
+#set ($last = $!iterVelocityTools.getVelocityVariable("lastteaseritempos"))
+
+#if( $!iterVelocityTools.getVelocityVariable("oddteaseritempos") == true)
+	#set ($oddeven = "odd" )
+#else
+	#set ($oddeven = "even" )
+#end
+
+#if( $!iterVelocityTools.getVelocityVariable("lastteaseritempos") == true && $position > 1 )
+	#set ($last = "last" )
+#else
+	#set ($last = "" )
+#end
+
+<div class="IMG_TIT_TXT_RANKING $!oddeven n$!position $!last">
+	<div class="text_block">
+		<div class="content-number small">
+			<span class="number"></span>
+		</div>
+		<div class="content-access">
+			<span class="access">PRIME</span>
+		</div>
+		<a href="#printAcUrl_v1()">
+			<h3 class="headline  font-1 extra-small bold">
+				#getTeaserTitle_v1
+			</h3>
+		</a>
+	</div>
+</div>

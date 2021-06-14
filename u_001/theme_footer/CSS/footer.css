@@ -1,0 +1,131 @@
+﻿.ly-theme-6-footer .container.top{
+	background:white;
+}
+
+.ly-theme-6-footer .container.top .row.top{
+	margin-bottom:10px;
+}
+
+.ly-theme-6-footer .footer-logo {
+    width: 200px;
+    height: 70px;
+    background: url('../_resources/images/logo.png') no-repeat center center transparent;
+    display: block;
+    margin: 10px auto 5px;	
+    background-size:contain;
+}
+
+@media (max-width: 767px){
+	.ly-theme-6-footer .footer-logo {
+		display:none;
+	}		
+}
+
+
+.ly-theme-6-footer .container.top .social-network-label{
+    border-top: 2px solid #000;
+    color: #000;
+    padding-top: 5px;
+    margin-bottom: 5px;
+    font-family: font_1_bold;
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0 auto;
+    display: block;
+}
+
+@media (max-width: 767px){
+	.ly-theme-6-footer .container.top  .social-network-label{
+	    margin-bottom: 5px;	
+	}
+
+		.ly-theme-6-footer .app-ios, .ly-theme-6-footer .app-android{
+			height: 50px!important;
+	}
+}
+
+@media (max-width: 575px){
+	.ly-theme-6-footer .app-ios, .ly-theme-6-footer .app-android{
+			width: 30%!important;
+	}
+}
+
+@media (max-width: 415px){
+	.ly-theme-6-footer .app-ios, .ly-theme-6-footer .app-android{
+			width: 38%!important;
+	}
+}
+
+.ly-theme-6-footer .container.top  .social-network-wrapper ul{
+	display:table;
+	margin:0 auto;
+}
+
+.ly-theme-6-footer .container.top  .social-network-wrapper li {
+    float: left;
+    font-size: 25px;
+    color: #555;
+    border-radius: 5px;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    -moz-transition: all ease 0.2s;
+    -o-transition: all ease 0.2s;
+    -webkit-transition: all ease 0.2s;
+    transition: all ease 0.2s;
+}
+
+.ly-theme-6-footer .container.top  .social-network-wrapper li a{
+    color: #555;
+    line-height: 40px;
+    text-align: center;
+}
+
+.ly-theme-6-footer .container.top  .social-network-wrapper li:hover{
+	background-color: #fff;
+}
+
+
+
+.ly-theme-6-footer .app-info-label {
+    font-family: font_1_bold;
+    text-align: center;
+    font-size: 16px;	
+	margin-top:10px;
+	color:#000;
+}
+
+
+.ly-theme-6-footer .app-ios,
+.ly-theme-6-footer .app-android{
+	float:left; 
+	width:50%;
+	height: 94px;
+}
+
+.ly-theme-6-footer .app-ios{
+	background: url('../_resources/images/appstore.png') no-repeat center center transparent;	
+}
+
+.ly-theme-6-footer .app-android{
+	background: url('../_resources/images/googleplay.png') no-repeat center center transparent;	
+}
+
+
+
+.ly-theme-6-footer .client-map-label{
+    font-family: font_1_bold;
+    text-align: center;
+    font-size: 16px;	
+	margin-top:10px;	
+	color:#000;
+}
+
+.ly-theme-6-footer .client-map iframe{
+	margin: 0 auto;
+    display: table;
+}

@@ -1,0 +1,139 @@
+﻿/* Headlines
+   ========================================================================== */
+   
+/**
+ * Remove headlines margin and padding
+ */
+
+h1,h2,h3,h4,h5{
+	margin:0px;
+	padding:0px;
+}
+
+/* Anchor styles
+   ========================================================================== */
+   
+/**
+ * Remove underline and give hover effect
+ */
+
+a:hover{
+	text-decoration:none;
+}
+
+.fx-hover{
+	-webkit-transition: opacity.3s ease-out;
+    -moz-transition: opacity.3s ease-out;
+    -ms-transition: opacity.3s ease-out;
+    -o-transition: opacity.3s ease-out;
+    transition: opacity.3s ease-out;
+}
+
+.fx-hover:hover{
+	opacity:0.7;
+}
+
+
+/* List
+   ========================================================================== */
+
+/**
+ * Remove ul/li/ol margin and padding
+ */
+
+ul,li,ol{
+	margin:0px;
+	padding:0px;
+}
+
+/**
+ * Remove li/ol list style
+ */
+
+li,ol{
+	list-style-type: none;
+}
+
+/* Bootstrap column padding
+   ========================================================================== */
+   
+/**
+ * Remove bootstrap column padding
+ */
+
+.nopadding{
+	padding: 0 !important;
+}
+
+.nopadding .row{
+	margin: 0 !important;
+}
+
+.iter-content-wrapper .portlet-column-content {
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+/**
+ * Related two columnms
+ */
+
+.related-2-col .related-here li{
+    width: 50% !important;
+    display: inline-block;
+    vertical-align: top;	
+}
+
+.related-3-col .related-here li{
+    width: 33.33333% !important;
+    display: inline-block;
+    vertical-align: top;	
+}
+
+@media (max-width: 767px){
+	.related-2-col .related-here li{
+    	width: 100% !important;
+    	display: block;
+    	vertical-align: top;	
+	}
+
+	.related-3-col .related-here li{
+	    width: 100% !important;
+	    display: block;
+	    vertical-align: top;			
+	}
+}
+
+.portlet-boundary {
+                padding-left: 6px;
+                padding-right: 6px;
+}
+
+/**
+* Related two columnms new stiles
+*/
+
+.related-2-col .related-here article{
+    width: 50% !important;
+    display: inline-block;
+    vertical-align: top;      
+}
+.related-3-col .related-here article{
+    width: 33.33333% !important;
+    display: inline-block;
+    vertical-align: top;      
+}
+
+@media (max-width: 767px){
+                .related-2-col .related-here article{
+               width: 100% !important;
+               display: block;
+               vertical-align: top;           
+                }
+
+                .related-3-col .related-here article{
+                    width: 100% !important;
+                    display: block;
+                    vertical-align: top;                                      
+                }
+}

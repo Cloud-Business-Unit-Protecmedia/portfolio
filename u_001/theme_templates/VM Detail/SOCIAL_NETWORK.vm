@@ -1,0 +1,26 @@
+﻿##----SOCIAL_NETWORK----
+
+#set($shareUrl = "#siteUrl_v1()#printAcCanonicalUrl_v1()")
+<div class="social_network detail w33">
+	##SHARE
+	<ul class="social-options">
+		<li>
+			<a href="https://www.facebook.com/sharer/sharer.php?u=$!shareUrl" target="_blank" title="Facebook" itemprop="sameAs">
+				<i class="icon-facebook"></i>
+				<b>Facebook</b>
+			</a>
+		</li>
+		<li>
+			<a href="https://twitter.com/intent/tweet?text=$!articleToolbox.getTag(null,'TeaserHeadline').data&url=$!shareUrl" target="_blank" title="Twitter" itemprop="sameAs">
+				<i class="icon-twitter"></i>
+				<b>Twitter</b>
+			</a>
+		</li>
+		<li>
+			<a href="#disqus_thread" class="btn-icon-comment" title="Comments">
+				<i class="glyphicon glyphicon-comment"></i>
+				<b>Comentários</b>
+			</a>
+		</li>
+	</ul>
+</div>

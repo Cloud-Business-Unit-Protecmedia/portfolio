@@ -1,0 +1,63 @@
+﻿##----TIT_INF2_IMG_TXT----
+#set($sectionID = "#printAssignedSectionID_v1")
+#set ($varColorIter = $!iterVelocityTools.getVariable($sectionID , "color"))
+#set ($topcontent = $!iterVelocityTools.getVariable($sectionID , "printTopcontainer"))
+#set ($info = $!iterVelocityTools.getVariable("0" , "printInfo"))
+#set ($date = $!iterVelocityTools.getVariable("0" , "date"))
+#set ($hasImages = $articleToolbox.getNumImageTags("TeaserImage", "true"))
+
+#set ($vocabulary = $!iterVelocityTools.getVariable($sectionID , "vocabulary"))
+
+#set ($position = $!iterVelocityTools.getVelocityVariable("teaseritemposition"))
+#set ($last = $!iterVelocityTools.getVelocityVariable("lastteaseritempos"))
+
+#if( $!iterVelocityTools.getVelocityVariable("oddteaseritempos") == true)
+	#set ($oddeven = "odd" )
+#else
+	#set ($oddeven = "even" )
+#end
+
+#if( $!iterVelocityTools.getVelocityVariable("lastteaseritempos") == true && $position > 1 )
+	#set ($last = "last" )
+#else
+	#set ($last = "" )
+#end
+
+#if($hasImages <= 0)
+	#set($templateClass = "no-media")
+#end
+
+#set($dateMask = "#dateMaskLong_v1()")
+
+<div class="TIT_INF2_IMG_TXT news $!namespace $!oddeven n$!position $!last">
+	<div class="top-block">
+		<div class="headline">
+    		<a href="#printAcUrl_v1"><h2 class="headline font-1 medium bold fx-hover">#getTeaserTitle_v1</h2></a>
+    	</div> <!-- headline -->
+		<div class="info">
+			<div class="byline">
+				#set($hmAutores = {})
+		            #getAcAssignedCatExtended($hmAutores "Author")
+		            #if($hmAutores.size() > 0)
+		            	#set($hmAutor = $hmAutores.get(0))
+		    			<a href="#metadataUrl_v1${hmAutor.friendlyname}">By $hmAutor.name</a>
+		    		#end
+			</div> <!-- Fin div author -->
+			<span class="separator">|</span>
+			#set($dateMask = "#dateMaskLong_v1()")
+			<div class="date">#printDateFrom_v1($dateMask)</div> <!-- date -->
+			<span class="separator">|</span>
+			<div class="num-comments">
+		        #renderDisqusComments()
+			</div> <!-- Fin div discuss -->
+		</div> <!-- Fin div info -->
+	</div> <!-- top-block -->
+	<div class="bottom-block">
+		<div class="image">
+    		#getMultimediaIcon_v1("crop_400x225","small","right","top","","", "", "33%")
+    	</div> <!-- image -->
+		<div class="text">
+			#getTeaserText_v1(200)
+		</div> <!-- text -->
+	</div> <!-- bottom-block -->
+</div> <!-- template-131 -->

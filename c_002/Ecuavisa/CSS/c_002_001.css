@@ -1,0 +1,305 @@
+﻿
+
+/*    u_002_001     */
+
+.c_002_001 
+{
+    font-family: "Barlow Semi Condensed";            
+}
+
+.c_002_001 a{
+
+    color: white;
+
+}
+
+.c_002_001 h2{
+    line-height: 0.9;
+}
+
+/*  .bx-slider -----------------------------------------------------------------------*/
+.c_002_001 .bx-next{
+    top:33%;
+
+}
+
+.c_002_001 .bx-prev{
+    top:33%;
+
+}
+
+/*  .IMGINF1INF2TIT  ---------------------------------------------------------------*/
+
+.c_002_001 .IMGINF1INF2TIT .assigned-section
+{
+    font-size: 1.5em;
+    text-transform: uppercase;
+    border-bottom: 1px solid white;
+}
+
+.c_002_001 .IMGINF1INF2TIT .headline {
+
+    float:left;
+    width: 100%;
+}
+
+.c_002_001 .IMGINF1INF2TIT .inf2{
+
+    margin-top: 2px;
+    padding: 0px;
+    font-size: 1.3em;
+    left: 19px;
+    position: relative;
+    color:white;
+
+
+}
+
+.c_002_001 .IMGINF1INF2TIT .headline h2 span{
+
+    font-size: 2em;
+    width: 100%;
+    color:white;
+}
+
+.c_002_001 .IMGINF1INF2TIT
+{
+    width: 100%;
+    padding-bottom: 12px;
+
+}
+
+.c_002_001 .IMGINF1INF2TIT .article-section 
+{
+    float: left;
+}
+
+.c_002_001 .IMGINF1INF2TIT .text_block{
+
+    position: absolute;
+    bottom: 0;
+    padding: 0 45px 30px 30px;
+    width: 100%;
+
+}
+
+.c_002_001 .IMGINF1INF2TIT .media_block{
+
+    /*webkit-mask-image: linear-gradient(to top,transparent 0%,black 50%);*/
+
+}
+
+.c_002_001 .IMGINF1INF2TIT .media_block{
+
+  position: relative;
+
+}
+
+
+
+/*  IMGTIT  ------------------------------------------------------------------------*/
+/*  Mismo contenido que la plantilla IMG_TIT pero con el TIT sobre la IMG  ---------*/
+
+.c_002_001 .IMGTIT .headline h2 span{
+
+    font-size: 0.8em;
+    width: 100%;
+    color:white;
+}
+
+.c_002_001 .IMGTIT
+{
+    width: 100%;
+    position: relative;
+    margin: 12px;
+
+}
+
+.c_002_001 .IMGTIT .article-section 
+{
+    float: left;
+}
+
+.c_002_001 .IMGTIT .text_block{
+
+    position: absolute;
+    bottom: 0;
+    padding-left: 10px;
+    width: 100%;
+
+}
+
+.c_002_001 .IMGTIT .media_block{
+
+    /*-webkit-mask-image: linear-gradient(to top, opacity 0%,black 50%);*/
+
+}
+
+
+/*  IMG_TIT  ------------------------------------------------------------------------*/
+
+.c_002_001 .IMG_TIT
+{
+    width: 100%;
+    padding: 12px;
+
+
+}
+
+.c_002_001 .IMG_TIT .headline h2 span{
+
+    font-size: 0.8em;
+    color:black;
+    font-weight: bold;
+}
+
+/*  IMG_TIT carrusel  --------------------------------------------------------------*/
+
+.c_002_001.carrusel .IMG_TIT .headline h2 span{
+
+    font-size: 0.8em;
+    color:black;
+    font-weight: bold;
+
+}
+
+.c_002_001.carrusel .IMG_TIT {
+
+padding-left: 16px;
+
+}
+
+/*  IMG_TIT_INF2  ------------------------------------------------------------------------*/
+
+.c_002_001 .IMG_TIT_INF2
+{
+    width: 100%;
+    padding: 12px;
+
+
+}
+
+.c_002_001 .IMG_TIT_INF2 .headline h2 span{
+
+    font-size: 0.8em;
+    color:black;
+    font-weight: bold;
+}
+
+/*  IMG_TIT_INF2 carrusel  --------------------------------------------------------------*/
+
+.c_002_001.carrusel .IMG_TIT_INF2 .headline h2 span{
+
+    font-size: 0.8em;
+    color:black;
+    font-weight: bold;
+
+}
+
+.c_002_001.carrusel .IMG_TIT_INF2 {
+
+padding-left: 16px;
+
+}
+/* Columns -----------------------------------------------------------------------*/
+                                 
+
+
+
+.c_002_001.column2 section, .c_002_001.column3 section, .c_002_001.column4 section, .c_002_001.column5 section {
+    padding-right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: stretch;
+    flex: 1 1 100%;
+    justify-content: flex-end;
+    box-sizing: border-box;
+}
+
+.c_002_001.column2 article, .c_002_001.column3 article, .c_002_001.column4 article, .c_002_001.column5 article {
+    float: left;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+.c_002_001.column2 article {
+    width: 50%;
+}
+
+
+.c_002_001.column3  article{
+    width: 33%;
+}
+
+
+
+.c_002_001.column4  article{
+    width: 25%;
+}
+
+.c_002_001.column5  article{
+    width: 20%;
+}
+/* Lo mÃ¡s reciente --------------------------------------------------------------------*/
+.lomasreciente{
+
+    text-transform: uppercase;
+    font-weight: 800;
+    background-color: transparent;
+    color: #046cdf;
+    font-size: 2em;
+    text-decoration: none;
+    border-bottom: 1.5px solid #ccc4c4;
+    line-height: 48px;
+    width: 49%;
+
+
+}
+
+/* Noticieros ------------------------------------------------------------------------*/
+.noticieros{
+
+    text-transform: uppercase;
+    font-weight: 800;
+    background-color: transparent;
+    color: black;
+    font-size: 2em;
+    text-decoration: none;
+    border-bottom: 1.5px solid #ccc4c4;
+    line-height: 48px;
+    width: 49%;
+
+
+}
+
+/* TIT -----------------------------------------------------------------------------*/
+
+
+
+
+.c_002_001 .TIT h2 span
+{
+    color: black;
+    font-size: 0.7em;
+    line-height: normal;
+}
+
+
+.c_002_001 .TIT
+{
+    display: list-item;
+    padding: 10px 0px 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding-left: 0;
+    padding-right: 0;
+    border-bottom: 1px dotted #c3c3c3;
+    
+}
+
+.c_002_001 article section .TIT
+{
+  padding-left: 10px;
+}

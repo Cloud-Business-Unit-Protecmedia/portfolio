@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+	<xsl:output method="text"/>
+	<xsl:param name="sectid"/>
+	<xsl:variable name="currsect" select="/*/section[sectid/text()=$sectid]"/> 
+	<xsl:variable name="sections" select="/*/section"/>
+	<xsl:template match="/">
+	
+	/* INICIO DE ESTILOS PARA LA SECCION ACTUAL */
+		/* Header Logo */
+		<xsl:if test="$currsect/logo">
+			.header-logo {
+				background-image: url("<xsl:value-of select='$currsect/logo'/>") !important;
+			}
+			
+		</xsl:if>
+		
+		<xsl:if test="$currsect/logo_footer">
+			.footer-logo {
+				background-image: url("<xsl:value-of select='$currsect/logo_footer'/>") !important;
+			}
+		</xsl:if>
+		
+		/* Header and Footer Background Color */
+		<xsl:if test="$currsect/color_header">
+			.ly-theme-6-header .container-header .row.top {
+			    background-color: <xsl:value-of select='$currsect/color_header'/> !important;
+			}
+			.ly-theme-6-header .container-floating-header .row.top-floating{
+				background-color: <xsl:value-of select='$currsect/color_header'/> !important;
+			}
+			
+			.ly-theme-6-footer .container.top{
+				background-color: <xsl:value-of select='$currsect/color_header'/> !important;
+			}
+		</xsl:if>	
+		/* Header and Footer font light color */
+		<xsl:if test="$currsect/color_font_header">
+			.ly-theme-6-header .container-header .search-icon{
+				color: <xsl:value-of select='$currsect/color_font_header'/> !important;	
+			}
+			
+			.ly-theme-6-header .container-header .search-icon:hover{
+				color: #FFF !important;	
+			}
+			
+			.ly-theme-6-header .container-header .html-navigation li a{
+				color: <xsl:value-of select='$currsect/color_font_header'/> !important;	
+			}
+			
+			.ly-theme-6-header .container-header .html-navigation li a:hover{
+				color: #FFF !important;		
+			}
+			
+			.ly-theme-6-header .container-header .header-separator {
+			    border-top: 1px solid <xsl:value-of select='$currsect/color_font_header'/> !important;	
+			    width: 70%;
+			    margin: 20px auto 0;
+			}
+			
+			
+			.ly-theme-6-header .container-floating-header .mobile-menu:before{
+				color: <xsl:value-of select='$currsect/color_font_header'/> !important;	
+			}
+			
+			.ly-theme-6-header .container-floating-header .mobile-menu:hover:before{
+				color: color: #FFF !important;		
+			}
+			.ly-theme-6-header .container-floating-header .html-navigation .readmore {
+    			background: <xsl:value-of select='$currsect/color_font_header'/> !important;	
+			}
+			
+		</xsl:if>
+
+		/* Header Menu */
+		<xsl:if test="$currsect/color">
+			.ly-theme-6-header .container-menu .social-network-label {
+				color: <xsl:value-of select='$currsect/color'/> !important;
+				border-top-color: <xsl:value-of select='$currsect/color'/> !important;
+			}
+	
+			.ly-theme-6-header .container-menu .close-menu{
+				color: <xsl:value-of select='$currsect/color'/> !important;
+				border-color: <xsl:value-of select='$currsect/color'/> !important;
+			}
+			
+		</xsl:if>
+		
+	/* FIN DE ESTILOS PARA LA SECCION ACTUAL */
+
+	/* INICIO DE ESTILOS POR CADA SECCION */
+	<xsl:for-each select="$sections">
+		<xsl:variable name="color_menu" select="color_menu"/>
+		<xsl:variable name="sectid" select="sectid"/>
+
+		<xsl:if test="$color_menu">
+			.container-menu .lst-item.sect-<xsl:value-of select="$sectid"/> a{
+				color:<xsl:value-of select='$color_menu'/> !important; 
+			}
+	    </xsl:if>
+	</xsl:for-each>
+	
+	
+	
+	</xsl:template>
+</xsl:stylesheet>
