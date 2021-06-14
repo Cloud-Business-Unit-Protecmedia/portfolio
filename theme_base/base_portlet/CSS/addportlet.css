@@ -1,0 +1,240 @@
+﻿.aui-widget.aui-component.aui-panel{
+	left: 0 !important;
+    top: 28px !important;
+    position: fixed;	
+	z-index: 10000 !important;
+}
+
+.aui-widget.aui-component.aui-panel .aui-panel-content{
+	border:none;
+	padding: 0;
+}
+
+.aui-widget.aui-component.aui-panel .aui-panel-hd{ 
+    background: #888;
+    color: #fff;
+    text-shadow: none;
+    text-align: center;
+    width: 100%;
+    display: block;
+    border: none;
+    height: 35px;
+    line-height: 35px;
+    padding: 0px;
+    cursor: default;;
+}
+
+.aui-widget.aui-component.aui-panel .aui-panel-hd-text{
+	float: none;
+    line-height: 35px;
+}
+
+.aui-widget.aui-component.aui-panel button#closethick .aui-icon-closethick{
+	background:none;
+}
+
+.aui-widget.aui-component.aui-panel button#closethick{
+    background: none;
+    border: none;
+    height: 35px;
+    width: 35px;
+    margin: 0;
+    padding: 0;	
+}
+
+.aui-widget.aui-component.aui-panel button#closethick{
+    background: none;
+    height: 30px;
+    width: 30px;
+   	-webkit-transition: all.3s ease-out;
+    -moz-transition: all.3s ease-out;
+    -ms-transition: all.3s ease-out;
+    -o-transition: all.3s ease-out;
+    transition: all.3s ease-out;
+    color:#FFF;
+}
+
+.aui-widget.aui-component.aui-panel button#closethick:after {
+    content: "\e088";
+    font-family: 'Glyphicons Halflings';
+    font-size: 20px;
+    line-height: 36px;
+    display: block;
+    height: 35px;
+    width: 35px;
+    font-weight: normal;
+    right: 5px;
+    position: absolute;
+    top: 0;
+}
+
+.aui-widget.aui-component.aui-panel button#closethick:hover{
+	color:#F00;	
+}
+
+
+    
+
+.aui-widget-bd.aui-panel-bd.aui-dialog-bd{
+	padding: 3px 15px;
+    background: #eee;
+    border-bottom: 6px solid #05a5fa;
+}
+
+.aui-widget-bd.aui-panel-bd.aui-dialog-bd input#layout_configuration_content{
+	width:100%;
+}
+
+.aui-widget-bd.aui-panel-bd.aui-dialog-bd .portal_add_content_title{
+	font-weight:bold;
+}
+
+.aui-widget-bd.aui-panel-bd.aui-dialog-bd .portal-add-content-search{
+    border-bottom: 3px solid #3b5998;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.aui-widget-bd.aui-panel-bd.aui-dialog-bd  .lfr-add-content h2 span{
+    background: none;
+    padding-left: 19px;
+    position: relative;
+    display: block;
+}
+
+.aui-widget-bd.aui-panel-bd.aui-dialog-bd  .lfr-add-content h2{
+    background: none;
+    position: relative;
+}
+
+.aui-widget-bd.aui-panel-bd.aui-dialog-bd  .lfr-add-content h2:after{
+    content: "\e252";
+    font-family: 'Glyphicons Halflings';
+    font-size: 15px;
+    line-height: 15px;
+    display: block;
+    height: 17px;
+    width: 15px;
+    font-weight: normal;
+    position: absolute;
+    right: 0;
+    top: 0;
+    color:#05a5fa;	
+}
+
+.aui-widget-bd.aui-panel-bd.aui-dialog-bd .lfr-add-content.expanded h2:after{
+	content: "\e253";		
+}
+
+.aui-widget-bd.aui-panel-bd.aui-dialog-bd  .lfr-add-content h2 span:before {
+    content: "\e056";
+    font-family: 'Glyphicons Halflings';
+    font-size: 15px;
+    line-height: 15px;
+    display: block;
+    height: 17px;
+    width: 35px;
+    font-weight: normal;
+    position: absolute;
+    left: 0;
+    color:#05a5fa;
+}
+
+.aui-widget-bd.aui-panel-bd.aui-dialog-bd .lfr-portlet-item.lfr-instanceable{
+    background: none;
+    position: relative;
+    border: none;
+}
+
+.aui-widget-bd.aui-panel-bd.aui-dialog-bd .lfr-portlet-item.lfr-instanceable:before{
+    content: "\e178";
+    font-family: 'Glyphicons Halflings';
+    font-size: 15px;
+    line-height: 22px;
+    display: block;
+    height: 17px;
+    width: 15px;
+    font-weight: normal;
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #ffa800;
+}
+
+
+.aui-widget-bd.aui-panel-bd.aui-dialog-bd .lfr-portlet-item p a {
+    cursor: pointer;
+    font-size: .9em;
+    font-weight: bold;
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-indent: -9999px;
+}
+
+.aui-widget-bd.aui-panel-bd.aui-dialog-bd .lfr-portlet-item p a:after{
+    content: "\002b";
+    text-indent: 0;
+    font-family: 'Glyphicons Halflings';
+    font-size: 11px;
+    line-height: 22px;
+    display: block;
+    height: 17px;
+    width: 15px;
+    font-weight: normal;
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #a49e99;
+}
+
+.aui-widget.aui-component.aui-panel .aui-resize-handle-inner-r{
+    background: none;
+    height: 20px;
+    margin-top: -10px;
+    top: 50%;	
+}
+
+.aui-widget.aui-component.aui-panel .aui-resize-handle-inner-r:after{
+    content: "\e235";
+    text-indent: 0;
+    font-family: 'Glyphicons Halflings';
+    font-size: 14px;
+    line-height: 20px;
+    display: block;
+    height: 20px;
+    width: 15px;
+    font-weight: normal;
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #555;		
+}
+
+.aui-widget.aui-component.aui-panel .aui-resize-handle-inner-b{
+    background: none;
+    bottom: -4px;
+    margin-left: -8px;
+    left: 50%;	
+}
+
+.aui-widget.aui-component.aui-panel .aui-resize-handle-inner-b:after{
+    content: "\e234";
+    text-indent: 0;
+    font-family: 'Glyphicons Halflings';
+    font-size: 14px;
+    line-height: 20px;
+    display: block;
+    height: 20px;
+    width: 16px;
+    font-weight: normal;
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #555;
+}
+
+
+.aui-widget.aui-component.aui-panel .aui-resize-handle-inner-br{
+	display:none;
+}

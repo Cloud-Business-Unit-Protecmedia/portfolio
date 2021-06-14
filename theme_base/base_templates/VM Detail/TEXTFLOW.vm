@@ -1,0 +1,7 @@
+﻿##----------------------##
+## TEMPLATE TEXTFLOW    ##
+##----------------------##
+##TEXT TXT
+<div class="text">
+	#getTextFlow_v1 ("crop_900x506" "100%")
+</div> <!-- Fin div text -->
