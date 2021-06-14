@@ -8,7 +8,7 @@ Protecmedia is a company based in Madrid (Spain) specialized on developping solu
 
 ## About the product
 
-ITER WCM: ![alt text](https://www.protecmedia.com/binrepository/360x100/0c0/0d0/none/10729/WGLR/logo-iter_57300_20210113121623.png "ITER WCM")  is the CMS developped according to the editorial needs of a newspaper. [See more information about the products](https://www.protecmedia.com/solutions/newsroom)
+ITER WCM: ![alt text](https://i.imgur.com/Iwzs16v.png "ITER WCM")  is the CMS developped according to the editorial needs of a newspaper. [See more information about the products](https://www.protecmedia.com/solutions/newsroom)
 
 ## Contribute to the Portfolio Project
 
