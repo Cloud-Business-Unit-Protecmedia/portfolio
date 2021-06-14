@@ -1,0 +1,117 @@
+﻿/* FONTS*/
+body{
+	font-family:font_1;
+}
+
+.font-1{
+	font-family:font_1;	
+}
+
+.font-1.bold{
+	font-family:font_1_bold;	
+}
+
+/* HEADLINES */
+.headline{
+	margin-bottom:7px;
+	font-weight: bold;
+    font-size: 30px;
+    color: #000;
+}
+
+.headline.medium{
+    font-size: 35px;
+}
+
+.headline.small{
+    font-size: 30px;
+}
+/* SUBHEADLINES */
+
+
+/* TOPHEADLINE */
+
+
+/* TEXT */
+.text{
+    font-size: 17px;
+    color: #000;		
+}
+
+/* BYLINE */
+.byline{
+    font-size: 15px;		
+}
+
+.byline a{
+	 color: #000;		
+}
+
+.byline.big{
+    font-size: 18px;
+}
+
+
+
+
+/* LOCATION */
+
+/* TOPIC */
+
+/* CUTLINE */
+
+
+/* SECTION */
+.section {
+    font-size: 16px;
+    color: #C3C0C1;
+}
+
+/* COMMON CSS PROPERTIES*/
+
+.cl{clear:both;}
+
+
+/* UTILITIES*/
+.center-table{
+	display:table;
+	margin: 0 auto;
+}
+
+/* PREMIUM TEASERTEXT ICON */
+span.premium-icon:after {
+    content: "\e033";
+    color: #de2509;
+    top: 2px;
+    position: relative;
+    font-family: 'Glyphicons Halflings';
+    display: inline-block;
+    font-size: 1.2em;
+    line-height: 0;
+}
+
+/* MARGIN AND PADDING*/
+
+.mT5 {margin-top: 5px;}
+
+.mT10 {margin-top: 10px;}
+
+.mT15 {margin-top: 15px;}
+
+.mT20 {margin-top: 20px;}
+
+.mT30 {margin-top: 30px;}
+
+
+.mB10 {margin-bottom: 10px;}
+
+
+
+/* FLOATED NEWS */
+
+
+/*   MARGIN TOP ARTICLES */
+
+.article.element{
+	margin-top:15px;
+}

@@ -1,0 +1,56 @@
+﻿##----------------------##
+## INF1_TIT_TXT_INF2    ##
+##----------------------##
+#set($sectionID = "#printAssignedSectionID")
+#set ($varColorIter = $!iterVelocityTools.getVariable($sectionID , "color"))
+#set ($topcontent = $!iterVelocityTools.getVariable("0" , "printTopcontainer"))
+#set ($hasImages = $articleToolbox.getNumImageTags("TeaserImage", "true"))
+#set ($vocabulary = $!iterVelocityTools.getVariable($sectionID , "vocabulary"))
+#set ($info = $!iterVelocityTools.getVariable("0" , "printInfo"))
+#set ($date = $!iterVelocityTools.getVariable("0" , "date"))
+
+#set ($position = $!iterVelocityTools.getVelocityVariable("teaseritemposition"))
+#set ($last = $!iterVelocityTools.getVelocityVariable("lastteaseritempos"))
+
+#if( $!iterVelocityTools.getVelocityVariable("oddteaseritempos") == true)
+	#set ($oddeven = "odd" )
+#else
+	#set ($oddeven = "even" )
+#end
+
+#if( $!iterVelocityTools.getVelocityVariable("lastteaseritempos") == true && $position > 1 )
+	#set ($last = "last" )
+#else
+	#set ($last = "" )
+#end
+
+#if($hasImages <= 0)
+	#set($templateClass = "no-media")
+#end
+
+<div class="INF1_TIT_TXT_INF2 $!oddeven n$!position $!last">
+
+	<div class="text_block $!templateClass">
+		
+		##SECTION INF1
+		#if($topcontent && $topcontent.data != "")
+			#printTopcontainer_v1($!topcontent $!varColorIter $!vocabulary)
+		#end
+	
+		##HEADTITLE TIT
+		
+		<div class="headline">
+			<a href="#printAcUrl"><h2>#getTeaserTitle_v1</h2></a>
+		</div>
+		
+		##TEXT TXT
+		<div class="text">
+			#getTeaserText_v1()
+		</div> <!-- Fin div text -->
+
+	</div><!-- block2 -->
+	<div class="inf2">
+		#printInfo_v1($info "-" $date)
+	</div>
+	
+</div>

@@ -1,0 +1,45 @@
+﻿##----------------------##
+##--    IMG_CAPA     ---##
+##----------------------##
+#set($sectionID = "#printAssignedSectionID")
+#set ($varColorIter = $!iterVelocityTools.getVariable($sectionID , "color"))
+#set ($hasImages = $articleToolbox.getNumImageTags("TeaserImage", "true"))
+#set ($position = $!iterVelocityTools.getVelocityVariable("teaseritemposition"))
+#set ($last = $!iterVelocityTools.getVelocityVariable("lastteaseritempos"))
+#if( $!iterVelocityTools.getVelocityVariable("oddteaseritempos") == true)
+	#set ($oddeven = "odd" )
+#else
+	#set ($oddeven = "even" )
+#end
+#if( $!iterVelocityTools.getVelocityVariable("lastteaseritempos") == true && $position > 1 )
+	#set ($last = "last" )
+#else
+	#set ($last = "" )
+#end
+#if($hasImages <= 0)
+	#set($templateClass = "no-media")
+#end
+<div class="IMG_CAPAS $!oddeven n$!position $!last">
+	<div class="capa_header">CAPA DA SEMANA</div>
+	<div class="media_block capa_img">
+		#if($hasImages > 0)
+			##MULTIMEDIA IMG
+			<div class="multimedia">
+				<a href="#printAcUrl()">
+					$!articleToolbox.getImageTag("Image","0","crop_150x190","","","","true","","","")
+				</a>
+			</div> <!-- multimedia -->
+		#end
+	</div><!-- block1 -->
+	<div class="capa_header">CAPA REVISTA</div>
+	<div class="media_block capa_img">
+		#if($hasImages > 0)
+			##MULTIMEDIA IMG
+			<div class="multimedia">
+				<a href="#printAcUrl()">
+					$!articleToolbox.getImageTag("Image","1","crop_150x190","","","","true","","","")
+				</a>
+			</div> <!-- multimedia -->
+		#end
+	</div><!-- block1 -->
+</div>

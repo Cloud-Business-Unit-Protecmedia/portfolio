@@ -1,0 +1,253 @@
+﻿/*----header----*/
+header .portlet-boundary {
+	padding: 0px!important;
+}
+header .lp-header .pre-header {
+	background: #FFF;
+	padding: 0px 0;
+}
+
+header .lp-header .floating-header .top {
+	background: #c60018;
+	min-height:75px;
+}
+header .lp-header .floating-header .bottom {
+	background-color: #ccc;
+	border-bottom: 12px solid #5d5d5d;
+	float: left;
+	height: 52px;
+	position: relative;
+	width: 100%;
+}
+header .lp-header .floating-header .logo_header {
+	background: url(logo.png) no-repeat 0 0;
+	float: left;
+	height: 50px;
+	width: 300px;
+	background-size: contain;
+	margin: 10px 0;
+}
+
+/* MENU CORPORATIVO */
+.menu_corp .sectionName {
+	color: #999;
+	float: left;
+	font: bold 10px Roboto;
+	margin-right: 0px;
+	position: relative;
+}
+.menu_corp .child-nav a.lnk .sectionName {
+	color: #333;
+	float: left;
+	font: bold 10px Roboto;
+	margin: 0 5px;
+	position: relative;
+}
+.menu_corp .child-nav a.lnk .sectionName:hover {
+	color: #c60018;
+}
+.menu_corp .child-nav li {
+	float: left;
+	display: inline-block;
+	background: url(plus.png) no-repeat 0 0 transparent;
+	padding-left: 7px;
+}
+.menu_corp .child-nav li:first-child {
+	background: none;
+}
+
+/* SEARCH HEADER */
+
+.search_header {
+	float: right;
+	margin-right: 10px;
+}
+.search_header .iter-field-element .iter-field-input-text {
+	width: 10px;
+	box-sizing: border-box;
+	border: 1px solid #f1f1f1;
+	border-radius: 30px;
+	background-color: #fff;
+	background-image: url(lupa2-lp.png);
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	padding: 5px 0 5px 30px;
+	-webkit-transition: width .4s ease-in-out;
+	transition: width .4s ease-in-out;
+	float: left;
+	margin: 22px -32px;
+	z-index: 999;
+	cursor: pointer;
+	position: absolute;
+	font: 500 12px/20px Roboto;
+}
+.search_header .iter-field-element .iter-field-input-text:focus {
+	width: 300px;
+	box-shadow: 0 0 5px #999;
+}
+
+.search_header input.iter-button-input-submit {
+	display:none;
+}
+
+
+/* RRSS */
+
+header aside.tools {
+	border-left: 1px solid #FFF;
+	display: inline-block;
+	height: 30px;
+	float: right;
+	margin: 22px 0;
+}
+header .socialbutton {
+	background-image: url(lp_sprite.png);
+	float: left;
+	height: 30px;
+	margin-left: 5px;
+	position: relative;
+	width: 32px;
+}
+header .fb {
+	background-position: -67px 136px;
+	margin-left: 10px
+}
+
+header .tw {
+	background-position: -34px 136px
+}
+
+header .go {
+	background-position: -100px 136px
+}
+
+header .inst {
+	background-position: -134px 136px
+}
+
+header .yt {
+	background-position: -167px 136px
+}
+
+header .vn {
+	background-position: -201px 136px
+}
+
+header .ap {
+	background-position: -234px 136px
+}
+
+header .and {
+	background-position: -267px 136px
+}
+
+header .rss {
+	background-position: -300px 136px
+}
+header .socialbuttonnl {
+	background-image: url(iconnews2.png);
+	float: left;
+	height: 32px;
+	margin-left: 5px;
+	position: relative;
+	width: 32px;
+}
+
+/* MENU TOP */
+.menu_top {
+	background-color: #ccc;
+	border-bottom: 12px solid #5d5d5d;
+	float: left;
+	height: 52px;
+	position: relative;
+	z-index: 9;
+	margin-left: 49px;
+}
+.menu_top li {
+	text-transform: uppercase;
+	border-top: 6px solid #786567;
+	color: #000;
+	float: left;
+	height: 40px;
+	line-height: 34px;
+	padding: 11px 30px 0 30px;
+	font: bold 12px/12px Roboto;
+	border-right: 1px solid #FFF;
+}
+.menu_top li:hover {
+	color: #FFF;
+	background: #786567;
+}
+.menu_top li a{
+	color: #000;
+}
+.menu_top li:hover a{
+	color: #FFF;
+}
+.menu_top li.selected {
+	border-top: 6px solid #c60018;
+	color: #fff;
+	float: left;
+	height: 50px;
+	line-height: 34px;
+	padding: 0 30px;
+	background: #c60018 url(inicio_arrow.png) no-repeat center 35px;
+}
+.menu_top li.selected a{
+	color: #FFF;
+}
+
+/* MENU BURGER */
+.menu_burger {
+    position: absolute;
+}
+.menu_burger a.tab-item.lnk {
+    width: 40px;
+    height: 47px;
+    display: block;
+}
+.menu_burger .sectionName {
+    display: none;
+}
+.menu_burger .child-nav .sectionName {
+    display: block;
+}
+.menu_burger a.tab-item.lnk {
+    background: #c60018 url(lp_sprite.png) 4px 51px;
+    display: block;
+    float: left;
+    height: 40px;
+    width: 47px;
+    position: relative;
+    left: -1px;
+}
+.menu_burger a.tab-item.lnk .sectionName {
+	display: none:
+}
+.menu_burger .child-nav {
+	display: none;
+	padding-top: 40px;
+	z-index: 10;
+	position: relative;
+	min-width: 150px;
+}
+.menu_burger .child-nav li {
+    background: #c60018;
+    border-bottom: 1px solid #c60018;
+    color: #fff;
+    display: block;
+    font: bold 12px/15px Roboto;
+    padding: 8px 12px;
+    text-transform: uppercase;
+}
+.menu_burger .child-nav li:hover {
+	background: #A82F2F!important;
+    color: #fff
+}	
+.menu_burger .child-nav li a{
+	color: #FFF;
+}
+
+.textura {
+	background-color: #ccc;
+}

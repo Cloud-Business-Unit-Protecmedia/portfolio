@@ -1,0 +1,43 @@
+﻿##---------------------------##
+## IMG_TXT ##
+##---------------------------##
+#set($sectionID = "#printAssignedSectionID")
+#set ($varColorIter = $!iterVelocityTools.getVariable($sectionID , "color"))
+#set ($topcontent = $!iterVelocityTools.getVariable("0" , "cintillo"))
+#set ($hasImages = $articleToolbox.getNumImageTags("TeaserImage", "true"))
+
+
+#set ($position = $!iterVelocityTools.getVelocityVariable("teaseritemposition"))
+#set ($last = $!iterVelocityTools.getVelocityVariable("lastteaseritempos"))
+
+#if( $!iterVelocityTools.getVelocityVariable("oddteaseritempos") == true)
+	#set ($oddeven = "odd" )
+#else
+	#set ($oddeven = "even" )
+#end
+
+#if( $!iterVelocityTools.getVelocityVariable("lastteaseritempos") == true && $position > 1 )
+	#set ($last = "last" )
+#else
+	#set ($last = "" )
+#end
+
+#if($hasImages <= 0)
+	#set($templateClass = "no-media")
+#end
+
+<div class="IMG_TXT $!oddeven n$!position $!last">
+
+	#if($hasImages > 0)
+		##MULTIMEDIA IMG
+		<div class="multimedia">
+			#getMultimediaMixed_v1("" "crop_709x438" "504" "311" "100%")
+		</div> <!-- multimedia -->
+	#end
+
+		##TEXT TXT
+		<div class="text">
+			#getTextFlow_v1("crop_709x438" "504" "311" "100%")
+		</div> <!-- Fin div text -->
+
+</div>

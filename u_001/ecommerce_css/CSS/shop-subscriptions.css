@@ -1,0 +1,257 @@
+﻿/*----shop-subscriptions----*/
+/* Cabecera */
+.header-suscribe-block {
+    text-align: right;
+    margin-right: -7px;
+}
+
+.header-suscribe-block a {
+    color: #fff;
+    display: inline-block;
+    padding: 5px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+    margin: 1px;
+}
+
+.header-suscribe-block a.primary {
+    background-color: #94c11f;
+}
+
+.header-suscribe-block a.secondary {
+    background-color: #004c83;
+}
+
+/* Bloques suscripciones */
+
+.restricted-text:after {
+    content: "";
+    width: 100%;
+    height: 80px;
+    display: block;
+    position: absolute;
+    background: rgb(255, 255, 255);
+    background: -webkit-gradient(linear, 0% 0% 0% 100%, from(rgba(255, 255, 255, 0.1)), to(rgba(255, 255, 255, 1)));
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0), rgb(255, 255, 255));
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    background: -ms-linear-gradient(top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    background: -o-linear-gradient(top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.subscriptions-block {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
+}
+
+.subscriptions-block-header {
+    box-sizing: border-box;
+}
+
+.subscription-block-header-title {
+    margin: 0px 0px 0.75rem;
+    font-size: 3rem;
+    line-height: 3.5rem;
+    letter-spacing: 0px;
+    /*font-family: Valencia, "Times New Roman", Times, serif;*/
+	font-family: font_1;
+    font-weight: 700;
+    font-style: normal;
+    color: rgb(0, 0, 0);
+}
+
+.subscriptions-block-body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+}
+
+.subscription-card {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    width: 20rem;
+    text-align: center;
+    border: 0px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 0.0625rem 0.25rem 0px;
+    border-radius: 0.25rem;
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    overflow: hidden;
+    padding: 0.75rem;
+    margin: 1rem;
+}
+
+.subscription-buy-button {
+    padding: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px 0px;
+    width: 100%;
+    background-color: rgb(33, 96, 135);
+    font-weight: 400;
+    font-style: normal;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+.subscription-buy-button:hover {
+    background-color: rgb(26, 77, 108);
+    color: #fff;
+}
+
+.subscription-card-title {
+    margin: 0px;
+    padding: 0px 0px .75rem;
+    font-weight: bold;
+    font-size: 18px;
+    color: #000;
+}
+
+.subscription-card-text-primary {
+    margin: 0px;
+    padding: 0px 0px .75rem;
+    font-family: 'Roboto_condensed', Tahoma, Geneva, sans-serif;
+    color: #000;
+    font-weight: bolder;
+}
+
+.subscription-card-text-secondary {
+    margin: 0px;
+    padding: 0px 0px .75rem;
+    font-family: 'Roboto_condensed', Tahoma, Geneva, sans-serif;
+    color: #666666;
+}
+
+/* TABS */
+
+div.subscriptions-header {
+    text-align: center;
+    margin: 25px auto;
+    background-color: #216087;
+    padding: 15px;
+    color: #fff;
+}
+
+div.subscriptions-header h1 {
+    font-size: 32px;
+}
+
+div.subscriptions-header p {
+    margin: 15px 0 0 0;
+}
+
+div#subscriptions-tabs {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    margin: 25px auto;
+}
+
+div#subscriptions-tabs ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex: 1 0 auto;
+}
+
+div#subscriptions-tabs ul li {
+    flex: 1 0 auto;
+    border: 1px solid #216087;
+    border-radius: 5px;
+    padding: 0;
+    margin: 5px;
+    text-align: center;
+}
+
+div#subscriptions-tabs ul li a {
+    color: #216087;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 5px;
+}
+
+div#subscriptions-tabs ul li.ui-state-active {
+    border-radius: 5px 5px 0 0;
+    margin-bottom: 0;
+    background-color: #216087;
+}
+
+div#subscriptions-tabs ul li.ui-state-active a {
+    color: #fff;
+}
+
+div#subscriptions-tabs .subscriptions-tab-content {
+    border: 1px solid #216087;
+    border-radius: 0 0 5px 5px;
+    padding: 5px;
+    margin: 0 5px;
+}
+
+div#subscriptions-tabs .subscriptions-active-hint {
+    display: block;
+    background-color: #94c11f;
+    color: #fff;
+    padding: 5px;
+    font-family: font_1;
+}
+
+.subscription-catalog {
+    text-align: center;
+}
+
+/* FOOTER */
+
+div.subscriptions-footer {
+    margin: 25px auto;
+    border: 1px solid #e2e2e2;
+    padding: 15px;
+}
+
+div.subscriptions-footer h1 {
+    text-align: center;
+}
+
+div.subscriptions-footer p {
+    text-align: center;
+    margin: 15px 0;
+}
+
+div.subscriptions-footer ul {
+    list-style: none;
+    text-align: center;
+}
+
+div.subscriptions-footer ul li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+div.subscriptions-footer ul li:before {
+    content: '✓';
+    color: #216087;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+div.subscriptions-footer span {
+    background: #e2e2e2;
+    display: block;
+    width: 60%;
+    margin: 15px auto;
+    padding: 15px;
+    text-align: center;
+}

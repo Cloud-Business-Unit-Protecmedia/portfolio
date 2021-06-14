@@ -1,0 +1,12 @@
+﻿/*----c_002_002_RESPONSIVE----*/
+
+
+
+@media (max-width: 768px) {
+
+	.c_002_002.column5  article{
+    width: 50%;
+}
+
+
+}

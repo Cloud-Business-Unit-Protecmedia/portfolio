@@ -1,0 +1,139 @@
+﻿/*----c_002_002----*/
+
+/* CONTACTO DIRECTO----------------------------------------------------------------------*/
+.c_002_002 .cdirecto{
+    width:100%;
+    background-color: black;
+    border-bottom: inset 4px #a96e00;
+    padding-top:8px;
+    padding-bottom:8px;
+
+}
+
+.c_002_002 .cdirecto + div{
+    width:100%;
+    background-color: red;
+    height:2px;
+ }
+
+
+.c_002_002 .cdirecto span{
+    color: white;
+    width: 250px;
+    margin: 6px 0 0px 20px;
+    font-size: 1.5em;
+    letter-spacing: 0.2px;
+    background: none;
+    text-transform: uppercase;
+    font-weight:bold;
+}
+
+.c_002_002 .IMG_TIT{
+
+    width: 100%;
+    background-color: black;
+    padding-left:6px;
+    padding-right:6px;
+
+
+}
+
+.c_002_002 .IMG_TIT .headline h2 span
+{
+
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #F9DC52 ;
+    font-size: 11.2pt;
+
+}
+.c_002_002 .IMG_TIT .headline h2
+{
+
+    text-align:center;
+    line-height:13px;
+
+
+}
+
+.c_002_002 .IMG_TIT .headline
+{
+
+    margin-top:36px;
+    margin-bottom:36px;
+
+}
+
+
+
+/* COLUMNS --------------------------------------------------------------------------------*/
+
+.c_00_002.column5 section {
+    padding-right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: stretch;
+    flex: 1 1 100%;
+    justify-content: flex-end;
+    box-sizing: border-box;
+
+}
+
+
+.c_002_002.column5 section{
+    overflow-y: scroll;
+    overflow-x: none;
+    height:436px;
+}
+
+
+ .c_002_002.column5 section::-webkit-scrollbar {
+    width: 12px;     /* Tamaño del scroll en vertical */
+    height: 8px;    /* Tamaño del scroll en horizontal */
+}
+
+/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
+.c_002_002.column5 section::-webkit-scrollbar-thumb {
+    background: rgba(150,3,46,0.9);
+    border-radius: 4px;
+}
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+.c_002_002.column5 section::-webkit-scrollbar-thumb:hover {
+    background: rgba(205,3,46,0.9);
+;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+/* Cambiamos el fondo cuando esté en active */
+.c_002_002.column5 section::-webkit-scrollbar-thumb:active {
+    background: rgba(205,3,46,0.9);
+}
+.c_002_002.column5 section::-webkit-scrollbar-track {
+    background: #e1e1e1;
+    border-radius: 4px;
+}
+/* Cambiamos el fondo cuando esté en active o hover */
+.c_002_002.column5 section::-webkit-scrollbar-track:hover,
+.c_002_002.column5 section::-webkit-scrollbar-track:active {
+  background: #d4d4d4;
+}
+
+
+
+
+.c_002_002.column5 article {
+    float: left;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+.c_002_002.column5  article{
+    width: 20%;
+}
+
+
+
+
+
+

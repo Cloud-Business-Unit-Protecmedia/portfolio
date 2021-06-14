@@ -1,0 +1,54 @@
+﻿##----GALLERY----
+$!iterVelocityTools.includeLibrary("https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js", "ITER.RESOURCE.CUSTOM.onBxsliderLoaded.resolve()")
+#if ($articleToolbox.getNumImageTags("TeaserImage","true") > 0)
+	#set($tituloImg = $!articleToolbox.getTag(null,'TeaserHeadline').data)
+	#if ($Image.Cutline && $Image.getTag(null,'Cutline').data != "")
+		#set($tituloImg = $Image.getTag(null,'Cutline').data)
+	#end
+        #eliminarHTML_v1($tituloImg)
+	<div class="GALLERY">
+		<div class="galleryClick">
+			<div class="multimediaIconMacroWrapper">
+				$!articleToolbox.getImageTag("TeaserImage","0","crop_170x96","","","", "true", "$!articleToolbox.getTag(null, 'TeaserHeadline').data", "$!articleToolbox.getTag(null, 'TeaserHeadline').data")
+			</div>
+		<div class="hiddenGallery" style="display:none;" numtotimgs="$articleToolbox.getNumImageTags('TeaserImage','true')">
+			<div class="categoria">#printAssignedSection_v1()</div><!--categoria-->
+				<ul class="galeriaSeleccionada">
+					#foreach($elem in $Image.getSiblings())
+						#set($elemIndex = $velocityCount - 1)
+						#eliminarHTML_v1($!elem.getTag(null,'Cutline').data)
+						#if ($velocityCount < 12)
+							<li>
+								<div class="custom-headline-114">$!Headline.data</div>
+								<figure class="img-galeria">
+									$!articleToolbox.getImageTag("TeaserImage","$elemIndex","crop_768x432","","","", "true", "$!elem.getTag(null,'Cutline').data", "$!elem.getTag(null,'Cutline').data")
+								</figure>
+								#if ($Headline && $!articleToolbox.getTag(null,'TeaserHeadline').data != "")
+									<a href="#printAcUrl_v1()">
+										<figcaption class="description-img">$!elem.Cutline.data</figcaption>
+									</a>
+								#end
+							</li>
+						#elseif ($velocityCount == 12)
+							<li>
+								<div class="custom-headline-114">$!Headline.data</div>
+								<a href="#printAcUrl_v1()"><span class="icon-gal-complete"></span></a>
+								<figure class="img-galeria">
+									$!articleToolbox.getImageTag("TeaserImage","$elemIndex","crop_768x432","","","", "true", "$!elem.Cutline.data", "$!elem.Cutline.data")
+								</figure>
+								#if ($Headline && $!articleToolbox.getTag(null, 'TeaserHeadline').data != "")
+								<figcaption class="description-img">$!elem.Cutline.data</figcaption>
+								#end
+							</li>
+						#end
+					#end
+				</ul>
+			</div><!--hiddenGallery-->
+		
+		</div><!--tgalleryClick-->
+	</div><!--template-114-->
+
+
+#end
+
+

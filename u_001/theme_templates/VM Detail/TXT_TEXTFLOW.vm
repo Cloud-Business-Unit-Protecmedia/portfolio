@@ -1,0 +1,10 @@
+﻿##----TXT_TEXTFLOW----
+<div class="TXT_TEXTFLOW detail w50 m50">
+	<div class="left-block">	
+		##TEXT
+		<div class="text medium resizable">
+			#getTextFlow("crop_900x506","1000","562", "20%")
+		</div>	
+	</div>
+	<div class="cl"></div>
+</div>

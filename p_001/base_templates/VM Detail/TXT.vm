@@ -1,0 +1,31 @@
+﻿##---------------------------##
+## TXT ##
+##---------------------------##
+#set($sectionID = "#printAssignedSectionID")
+#set ($varColorIter = $!iterVelocityTools.getVariable($sectionID , "color"))
+#set ($topcontent = $!iterVelocityTools.getVariable("0" , "cintillo"))
+
+
+#set ($position = $!iterVelocityTools.getVelocityVariable("teaseritemposition"))
+#set ($last = $!iterVelocityTools.getVelocityVariable("lastteaseritempos"))
+
+#if( $!iterVelocityTools.getVelocityVariable("oddteaseritempos") == true)
+	#set ($oddeven = "odd" )
+#else
+	#set ($oddeven = "even" )
+#end
+
+#if( $!iterVelocityTools.getVelocityVariable("lastteaseritempos") == true && $position > 1 )
+	#set ($last = "last" )
+#else
+	#set ($last = "" )
+#end
+
+
+<div class="TXT $!oddeven n$!position $!last">
+
+		##TEXT TXT
+		<div class="text">
+			#getTextFlow_v1("crop_504x311" "504" "311" "100%")
+		</div> <!-- Fin div text -->
+</div>

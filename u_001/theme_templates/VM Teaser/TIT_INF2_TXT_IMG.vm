@@ -1,0 +1,52 @@
+﻿##----TIT_INF2_TXT_IMG----
+#set($sectionID = "#printAssignedSectionID_v1")
+#set ($varColorIter = $!iterVelocityTools.getVariable($sectionID , "color"))
+#set ($topcontent = $!iterVelocityTools.getVariable($sectionID , "printTopcontainer"))
+#set ($info = $!iterVelocityTools.getVariable("0" , "printInfo"))
+#set ($date = $!iterVelocityTools.getVariable("0" , "date"))
+#set ($hasImages = $articleToolbox.getNumImageTags("TeaserImage", "true"))
+
+#set ($vocabulary = $!iterVelocityTools.getVariable($sectionID , "vocabulary"))
+
+#set ($position = $!iterVelocityTools.getVelocityVariable("teaseritemposition"))
+#set ($last = $!iterVelocityTools.getVelocityVariable("lastteaseritempos"))
+
+#if( $!iterVelocityTools.getVelocityVariable("oddteaseritempos") == true)
+	#set ($oddeven = "odd" )
+#else
+	#set ($oddeven = "even" )
+#end
+
+#if( $!iterVelocityTools.getVelocityVariable("lastteaseritempos") == true && $position > 1 )
+	#set ($last = "last" )
+#else
+	#set ($last = "" )
+#end
+
+#if($hasImages <= 0)
+	#set($templateClass = "no-media")
+#end
+<div class="TIT_INF2_TXT_IMG news $!oddeven n$!position $!last">
+	<div class="content-left">
+	<div class="registration" <p=""><strong>♦ NEWS UNDER SUBSCRIPTION</strong><p></p>
+	</div> <!-- registration -->
+		<a href="#printAcUrl_v1">
+			<h3 class="headline">#getTeaserTitle_v1</h3> <!-- headline -->
+		</a>
+    	<div class="byline">
+    	#set($hmAutores = {})
+                #getAcAssignedCatExtended_v1($hmAutores "Author")
+                #if($hmAutores.size() > 0)
+                	#set($hmAutor = $hmAutores.get(0))
+        			<a href="#metadataUrl_v1${hmAutor.friendlyname}"><span>#getGlobalString_v1("byString")</span> $hmAutor.name</a>
+    			#end
+    	</div> <!-- byline -->
+    	<div class="text">#getTeaserText_v1(80)</div> <!-- text -->
+    	<div class="related-here"></div> <!-- Fin div related-here -->
+	</div> <!-- content-left -->
+	<div class="content-right">
+		<div class="image">
+			#getMultimediaIcon_v1("crop_300x300","small","bottom","right","","", "", "30%")
+		</div> <!-- image -->
+	</div> <!-- content-right -->
+</div> <!-- template-121 -->

@@ -1,0 +1,11 @@
+﻿##----TEMPLATE-SUMMARY----
+
+
+<script>
+#foreach($el in $Summary.getSiblings())
+
+	jQuery(".text p:contains('$el.data.replace('"','\"').trim()')").html(function(_, html) {
+		return html.replace(/($el.data.replace('"','\"').trim())/g, '<span class="highlight">$1</span>');
+	});
+#end
+</script>

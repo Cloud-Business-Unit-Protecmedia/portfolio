@@ -1,0 +1,54 @@
+﻿##----INF1_TIT_TXT_INF2_IMG----
+#set($sectionID = "#printAssignedSectionID")
+#set ($varColorIter = $!iterVelocityTools.getVariable($sectionID , "color"))
+#set ($hasImages = $articleToolbox.getNumImageTags("TeaserImage", "true"))
+#if($hasImages <= 0)
+	#set($templateClass = "no-media")
+#end
+#set($dateMask = "#dateMaskLong()")
+<div class="INF1_TIT_TXT_INF2_IMG news $!templateClass w66 m25">
+	<div class="right-block">
+			##MULTIMEDIA ICON
+			#getMultimediaIcon_v1("crop_768x432","small","bottom","left","","", "","25%")
+	</div> <!-- Fin div left-block -->
+	<div class="left-block">
+		#set($hmTopics = {})
+            #getAcAssignedCatMain($hmTopics "Topic")
+            #if($hmTopics.size() > 0)
+				#set($hmTopic = $hmTopics.get(0))
+            		<a class="topic" href="#metadataUrl_v1()$hmTopic.friendlyname">$hmTopic.name</a>
+            #end
+			##HEADLINE
+			<a href="#printAcUrl_v1">
+				<h3 class="headline extra-small fx-hover font-1 bold">
+					#getTeaserTitle_v1
+				</h3>
+			</a>
+			##TEXT
+			<div class="text small">
+				#if($hasImages <= 0)
+					#getTeaserText_v1(300)
+				#else 
+					#getTeaserText_v1(150)
+				#end
+			</div>
+			<div class="info">
+				<div class="byline">
+					#set($hmAutores = {})
+			            #getAcAssignedCatExtended_v1($hmAutores "Author")
+			            #if($hmAutores.size() > 0)
+			            	#set($hmAutor = $hmAutores.get(0))
+			    			<a href="#metadataUrl_v1${hmAutor.friendlyname}">By $hmAutor.name</a>
+			    		#end
+				</div> <!-- Fin div author -->
+				<span class="separator">|</span>
+				#set($dateMask = "#dateMaskLong_v1()")
+				<div class="date">#printDateFrom_v1($dateMask)</div> <!-- date -->
+				<span class="separator">|</span>
+				<div class="num-comments">
+			        #renderDisqusComments()
+				</div> <!-- Fin div discuss -->
+			</div> <!-- Fin div info -->
+	</div> <!-- Fin div right block -->
+	<div class="cl"></div> <!-- fin div clear -->
+</div> <!-- Fin div template-95 -->

@@ -1,0 +1,90 @@
+﻿##----------------------##
+## IMG_INF1_TIT_TXT_INF2 ##
+##----------------------##
+#set($sectionID = "#printAssignedSectionID")
+#set ($varColorIter = $!iterVelocityTools.getVariable($sectionID , "color"))
+#set ($topcontent = $!iterVelocityTools.getVariable("0" , "printTopcontainer"))
+#set ($info = $!iterVelocityTools.getVariable("0" , "printInfo"))
+#set ($date = $!iterVelocityTools.getVariable("0" , "date"))
+#set ($hasImages = $articleToolbox.getNumImageTags("TeaserImage", "true"))
+#set ($vocabulary = $!iterVelocityTools.getVariable($sectionID , "vocabulary"))
+
+
+#set ($position = $!iterVelocityTools.getVelocityVariable("teaseritemposition"))
+#set ($last = $!iterVelocityTools.getVelocityVariable("lastteaseritempos"))
+
+#if( $!iterVelocityTools.getVelocityVariable("oddteaseritempos") == true)
+	#set ($oddeven = "odd" )
+#else
+	#set ($oddeven = "even" )
+#end
+
+#if( $!iterVelocityTools.getVelocityVariable("lastteaseritempos") == true && $position > 1 )
+	#set ($last = "last" )
+#else
+	#set ($last = "" )
+#end
+
+#if($hasImages <= 0)
+	#set($templateClass = "no-media")
+#end
+
+#set($nameSection= "#printAssignedSection")
+
+
+<div class="IMG_INF1_TIT_TXT_INF2 $!oddeven n$!position $!last">
+
+	<div class="media_block">
+		#if($hasImages > 0)
+			##MULTIMEDIA IMG
+			<div class="multimedia">
+				#getMultimediaIcon_v1("crop_768x432","","","","","", "", "100%", true)
+			</div> <!-- multimedia -->
+		
+		#elseif($nameSection.contains("Opin"))
+			#set($templateClass = "media")
+			#set($hmAutores = {})
+			#getAcAssignedCatExtended($hmAutores "Author")
+			#set($hmAutor = "")
+			#if($hmAutores.size() > 0)
+				#set($hmAutor = $hmAutores.get(0))
+				#set($catId = $hmAutor.id)
+				#set($aboutAuthor = $aboutCategoryArticles.getArticle($catId))
+				#set($imgAuthor = $!aboutAuthor.getImageTag("Image","0","crop_100x100","","","","true", "$!hmAutor.name", "$!hmAutor.name","25%"))
+				#if($imgAuthor && $imgAuthor != "")
+					<div class="multimedia author">
+						$imgAuthor
+					</div>
+				#end
+			#end
+		#end
+	</div><!-- block1 -->
+
+	<div class="text_block $!templateClass">
+		
+		##SECTION INF1
+		#if($topcontent && $topcontent.data != "")
+			#printTopcontainer_v1($!topcontent $!varColorIter $!vocabulary)
+		#end
+	
+		##HEADTITLE TIT
+		
+		<div class="headline">
+			<a href="#printAcUrl"><h2>#getTeaserTitle_v1</h2></a>
+		</div>
+		
+
+
+		##TEXT TXT
+		<div class="text">
+			#getTeaserText_v1()
+		</div> <!-- Fin div text -->
+	
+		
+
+	</div><!-- block2 -->
+	<div class="inf2">
+		#printInfo_v1($info "-" $date)
+	</div>
+	
+</div>

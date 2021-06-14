@@ -1,0 +1,179 @@
+﻿/*----footer----*/
+
+
+/* Layout */
+
+footer .container-fluid.nopadding {
+    padding: 30px 0;
+}
+
+.ly-footer .row.f-r02 {
+    border-top: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;
+    border-right: 2px solid #ddd;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.ly-footer .f-r02-c01 {
+    padding: 8px 0;
+}
+
+.ly-footer .f-r02-c02 {
+    border-left: 2px solid #ddd;
+}
+
+
+/* Logo */
+
+.ly-footer .footer-logo {
+    display: block;
+    width: 100px;
+    height: 75px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+}
+
+
+/* Navigation */
+
+.ly-footer .nav-dropdown ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.ly-footer .nav-dropdown ul li {
+    flex: 1 0 28%;
+    margin-top: 5px;
+}
+
+
+/* Registo Newsletter */
+
+.ly-footer .f-r02-c02 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.ly-footer .newsletters {
+    display: inline-flex;
+    max-width: 100%;
+}
+
+.ly-footer .newsletter_email {
+    width: 250px;
+    height: 0;
+}
+
+.ly-footer .newsletter_email_ctrl {
+    width: 100%;
+    height: 40px;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 13pt;
+    background-color: unset;
+    -webkit-background-color: unset;
+    -moz-background-color: unset;
+    border: unset;
+    border-right: 2px solid #ddd;
+}
+
+.ly-footer .newsletters_options {
+    display: block!important;
+}
+
+.ly-footer .newsletter_email_label,
+.ly-footer .newsletter_chk_subs_div,
+.ly-footer .newsletters_title,
+.ly-footer .newsletters_desc,
+.ly-footer .newsletters_option_title,
+.ly-footer .newsletters_option_date,
+.ly-footer .newsletters_option_desc {
+    display: none!important;
+}
+
+.ly-footer .newsletters_options input[type=checkbox] {
+    float: right;
+    width: 160px;
+    height: 30px;
+    appearance: button;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    position: relative;
+    cursor: pointer;
+}
+
+.ly-footer .newsletters_options input[type=checkbox]::before {
+    content: "Subscrever";
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 700;
+    color: #999;
+    display: block;
+    width: 160px;
+    height: 42px;
+    padding-top: 8px;
+    text-align: center;
+    background-color: #F2EEEE;
+    -webkit-background-color: #F2EEEE;
+    -moz-background-color: #F2EEEE;
+}
+
+.ly-footer .newsletters_options input[type=checkbox]:checked::before {
+    content: "Subscrito";
+    font-family: 'Work Sans', sans-serif;
+    color: #fff;
+    font-weight: 700;
+    display: block;
+    width: 160px;
+    height: 42px;
+    padding-top: 8px;
+    text-align: center;
+    background-color: #FD9D27;
+    -webkit-background-color: #FD9D27;
+    -moz-background-color: #FD9D27;
+    border: inset;
+}
+
+.ly-footer .newsletter_email_ctrl::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: #999;
+}
+
+.ly-footer .newsletter_email_ctrl::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #999;
+}
+
+.ly-footer .newsletter_email_ctrl::-ms-input-placeholder {
+    /* IE 10+ */
+    color: #999;
+}
+
+
+/*######### RESPONSIVE #########*/
+
+
+/* Registo Newsletter */
+
+@media (max-width: 992px) {}
+
+@media(max-width: 767px) {
+    .ly-footer .row.f-r02 {
+        border-right: unset;
+        padding-left: 10px;
+    }
+    .ly-footer .newsletter_email {
+        width: 350px;
+    }
+    .ly-footer .newsletter_email_ctrl {
+        border-right: unset;
+        background-color: #fff!important;
+    }
+    .ly-footer .newsletters_options input[type=checkbox]:before {
+        border: 2px solid #ddd;
+        -webkit-box-shadow: 0px 0px 20px 0px #7b7b7b;
+        box-shadow: 0px 0px 20px 0px #7b7b7b;
+    }
+}

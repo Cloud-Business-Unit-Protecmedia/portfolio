@@ -1,0 +1,23 @@
+﻿##----IMG----
+#set($tempImage = $articleToolbox.getImageNode("TeaserImage", "0", "true"))
+#set($AltImage = "#getAltImage($tempImage)")
+#set($TitleImage = "#getTitleImage($tempImage)")
+<div class="IMG detail w66 m66">
+	<div class="left-block">
+		#if($fullaccess=="true")
+			##MULTIMEDIA
+			#getMultimediaMixed("full","crop_900x506", "1000" , "562", "80%" )
+		#else
+			##NOACCESS IMAGE
+			<div class="multimediaIconMacroWrapper">
+				#getMultimediaIcon("crop_900x506","small","bottom","left","","", "", "80%")
+			</div>
+			<script>
+				jQuery(document).ready(function(){
+					template78Subscribe();
+				});
+			</script>
+		#end
+	</div>
+	<div class="cl"></div>
+</div>
