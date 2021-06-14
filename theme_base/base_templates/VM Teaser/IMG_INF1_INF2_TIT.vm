@@ -36,6 +36,7 @@
 		<div class="media_block">
 			##MULTIMEDIA IMG
 			<div class="multimedia">
+				##Div contenedor en macro
 				#getMultimediaIcon_v1("crop_768x432","","","","","", "", "100%", true)
 			</div> <!-- multimedia -->
 		</div><!-- media_block -->
