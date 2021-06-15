@@ -35,7 +35,7 @@ git clone https://github.com/your-user/portfolio.git
 4. Establish a remote with the original repository called `upstream`:
 
 ```
-git remote add upstream https://github.com/unc-protecmedia/portfolio
+git remote add upstream https://github.com/Cloud-Business-Unit-Protecmedia/portfolio
 ```
 
 5. Verify that the communication between the repos is correct by viewing the remotes:
