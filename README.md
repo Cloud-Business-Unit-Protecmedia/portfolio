@@ -26,7 +26,7 @@ In order to contribute to this project you will need the following elements:
 
 In order to contribute to this project, you need to follow these instructions:
 
-1. Go to [the portfolio repository](https://github.com/unc-protecmedia/portfolio).
+1. Go to [the portfolio repository](https://github.com/Cloud-Business-Unit-Protecmedia/portfolio).
 2. Fork the repository.
 3. Clone your forked repository to a local repository:
 ```
@@ -49,8 +49,8 @@ git remote -v
 ```
 origin  https://github.com/your-user/portfolio.git (fetch)
 origin  https://github.com/your-user/portfolio.git (push)
-upstream        https://github.com/unc-protecmedia/portfolio.git (fetch)
-upstream        https://github.com/unc-protecmedia/portfolio.git (push)
+upstream        https://github.com/Cloud-Business-Unit-Protecmedia/portfolio.git (fetch)
+upstream        https://github.com/Cloud-Business-Unit-Protecmedia/portfolio.git (push)
 ```
 
 7. At any time, before starting to work, pull the last changes:
