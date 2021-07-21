@@ -1,0 +1,118 @@
+﻿/*----c_001_002_Detail----*/
+/*Detail---------------------------------------------------------------------------------*/
+
+/*----IMG_TIT_TXT_RANKING----*/
+.IMG_TIT_TXT_RANKING {
+	position: relative;
+	margin-bottom: 20px;
+}
+
+.IMG_TIT_TXT_RANKING .iconGallery {
+    display: none;
+}
+
+.IMG_TIT_TXT_RANKING .cutline {
+    display: none!important;
+}
+
+.IMG_TIT_TXT_RANKING .info-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 48%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0.16) 10%,rgba(0,0,0,0.65) 40%,rgba(0,0,0,0.65) 100%);
+    opacity: .8;
+}
+
+.IMG_TIT_TXT_RANKING .header .priority-content {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 30px;
+}
+
+.IMG_TIT_TXT_RANKING .header {
+    text-align: center;
+    width: 60%;
+    display: table;
+    margin: 0 auto;
+    margin-top: 68px;
+}
+
+.IMG_TIT_TXT_RANKING .text {
+    width: 60%;
+    display: table;
+    margin: 0 auto;
+    margin-top: 48px;
+}
+
+.IMG_TIT_TXT_RANKING .text p {
+    color: #fff;
+}
+
+.c_001_002_Detail .article-section a{
+	color:#c0292c;
+	font-weight: bold;
+	padding-left: 6px;
+	font-size:2rem;
+	text-decoration:none;
+}
+
+.c_001_002_Detail.detail h3 {
+    font-family: 'Georgia';
+    font-size:0.85em;
+    color:#5b595a;
+
+}
+
+
+.c_001_002_Detail.detail .assigned-section, .c_001_001.detail .headline h2,.c_001_001.detail .text p  {
+    font-family: 'Roboto';
+    padding: 0px;
+    color: #514e4e;
+
+}
+
+
+
+
+.c_001_002_Detail.detail .container.row .article>div {
+    background-color:white;
+}
+
+.c_001_002_Detail.detail .headline h2 {
+    font-size: 1.50em;
+    font-weight: bold;
+    max-height: 6.3em;
+    overflow: hidden;
+    margin: 0 0 20px;
+}
+
+
+
+.c_001_002_Detail.detail .text p {
+
+    font-size: 0.8em;
+    margin-top: 8px;
+    overflow: hidden;
+    max-height: 5em;
+    color: #514e4e;
+}
+
+
+
+.c_001_002_Detail.detail .assigned-section {
+    font-size: 2.45em;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #c60018;
+}
+
+.c_001_002_Detail.detail .byline a{
+
+    font-size:0.9em;
+    color: #514e4e;
+    font-weight: bold;
+
+}
+

@@ -1,0 +1,27 @@
+﻿/*----bloque_noticias----*/
+.apertura_home, .apertura_seccion1  {
+	background: #5d5d5d;
+	float: left;
+	margin: 0 auto 10px;
+	width: 100%;
+}
+.bloque_noticias  {
+	background: #FFF;
+	float: left;
+	margin: 0 auto 10px;
+	min-height: 830px;
+	width: 100%;
+}
+
+.apertura_home .portlet-boundary,
+.apertura_seccion1 .portlet-boundary,
+.bloque_noticias .portlet-boundary {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.container.row .article>div {
+	margin: 5px 10px;
+	background: #FFF;
+	display: inline-block;
+}
