@@ -1,0 +1,77 @@
+﻿/*----poll_css----*/
+.POLL .top-block {
+	background-color: #eee;
+	padding: 20px;
+	margin-right: 1px;
+	position: relative;
+}
+
+.POLL .question-poll h2 {
+	font-size: 19px;
+	line-height: 20px;
+}
+
+.POLL .buttons-poll {
+	text-align: center;
+}
+
+.POLL .buttons-poll span {
+    width: 49.2%;
+    background-color: #cdcdcd;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 0;
+    margin-top: 1px;
+    border: 0;
+    font-size: 12px;
+    padding: 12px;
+}
+
+.POLL .buttons-poll span.visible {
+	display: inline-block;
+}
+
+.POLL .buttons-poll span.hidden {
+	display: none;
+}
+
+.POLL .choices.visible, .template-98 .results.visible {
+	display: block;
+	font-size: 18px;
+}
+
+.POLL .choices.hidden, .template-98 .results.hidden {
+	display: none;
+	font-size: 18px;
+}
+
+.POLL .vote-count {
+	display: none;
+	font-size: 18px;
+}
+
+.POLL .choice-bar{
+    width: 100%;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 5px;
+    margin-bottom: 10px;	
+}
+
+.POLL .choice-color{
+    height: 28px;
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.POLL .vote-count-number{
+    font-family: font_1_bold;
+    padding-left: 5px;
+    color: red;
+}
+
+.POLL .percent{
+    color: green;
+    font-family: font_1_bold;
+}
