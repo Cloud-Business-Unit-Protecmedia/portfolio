@@ -1,0 +1,96 @@
+﻿/*----footer----*/
+footer {
+	width: 100%;
+	background: #ebebeb;
+}
+footer .logo_footer {
+    float: left;
+    height: 52px;
+    width: 285px;
+    margin: 10px 0;
+    background: #c60018;
+    padding: 7px;
+}
+footer .logo {
+	background: url(logo.png) no-repeat 0 0 #c60018;
+	height: 34px;
+    width: 180px;
+    background-size: contain;
+    margin: auto 10px;
+
+}
+footer .copyright {
+	color: #514e4e;
+    float: left;
+    height: 1em;
+    overflow: hidden;
+    position: relative;
+    text-transform: uppercase;
+    margin: 0;
+    font: 900 10px/14px Roboto;
+}
+footer .copyright:hover{
+		color: #c60018;
+}
+/* RRSS */
+footer aside.tools {
+	display: inline-block;
+	height: 30px;
+	float: left;
+	width: 100%;
+	margin: 22px 0 16px 0;
+}
+footer .socialbutton {
+	background-image: url(lp_sprite.png);
+	float: left;
+	height: 30px;
+	margin-left: 5px;
+	position: relative;
+	width: 32px;
+}
+footer .fb {
+	background-position: -67px 103px;
+	margin-left: 10px
+}
+footer .tw {
+	background-position: -34px 103px
+}
+footer .go {
+	background-position: -100px 103px
+}
+footer .inst {
+	background-position: -134px 103px
+}
+footer .yt {
+	background-position: -167px 103px
+}
+footer .vn {
+	background-position: -201px 103px
+}
+footer .ap {
+	background-position: -234px 103px
+}
+footer .and {
+	background-position: -267px 103px
+}
+footer .rss {
+	background-position: -300px 103px
+}
+
+footer .menu_footer li {
+	float:left;
+	margin: 0 5px;
+}
+footer .menu_footer li a {
+	color: #514e4e;
+    float: left;
+    font: 900 12px/14px Roboto;
+    height: 1em;
+    margin: 10px;
+    overflow: hidden;
+    position: relative;
+    text-transform: uppercase;
+}
+footer .menu_footer li a:hover {
+	color: #c60018;
+}
