@@ -1,0 +1,24 @@
+﻿##----INF1_TIT_timer----
+#set ($varColorIter = $!iterVelocityTools.getVariable("0" , "colorSection"))
+#set ($topcontent = $!iterVelocityTools.getVariable("0" , "topContent"))
+#set ($date = $!iterVelocityTools.getVariable("0" , "date"))
+<div class="INF1_TIT_timer">
+	<div class="text_block">
+		##INF2 (hour)	
+		<div class="inf2">
+			#printDateAgo($date.split("\,").get(0) $date.split("\,").get(1) $date.split("\,").get(2) $date.split("\,").get(3))
+		</div>
+		<div class="content">
+			##SECTION INF1
+			#if($topcontent && $topcontent.data != "")
+				#printTopcontainer_v1($!topcontent $!varColorIter)
+			#end
+			##HEADTITLE TIT
+			<div class="headline">
+				<a href="#printAcUrl_v1">
+					<h2>#getTeaserTitle_v1</h2>
+				</a>
+			</div>
+		</div>
+	</div>		
+</div>

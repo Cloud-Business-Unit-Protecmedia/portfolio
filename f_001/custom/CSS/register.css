@@ -1,0 +1,33 @@
+﻿/*----register----*/
+
+.iter-page-frame{
+	display: flex;
+	flex-flow: column;
+	justify-content: space-between;
+}
+.newsLetterForm{
+	width: 50%;
+	margin: 0 auto;
+}
+.newsLetterForm .ageForm{
+	display: flex;
+	flex-flow: column;
+}
+.newsLetterForm .ageForm div:nth-child(3){
+	display: flex;
+}
+.newsLetterForm .radio_option {
+	display: flex;
+	flex-flow: column;
+	margin: auto;
+}
+.newsLetterForm .radio_option>input{
+	width:100%;
+}
+.newsLetterForm .btts_forms{
+	width: 40%;
+	display: flex;
+	justify-content: space-evenly;
+	margin: 1em 0;
+}
+

@@ -1,0 +1,171 @@
+﻿/*----footer----*/
+
+.iter-footer-wrapper{
+	background-color: var(--backGroundFooterColor);
+	color:white;
+	margin-top:1em;
+}
+.footer-navigation ul {
+    display: table;
+    margin: 10px auto;
+}
+
+.footer-navigation li {
+    float: left;
+    text-transform: uppercase;
+    border-right: 1px solid rgba(255,255,255,0.8);
+    padding-right: 10px;
+    margin-right: 10px;
+    font-family: segoeuisb;
+    line-height: 30px;
+}
+
+.footer-navigation li a{
+	color:white;	
+}
+
+.footer-navigation li a:hover{
+	color:red;
+}
+
+.footer-navigation li:last-child {
+    border-right: 0px;
+}
+.col-50-50{
+	display:flex;
+}
+.footer_socialNetworks .social-networks{
+	float:right
+}
+.iter-footer-wrapper .app-ios,
+.iter-footer-wrapper .app-android,
+.iter-footer-wrapper .app-huawei{
+	float:left; 
+	width:30%;
+	height: 94px;
+}
+.iter-footer-wrapper .app-info-label {
+	font:900 1.1em segoeuisb;	
+	margin-top:10px;
+}
+.iter-footer-wrapper .app-ios{
+	background: url('../_resources/images/appstore.png') no-repeat center center transparent;	
+}
+
+.iter-footer-wrapper .app-android{
+	background: url('../_resources/images/googleplay.png') no-repeat center center transparent;	
+}
+.iter-footer-wrapper .app-huawei{
+	background: url('../_resources/images/huaweiAppGallery.png') no-repeat center center transparent;
+}
+
+.iter-footer-wrapper .group-label{
+	font-family: font_1_bold;
+	text-align: center;
+	font-size: 16px;	
+	margin-top:10px;	
+}
+.facebook-icon, .twitter-icon, .instagram-icon, .youtube-icon {
+	    height: 25px;
+	    background-size: 25px;
+	    width: 25px;
+	    margin-right: 8px;
+	}
+.iter-footer-wrapper .office-address{
+	    font-family: segoeui, sans-serif;
+}
+.iter-footer-wrapper .copyright-info{
+    width: 80%;
+    font-family: segoeuisb;
+    margin-bottom: 20px;
+}
+
+.facebook-icon {
+    background-image: url(./facebook-button.png);
+    background-repeat: no-repeat;
+    height: 45px;
+    background-position: center;
+    background-size: 45px;
+    float: left;
+    width: 45px;
+    cursor: pointer;
+    margin-right: 6px;
+    margin-left: -21px;
+}
+
+.twitter-icon {
+    background-image: url(./twitter-button.png);
+    background-repeat: no-repeat;
+    height: 45px;
+    background-position: center;
+    background-size: 45px;
+	float: left;
+	width: 45px;
+	cursor: pointer;
+	margin-right: 8px;
+}
+
+.instagram-icon {
+    background-image: url(./instagram-button.png);
+    background-repeat: no-repeat;
+    height: 45px;
+    background-position: center;
+    background-size: 45px;
+	float: left;
+	width: 45px;
+	cursor: pointer;
+	margin-right: 8px;
+
+}
+
+.telegram-icon {
+    background-image: url(./telegram-button.png);
+    background-repeat: no-repeat;
+    height: 45px;
+    background-position: center;
+    background-size: 45px;
+	float: left;
+	width: 45px;
+	cursor: pointer;
+	margin-right: 8px;
+
+}
+
+.youtube-icon {
+    background-image: url(./youtube.png);
+    background-repeat: no-repeat;
+    height: 45px;
+    background-position: center;
+    background-size: 45px;
+    float: left;
+    width: 45px;
+    cursor: pointer;
+    /*margin-right: 7px;
+    margin-left: 20px;*/
+}
+@media only screen and (max-width:480px){
+	.footer-navigation ul{
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	.ly-theme-4-footer .bottom{
+		display:none;
+	}
+	.col-50-50{
+		flex-flow:column;
+	}
+	.iter-footer-wrapper .app-ios, 
+	.iter-footer-wrapper .app-android, 
+	.iter-footer-wrapper .app-huawei{
+		width:100%;
+	}
+}
+@media only screen and (max-width:768px){
+	.iter-footer-wrapper .app-ios, 
+	.iter-footer-wrapper .app-android, 
+	.iter-footer-wrapper .app-huawei{
+		    width: 50%;
+		    height: 5em;
+	}
+}
