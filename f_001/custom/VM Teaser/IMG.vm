@@ -1,0 +1,21 @@
+﻿##----IMG_cropSmall----
+
+#set ($hasImages = $articleToolbox.getNumImageTags("TeaserImage", "true"))
+
+
+#if($hasImages <= 0)
+	#set($templateClass = "no-media")
+#end
+
+<div class="IMG_cropSmall $!templateClass">
+	#if($hasImages > 0)
+		<div class="media_block">
+			##MULTIMEDIA IMG
+			<div class="multimedia">
+				#getMultimediaIcon_v1("crop_170x96","","right","top","","", "", "100%", true)
+			</div> <!-- multimedia -->
+		</div>
+
+	#end
+</div>
+

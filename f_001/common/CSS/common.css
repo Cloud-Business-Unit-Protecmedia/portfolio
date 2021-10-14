@@ -1,0 +1,19 @@
+﻿/*----common----*/
+.iter-page-frame{
+	display:flex;
+	flex-flow:column;
+}
+.row{
+	margin:0;
+}
+
+/*----homepage----*/
+:root{
+	--sectionTitleColor: hsl(0,0%,25%);
+	--sectionTextColor:hsl(0,0%,45%);
+	--sectionLightTitleColor: white;
+	--sectionTimerColor: lightgrey;
+	--highlightingOnHoverColor: red;
+	--mainTheSunColor: hsl(352,100%,40%);
+	--backGroundFooterColor: rgb(0,80,31);
+}

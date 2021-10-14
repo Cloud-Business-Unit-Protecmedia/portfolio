@@ -1,0 +1,100 @@
+﻿##----TIT_SUB_INF2_IMG_TXT----##
+#set($sectionID = "#printAssignedSectionID_v1")
+#set ($varColorIter = $!iterVelocityTools.getVariable($sectionID , "color"))
+
+#set ($info = $!iterVelocityTools.getVariable($sectionID , "printInfo"))
+#set ($date = $!iterVelocityTools.getVariable($sectionID , "full_date_mask"))
+
+#set ($hasImages = $articleToolbox.getNumImageTags("TeaserImage", "true"))
+
+#set ($position = $!iterVelocityTools.getVelocityVariable("teaseritemposition"))
+#set ($last = $!iterVelocityTools.getVelocityVariable("lastteaseritempos"))
+
+#if( $!iterVelocityTools.getVelocityVariable("oddteaseritempos") == true)
+    #set ($oddeven = "odd" )
+#else
+    #set ($oddeven = "even" )
+#end
+ 
+#if( $!iterVelocityTools.getVelocityVariable("lastteaseritempos") == true && $position > 1 )
+    #set ($last = "last" )
+#else
+    #set ($last = "" )
+#end
+ 
+#if($hasImages <= 0)
+    #set($templateClass = "no-media")
+#end
+<div class="TIT_SUB_INF2_IMG_TXT $!oddeven n$!position $!last">
+
+    <div class="text_block $!templateClass">
+         
+        ##HEADTITLE TIT
+      <div class="headline">
+			<a href="#printAcUrl_v1"><h1>#getTeaserTitle_v1</h1></a>
+	  </div>
+          ##SUBHEADLINE SUB
+         
+        <div class="subheadline">
+            <h3 style="color:$!varColorIter">#getTeaserSubheadline_v1(false)</h3>
+        </div>
+        	 ##INF2
+        <div class="author_date">
+                        <div class="author_box">
+                            #set($hmAutores = {})
+                            #getAcAssignedCatExtended($hmAutores "Author")
+                            #if($hmAutores.size() > 0)
+                                #set($hmAutor = $hmAutores.get(0))
+                                #set ($catId = $hmAutor.id)
+                                #set ($aboutAuthor = $aboutCategoryArticles.getArticle($catId))
+
+                        
+
+                                #set($imgAuthor = $!aboutAuthor.getImageTag("Image","0","crop_250x250","","","","true", "$!hmAutor.name", "$!hmAutor.name","10%"))
+                                #if($imgAuthor)
+                                    <div class="left-block">
+                                        <figure class="imgAuthor">
+                                            $imgAuthor
+                                        </figure>
+                                    </div>        
+                                #else
+                                    #set($imgAuthorOld = $!aboutAuthor.getImageTag("Image","0","crop_250x250","","","","true", "$!hmAutor.name", "$!hmAutor.name"))
+                                    #if($imgAuthorOld)
+                                        <div class="left-block">
+                                            <figure class="imgAuthor">
+                                                $imgAuthorOld
+                                            </figure>
+                                        </div>
+                                    #end
+                                #end
+                            #end
+                            <div class="byline author">
+                                <a href="#metadataUrl()$hmAutor.friendlyname">BY $hmAutor.name</a>
+                            </div>
+                        </div>
+                        ##INF2 (date, hour, author)
+                        <div class="inf2">
+                            <span>#printInfo_v1($info "-" $date)</span>
+                        </div>
+        </div>
+	<div class="social_networks">
+			<div class="sharethis-inline-share-buttons"></div>
+        </div>
+
+        <div class="media_block">
+            #if($hasImages > 0)
+                ##MULTIMEDIA IMG
+                <div class="multimedia">
+    
+                    <!--#getMultimediaIcon_v1("crop_90x60","","","top","","", "", "100%", true)-->
+                    #getMultimediaIcon_v1("crop_90x60","","","","","", "", "100%")
+                </div> <!-- multimedia -->
+            #end
+        </div><!-- media-block --> 
+	    ##TEXT TXT
+        <div class="text">
+            #getTextFlow_v1 ("crop_900x506" "100%")
+        </div> <!-- Fin div text -->
+    </div><!-- text-block -->
+ 
+</div>

@@ -1,0 +1,539 @@
+﻿.iter-header-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 6;
+}
+
+.header_theSun {
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+	margin-bottom: 1em;
+}
+
+.header_theSun > div {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	height: 4em;
+}
+
+.header_theSun .header_mainLogo {
+	width: 100%;
+	height: 4em;	
+}
+
+.header_theSun .header_mainLogo > div {
+    width: 100%;
+    height: 4em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.header_theSun .header_mainLogo .mobile-menu {
+    width: 100%;
+    height: 4em;
+    background-image: url(https://www.thesundaily.my/base-portlet/webrsrc/theme/3e4c48833dbea0345a186d0b29d85367.png);
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.header_theSun .header_socialNetworks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header_theSun .header_socialNetworks .social-networks {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.header_theSun .header_socialNetworks .social-networks .facebook-icon {
+    background-image: url(https://www.thesundaily.my/base-portlet/webrsrc/theme/0bf140f….png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: contain;
+    cursor: pointer;
+    margin-right: 6px;
+    height: 35px;
+    width: 35px;
+
+    
+}
+
+.header_theSun .header_socialNetworks .social-networks .twitter-icon {
+    background-image: url(https://www.thesundaily.my/base-portlet/webrsrc/theme/3cec426….png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: contain;
+    cursor: pointer;
+    margin-right: 6px;
+    height: 35px;
+    width: 35px;
+
+    
+}
+
+.header_theSun .header_socialNetworks .social-networks .instagram-icon {
+    background-image: url(https://www.thesundaily.my/base-portlet/webrsrc/theme/7401e50….png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: contain;
+    cursor: pointer;
+    margin-right: 6px;
+    height: 35px;
+    width: 35px;
+
+    
+}
+
+.header_theSun .header_socialNetworks .social-networks .youtube-icon {
+    background-image: url(https://www.thesundaily.my/base-portlet/webrsrc/theme/67159e2….png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: contain;
+    cursor: pointer;
+    margin-right: 6px;
+    height: 35px;
+    width: 35px;
+
+    
+}
+
+.header_theSun .header_socialNetworks .social-networks .telegram-icon {
+    background-image: url(./img/telegramButton.png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: contain;
+    cursor: pointer;
+    margin-right: 6px;
+    height: 35px;
+    width: 35px;
+
+    
+}
+.header_theSun .col-60-40 {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	height: 3em;
+        margin-left: 0;
+        margin-right: 0;
+        background-color: #f0f0f0;
+}
+
+.header_theSun .col-60-40 > .layout.col-60-40-top-one-col {
+        display: flex;
+        flex-direction: row;
+	width: 100%;
+}
+
+
+.header_theSun .header_sectionMenu {
+        width: 100%;
+	display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+}
+
+.header_theSun .header_sectionMenu .nav-dropdown > ul > li {
+    display: inline-block;
+}
+
+
+.header_theSun .col-60-40 .header_sectionMenu .nav-dropdown > ul > li {
+	padding-right: 0.6em;
+}
+.header_theSun .col-60-40 .header_sectionMenu .nav-dropdown .sectionName {
+    font-family: 'Segoe UI';
+    font-weight: bolder;
+    font-size: 0.875em;
+    color: var(--sectionTitleColor);
+    text-transform: uppercase;
+}
+
+.header_theSun .col-60-40  .layout.col-60-40-top-two-col {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header_theSun .col-60-40 > .layout.col-60-40-top-two-col > .portlet-boundary {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.header_theSun .header_search .iter-field-content > .iter-field-element > input {
+    border: none;
+    border-radius: 0.36em;
+}
+
+.header_theSun .header_search .iter-field {
+    padding-right: 6px;
+}
+
+.header_theSun .header_search .iter-button {
+    height: 2em;
+    width: 1.6em;
+}
+
+.header_theSun .header_search .iter-button-content > input {
+    background-image: url(./309077_search_icon.png);
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+}
+
+.header_theSun .col-33-33-33 .layout.col-33-33-33-top-three-col {
+    padding:0;
+    margin:0;
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.header_theSun .col-33-33-33 .layout.col-33-33-33-top-three-col>div{
+    margin-right:3em
+}
+
+.header_theSun .header_date {
+    display: flex;
+    align-items: center;
+    color: var(--sectionTextColor);
+    font: 600 0.98em/1em segoeui;
+}
+.header_theSun .col-60-40>.layout.col-60-40-top-two-col {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header_theSun .button_logIn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.header_theSun .buttonLogin {
+    color: #756b6b;
+    text-transform: uppercase;
+    font: 1em segoeuisb;
+    border: 1px solid lightgray;
+    border-radius: 4em;
+    width: 100%;
+    padding: 4px 16px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.header_theSun .buttonLogin:hover {
+    opacity: 0.6;
+}
+
+/*burguer menu*/
+
+.menu_burguerTheSun {
+    display: none;
+}
+
+
+@media all and(max-width: 576px) {
+    .header_theSun .header_sectionMenu {
+      display: none;
+    }
+
+    .header_theSun .col-60-40 .layout.col-60-40-top-two-col {
+        justify-content: flex-end;
+    }
+}
+
+@media all and(max-width: 768px) {
+    
+    .menu_burguerTheSun:hover .nav-dropdown .parent-nav {
+        display: block;
+        left: 1em;
+        width: 24em;
+        min-height: 50vh;
+	transform: translateY(-2px);
+        box-shadow: 2px 2px 5px -1px rgba(0,0,0,.35);
+    }
+   
+    .menu_burguerTheSun > .menu_secc .nav-dropdown > ul {
+        display: none;
+        position: absolute;
+        top: 3em;
+        background: #424242;
+	transition: all .4s ease-out;
+        overflow-y: auto;
+	max-height:30vh;
+	
+    }
+    .menu_burguerTheSun:hover:active .nav-dropdown .parent-nav {
+        transform: translateY(10px);
+        box-shadow: 0px -1px 2px 0px rgba(0,0,0,.35);
+    }
+
+    .menu_burguerTheSun .nav-dropdown .parent-nav > li {
+    
+        border-bottom: 1px dotted #ccc;
+        padding: 7px 0;
+        padding-left: 10px;
+        padding-right: 10px;
+        background: var(--sectionTextColor);
+        transition: background 3s;
+        box-shadow: 2px 2px 10px -2px rgba(0,0,0,.35);
+    }
+    .menu_burguerTheSun .nav-dropdown .parent-nav > li:hover {
+        background: #615e5e;
+        transition: background .45s;
+    }
+	
+    .menu_burguerTheSun .nav-dropdown .parent-nav > li > a {
+     font: 600 1.1em segoeuisb;
+     color: #fff;
+     text-decoration:none;
+    }
+    
+    
+    .menu_burguerTheSun .nav-dropdown .parent-nav .lst-item .tab-grp > a {
+        font: 600 1.1em segoeuisb;
+        color: #fff;
+        cursor: pointer;
+	text-decoration:none;
+    }
+
+     .menu_burguerTheSun .nav-dropdown .child-nav .level-2 .lst-item > a {
+     font: 600 1.1em segoeuisb;
+     color: #fff;
+     cursor: pointer;
+     transition: color .3s;
+     text-decoration: none;
+     transition: 0.4s transform ease-in-out;
+    }
+    .menu_burguerTheSun .nav-dropdown .child-nav .level-2 .lst-item > a:hover {
+	transform: scale(0.9);
+     }
+
+
+    .menu_burguerTheSun .nav-dropdown .parent-nav .level-2 {
+        padding-left: 2em;
+        display: none;
+    }
+
+    .menu_burguerTheSun .nav-dropdown .parent-nav .lst-item .tab-grp .hasChildsIcon {
+        background-image: url(./burguerMenuChild.png);
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 1.4em;
+        height: 1.4em;
+        position: absolute;
+        cursor: pointer;
+        right: 1.071em;
+    }
+
+   .menu_burguerTheSun .nav-dropdown .parent-nav .lst-item:hover .level-2 {
+	display:block !important;
+    }
+   
+    .menu_burguerTheSun {
+        background-image: url(./menu-icon-png-3-lines.png);
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 20%;
+        display: block;
+        transition: all .4s;
+        cursor: pointer;
+    }
+
+
+    .header_theSun .header_mainLogo {
+	width: 8em;
+	    
+    }
+    .header_theSun .header_mainLogo .mobile-menu {
+        height: 3em;
+
+    }
+    .header_theSun .header_date{
+	margin: 0.3em auto;
+	justify-content:flex-end;
+    }
+    .header_theSun .header_socialNetworks{
+	justify-content:flex-end;
+    }
+    .header_theSun .header_socialNetworks .social-networks .facebook-icon {
+     height: 2em;
+     width: 2em;
+    }
+    .header_theSun .header_socialNetworks .social-networks .instagram-icon {
+     height: 2em;
+     width: 2em;
+    }
+    .header_theSun .header_socialNetworks .social-networks .youtube-icon {
+     height: 2em;
+     width: 2em;
+    }
+    .header_theSun .header_socialNetworks .social-networks .telegram-icon {
+     height: 2em;
+     width: 2em;
+    }
+    .header_theSun .header_socialNetworks .social-networks .twitter-icon {
+     height: 2em;
+     width: 2em; 
+    }
+}
+@media all and(max-width: 768px){
+   .header_theSun .header_sectionMenu {
+        display: none;
+    }
+  
+    .header_theSun .col-60-40 .layout.col-60-40-top-two-col {
+        justify-content: flex-end;
+    }
+    
+    .menu_burguerTheSun:hover .nav-dropdown .parent-nav {
+        display: block;
+        left: 1em;
+        width: 24em;
+        min-height: 50vh;
+    }
+    
+    .menu_burguerTheSun > .menu_secc .nav-dropdown > ul {
+        display: none;
+        position: absolute;
+        top: 3em;
+        background: #424242;
+	max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    .menu_burguerTheSun .nav-dropdown .parent-nav > li {
+    
+        border-bottom: 1px dotted #ccc;
+        padding: 7px 0;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+	
+    .menu_burguerTheSun .nav-dropdown .parent-nav > li > a {
+     font: 600 1.1em segoeuisb;
+     color: #fff;
+     text-decoration: none;
+    }
+  
+    .menu_burguerTheSun .nav-dropdown .parent-nav .lst-item .tab-grp > a {
+        font: 600 1.1em segoeuisb;
+        color: #fff;
+        cursor: pointer;
+        transition: color .3s;
+        text-decoration: none;
+    }
+    
+     .menu_burguerTheSun .nav-dropdown .child-nav .level-2 .lst-item > a {
+     font: 600 1.1em segoeuisb;
+     color: #fff;
+     cursor: pointer;
+     transition: color .3s;
+     text-decoration: none;
+     transition: 0.4s transform ease-in-out;
+    }
+
+    .menu_burguerTheSun .nav-dropdown .parent-nav .level-2 {
+        padding-left: 2em;
+        display: none;
+    }
+
+    .menu_burguerTheSun .nav-dropdown .parent-nav .lst-item .tab-grp .hasChildsIcon {
+        background-image: url(./burguerMenuChild.png);
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 1.4em;
+        height: 1.4em;
+        position: absolute;
+        cursor: pointer;
+        right: 1.071em;
+    }
+
+    .menu_burguerTheSun .nav-dropdown .parent-nav .lst-item:hover .level-2 {
+        display:block !important;
+        
+    }
+   
+    .menu_burguerTheSun {
+        background-image: url(./menu-icon-png-3-lines.png);
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 20%;
+        display: block;
+        transition: all .4s;
+        cursor: pointer;
+    }
+
+}
+
+@media all and(max-width: 768px) {
+    .header_theSun .col-60-40>.layout.col-60-40-top-one-col {
+      width: 100%;
+    }
+  
+    .header_theSun .col-60-40 .header_sectionMenu .nav-dropdown>ul>li {
+      padding-right: .9em;
+    }
+    .header_theSun .header_sectionMenu {
+      width: 100% !important;
+      text-align: center;
+    }
+    .header_theSun .col-60-40 .layout.col-60-40-top-two-col {
+      width: 30%;
+    }
+    .content_detail .TIT_SUB_INF2_IMG_TXT .text_block .social_networks .container_icons .facebook-icon {
+        height: 2em;
+        width: 8em;
+        border-radius: .2em;
+    }
+    .content_detail .TIT_SUB_INF2_IMG_TXT .text_block .social_networks .container_icons .twitter-icon {
+        height: 2em;
+        width: 8em;
+        border-radius: .2em;
+    }
+    .content_detail .TIT_SUB_INF2_IMG_TXT .text_block .social_networks .container_icons .email-icon {
+        height: 2em;
+        width: 8em;
+        border-radius: .2em;
+    }
+    .content_detail .TIT_SUB_INF2_IMG_TXT .text_block .social_networks .container_icons .whatsapp-icon {
+        height: 2em;
+        width: 8em;
+        border-radius: .2em;
+    }
+    .content_detail .TIT_SUB_INF2_IMG_TXT .text_block .social_networks .container_icons .wechat-icon {
+        height: 2em;
+        width: 8em;
+        border-radius: .2em;
+    }
+    .header_theSun .col-33-33-33 .layout.col-33-33-33-top-three-col {
+	display:block;
+        text-align:end;
+    }
+  }
+
+@media all and(max-width: 576px) {
+    .header_theSun .header_date{
+	    font: 600 0.73em segoeui;
+	    padding-right: 0.8em;
+    }
+    .header_theSun .col-33-33-33-top-two-col{
+	    display:none;
+    }
+}

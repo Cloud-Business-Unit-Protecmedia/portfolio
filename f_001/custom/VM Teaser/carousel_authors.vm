@@ -1,0 +1,58 @@
+﻿##----carousel_authors----#
+#set($sectionID = "#printAssignedSectionID")
+#set ($varColorIter = $!iterVelocityTools.getVariable($sectionID , "color"))
+<div class="opinion-news columnist carousel_authors w100 m10">
+    
+    ##BYLINE
+    #set($hmAutores = {})
+    #getAcAssignedCatExtended($hmAutores "Author")
+    #if($hmAutores.size() > 0)
+        #set($hmAutor = $hmAutores.get(0))
+        #set ($catId = $hmAutor.id)
+        #set ($aboutAuthor = $aboutCategoryArticles.getArticle($catId))
+
+ 
+
+        #set($imgAuthor = $!aboutAuthor.getImageTag("Image","0","crop_250x250","","","","true", "$!hmAutor.name", "$!hmAutor.name","10%"))
+        #if($imgAuthor)
+            <div class="left-block">
+                <figure class="imgAuthor">
+                    $imgAuthor
+                </figure>
+            </div>        
+        #else
+            #set($imgAuthorOld = $!aboutAuthor.getImageTag("Image","0","crop_250x250","","","","true", "$!hmAutor.name", "$!hmAutor.name"))
+            #if($imgAuthorOld)
+                <div class="left-block">
+                    <figure class="imgAuthor">
+                        $imgAuthorOld
+                    </figure>
+                </div>
+            #end
+        #end
+    #end
+    
+    <div class="right-block">
+    
+        ##HEADLINE
+        <a href="#printAcUrl">
+		<h3 class="headline">#getTeaserTitle</h3>
+		##SUB TIT
+		  #set ($totalSize = 175)
+		<div class="text">
+		    #getTeaserText_v1($totalSize)
+		</div> 
+	</a>
+	
+ 
+
+        ##AUTHOR
+        <div class="byline author">
+            <a href="#metadataUrl()$hmAutor.friendlyname">$hmAutor.name</a>
+        </div>
+        
+    </div>
+        
+    <div class="cl"></div>
+    
+</div>
