@@ -217,9 +217,20 @@
                 #if($el && $el.trim() != "")
                     <div class="multimediaMacroWrapper">
                         <div class="contentMedia art-instagram"  iterhtmlid="$el.Milenium.data">
-                            <div class="responsive-video" itemprop="instagram">
-                                <iframe width="$!widthMultimedia" height="$!heightMultimedia" src="http://instagram.com/p/${el.data}/embed" frameborder="0"></iframe>
+                            <div class="responsive-video" itemprop="instagram_post">
+                                <iframe width="$!widthMultimedia" height="$!heightMultimedia" src="//www.instagram.com/p/${el.data}/embed" frameborder="0"></iframe>
                             </div>  
+                        </div>
+                    </div>
+                #end
+            #end
+            #if($element.name == "Facebook_Text")
+                #if($el && $el.trim() != "")
+                    <div class="multimediaMacroWrapper">
+                        <div class="contentMedia art-facebook" iterhtmlid="$el.Milenium.data">
+                            <div class="responsive-video" itemprop="facebook_post">
+                                <div class="fb-post" data-href="$!el.data.trim()"></div>
+                            </div>
                         </div>
                     </div>
                 #end
@@ -322,6 +333,7 @@
             #set ($temp = $hashNames.put("Youtube_Text","Youtube_Text"))
             #set ($temp = $hashNames.put("Twitter_Text","Twitter_Text"))
             #set ($temp = $hashNames.put("Facebook_Text","Facebook_Text"))
+            #set ($temp = $hashNames.put("Instagram_Text","Instagram_Text"))
             #set ($temp = $hashNames.put("Maps_Text","Maps_Text"))
             #set ($temp = $hashNames.put("Multimedia_Text","Multimedia_Text"))
             #set ($temp = $hashNames.put("Vimeo_Text","Vimeo_Text"))
