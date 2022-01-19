@@ -13,7 +13,7 @@ article {
 }
 
 .wrapper-amp-logo {
-    background-color: #F2EEEE;
+    border-bottom: 1px solid #222;
     text-align: center;
     padding: 5px 0px;
 }
@@ -24,13 +24,12 @@ article {
 .amp-headline {
     font-family: 'Work Sans', sans-serif;
     font-weight: 800;
-    line-height: 1.3em;
-    font-size: 2em;
+    line-height: 1.5em;
+    font-size: 1.7em;
 }
 
 .amp-subheadline {
     font-family: 'Noto Serif', serif;
-    font-size: 1.3rem;
     line-height: 1.4em;
 }
 
@@ -47,21 +46,21 @@ article {
 
 .amp-author-item {
     font-family: 'Work Sans', sans-serif;
-    font-weight: 800;
+    font-weight: 600;
     margin: 10px 0;
 }
 
 .amp-date {
     font-family: 'Work Sans', sans-serif;
-    margin: 12px 0;
+    margin: 11px 0;
+    font-size: .9rem;
 }
 
 
 /* IMAGE AND SUBTITLE */
 
-span.cutline-text {
-    font-family: 'Work Sans', sans-serif;
-    font-size: 1rem;
+.caption {
+    font-size: .9rem;
 }
 
 .multimediaMacroWrapper ul {
@@ -77,7 +76,6 @@ span.cutline-text {
 
 .amp-text {
     font-family: 'Noto Serif', serif;
-    font-size: 1.3rem;
     line-height: 1.4em;
 }
 
@@ -98,6 +96,7 @@ span.cutline-text {
 }
 
 .amp-related ul li a {
+    font-size: 1rem;
     color: #00a1c9;
     text-decoration: none;
 }
@@ -122,11 +121,10 @@ span.cutline-text {
 /* SOCIAL */
 
 .heading {
-    height: 77px;
+    height: 40px;
     text-align: center;
-    background-color: #F2EEEE;
-    border-bottom: .5px solid gray;
-    border-top: .5px solid gray;
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
 }
 
 
@@ -138,7 +136,7 @@ span.cutline-text {
     float: right;
     position: absolute;
     top: 20px;
-    right: 15px;
+    left: 15px;
 }
 
 #hamburger {
@@ -154,7 +152,7 @@ span.cutline-text {
     position: absolute;
     height: 5px;
     width: 100%;
-    background: #BDBDBD;
+    background: #000;
     border-radius: 9px;
     opacity: 1;
     left: 0;
@@ -222,6 +220,3 @@ span.cutline-text {
     color: #000;
     text-decoration: none;
 }
-
-
-/* FIN MENU */
