@@ -1,0 +1,110 @@
+/*----newsletter Registar----*/
+
+.ly-catalog-two-column .head_text.section {
+    font-size: 2rem;
+    line-height: 2rem;
+}
+
+.ly-catalog-two-column .newsletters {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.ly-catalog-two-column .newsletter_email_label {
+    font-weight: 600;
+}
+
+.ly-catalog-two-column .newsletter_email_ctrl {
+    border: 2px solid #d2d2d2;
+    width: 100%;
+    text-align: center;
+    font-size: 13pt;
+}
+
+.ly-catalog-two-column .newsletters_title {
+    display: none;
+}
+
+.ly-catalog-two-column .newsletters_options {
+    display: block!important;
+}
+
+.ly-catalog-two-column .newsletters_option {
+    display: inline-flex;
+}
+
+.ly-catalog-two-column .newsletters_check input {
+    width: 20px;
+    height: 20px;
+    margin: 3px 10px;
+}
+
+.ly-catalog-two-column .newsletter_chk_subs_div {
+    margin-top: 20px;
+    font-weight: 600;
+    display: none;
+}
+
+.ly-catalog-two-column .newsletters_option_date {
+    /*
+    background-color: #F2EEEE;
+    padding: 5px;
+    margin: 5px;
+*/
+    display: none;
+}
+
+
+/*----newsletter Cancelar Registo---- */
+
+.advanced-cancelar .newsletters {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.advanced-cancelar .newsletter_email_label {
+    font-weight: 600;
+}
+
+.advanced-cancelar .newsletter_email_ctrl {
+    border: 2px solid #d2d2d2;
+    width: 100%;
+    text-align: center;
+    font-size: 13pt;
+}
+
+.advanced-cancelar .newsletters_title {
+    display: none;
+}
+
+.advanced-cancelar .newsletters_options {
+    display: block!important;
+}
+
+.advanced-cancelar .newsletters_option {
+    display: inline-flex;
+}
+
+.advanced-cancelar .newsletters_check input {
+    width: 20px;
+    height: 20px;
+    margin: 3px 10px;
+}
+
+.advanced-cancelar .newsletter_chk_subs_div {
+    margin-top: 20px;
+    font-weight: 600;
+    display: none;
+}
+
+.advanced-cancelar spam.newsletters_option_title {
+    display: none;
+}
+
+.advanced-cancelar .newsletters_check:after {
+    content: "Cancelar Registo";
+}

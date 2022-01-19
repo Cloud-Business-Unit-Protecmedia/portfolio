@@ -1,4 +1,4 @@
-﻿/*----footer----*/
+/*----footer----*/
 
 
 /* Layout */
@@ -100,7 +100,8 @@ footer .container-fluid.nopadding {
     height: 30px;
     appearance: button;
     -webkit-appearance: button;
-    -moz-appearance: button;
+    -moz-appearance: initial;
+    /* Hack for Firefox Browsers*/
     position: relative;
     cursor: pointer;
 }
@@ -150,6 +151,13 @@ footer .container-fluid.nopadding {
     /* IE 10+ */
     color: #999;
 }
+
+
+/*
+.newsletters .newsletters_item:nth-child(5) > .newsletters_options .newsletters_option {
+    display: none;
+}
+*/
 
 
 /*######### RESPONSIVE #########*/

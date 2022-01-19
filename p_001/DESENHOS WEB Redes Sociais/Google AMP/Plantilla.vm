@@ -1,0 +1,159 @@
+#set ($title = $!articleToolbox.getTag(null, "Headline").data)
+#set ($logo_amp = $!iterVelocityTools.getVariable("0","logo_amp"))
+#getAcAssignedCatExtended($hmAutores "Author")
+#if($hmAutores.size() > 0)
+	#set($hmAutor = $hmAutores.get(0))
+#end
+
+#set($text = "")
+#set($Texto = $articleToolbox.getTag2(null, 'Text', 130, '', ''))
+#set($text = $!Texto.data)
+#set($text = $text.replace("<p>"," "))
+#set($text = $text.replace("</p>"," "))
+#set($text = $text.replace('"',''))
+#set($text = $text.replace("<br />",""))
+#set($text = $text.replace("<br/>",""))
+#set($text = $text.replace("<strong>",""))
+#set($text = $text.replace("</strong>",""))
+#set($text = $text.trim())
+
+<!DOCTYPE html> 
+<html ⚡>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>$!title</title>
+		<meta property="og:title" content="$!escapeTool.html($title)"/>
+		<meta property="og:description" content="$!escapeTool.html($ogdescription)"/>
+		<meta property="og:type" content="Article"/>
+		<meta property="og:image" content="$ogimage"/>
+		<meta property="og:url" content="$!articleToolbox.getArticleViewer('canonical')"/>
+		<meta property="og:site_name" content="www.onovo.pt"/>
+		<link rel="canonical" href='$!articleToolbox.getArticleViewer("canonical")' />
+		<style amp-custom>
+			$rendererStyles
+		</style>
+	        <script type="application/ld+json">
+		    {
+		      "@context": "http://schema.org",
+		      "@type": "NewsArticle",
+		      "mainEntityOfPage": "$!articleToolbox.getArticleViewer("canonical")",
+		      "headline": "$title",
+		      "datePublished": "#printDateFrom('dd MMMM yyyy','false','HH:mm:ss')",
+		      "dateModified": "#printDateFrom('dd MMMM yyyy','false','HH:mm:ss')",
+		      "description": "$text",
+		      "author": {
+			"@type": "Person",
+			"name": "$hmAutor.name"
+		      },
+		      "publisher": {
+			"@type": "Organization",
+			"name": "onovo.pt",
+			"logo": {
+			  "@type": "ImageObject",
+			  "url": "$iterVelocityTools.getVariable("0","favicon")",
+			  "width": 321,
+			  "height": 60
+			}
+		      },
+		      "image": {
+			"@type": "ImageObject",
+			"url": "$ogimage",
+			"width": 1200,
+			"height": 600
+		      }
+		  }
+		</script>
+		<script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+		<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.2.js"></script> 
+		<script async custom-element="amp-lightbox-gallery" src="https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js"></script>
+		<script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+		<script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+		<script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+		<script async custom-element="amp-vimeo" src="https://cdn.ampproject.org/v0/amp-vimeo-0.1.js"></script>
+		<script async custom-element="amp-image-lightbox" src="https://cdn.ampproject.org/v0/amp-image-lightbox-0.1.js"></script>
+		<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>  
+        <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+<noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+		<script async custom-element="amp-addthis" src="https://cdn.ampproject.org/v0/amp-addthis-0.1.js"></script>
+	</head>
+	<body>
+		<header class="simp-head">
+			<div class="wrapper-amp-logo">
+				<a href="#siteUrl()"><amp-img src="$logo_amp" alt="Logo Novo" width="130" height="50" /></a>
+			 </div>
+
+				<div class="hamburger_wrapper">
+					<div id="hamburger" tabindex="1" role="button" on="tap:hamburger.toggleClass(class='close'),nav-menu.toggleClass(class='now-active')">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+				<div id="nav-menu">
+					<ul class="nav-list">
+						<li><a href="/politica">POLÍTICA</a></li>
+						<li><a href="/pais">PAÍS</a></li>
+						<li><a href="/economia">ECONOMIA</a></li>
+						<li><a href="/internacional">INTERNACIONAL</a></li>
+						<li><a href="/desporto">DESPORTO</a></li>
+						<li><a href="/cultura">CULTURA</a></li>
+						<li><a href="/ambiente">AMBIENTE</a></li>
+						<li><a href="/lifestyle">LIFESTYLE</a></li>
+						<li><a href="/tecnologia">TECNOLOGIA</a></li>
+						<li><a href="/opiniao">OPINIÃO</a></li>
+						<li><a href="/multimedia">MULTIMÉDIA</a></li>
+					</ul>
+				</div>
+
+		</header>
+		<article>
+			<h1 class="amp-headline">$!title</h1>
+			#set($vSubheadline = $!articleToolbox.getTag(null, "Subheadline"))
+			#if($vSubheadline && $vSubheadline.data != "")
+			<div class="amp-subheadline">$vSubheadline.data</div>
+			#end
+			<div class="amp-info">
+				#if($hmAutor)
+					<div class="amp-author">
+						<div class="amp-author-item">$hmAutor.name</div>
+					</div>
+				#end
+				<div class="amp-date">#printDateFrom("dd.MM.yyyy","false","HH:mm:ss")</div>
+
+
+			</div>
+		
+			
+			#getCarousel_AMP_v1("","crop_56_100_M")
+
+
+			<div class="amp-text">
+			#getTextFlow_AMP_v1("crop_506x900")
+			</div>
+
+				#set ($articlesrelacionados = $articleToolbox.getRelatedArticles( "metadata", 3 ) )
+				#if($articlesrelacionados.size() > 0)
+				<div class="amp-related">
+					<div class="tit_relacionadas"></div>
+					<ul>
+					#foreach ($relacionada in $articlesrelacionados  )
+						<li class="amp-related-tit amp-rel-item"><a href="$relacionada.reserved-article-url.data" target="_self">$relacionada.Headline.data</a></li>
+					#end
+					</ul>
+				</div>
+				#end
+
+
+		</article>
+		<footer>
+			<div class="heading">
+
+				   <amp-addthis width="320" height="95" style="margin-left:13%" data-pub-id="ra-605b2bd4f9b8a2ab" data-widget-id="hxyb" data-widget-type="inline"></amp-addthis>
+
+			</div> 
+		</footer>
+		
+	</body>
+</html>

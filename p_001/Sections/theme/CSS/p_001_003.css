@@ -1,0 +1,19 @@
+/*----p_001_003 3 col sin foto----*/
+
+.p_001_003 h2 {
+    font-size: 1.4rem;
+    line-height: 1.5rem;
+}
+
+.p_001_003 p {
+    font-size: 0.9rem;
+}
+
+.p_001_003 .seccion,
+.p_001_003 .article-meta {
+    line-height: 1rem;
+}
+
+.p_001_003 .text_block {
+    min-height: 0rem !important;
+}

@@ -1,8 +1,14 @@
-﻿/*----publicidade----*/
+/*----publicidade----*/
+
 .container-fluid.nopadding.bg-ready.bg-ready-1 {
     padding: 10px 0;
     margin: 0 0 20px 0;
 }
-.r01 .advertisement_banner_show_label {
+
+.advertisement_banner_show_label {
     font-size: .5rem;
+}
+
+.adcontainer-portlet {
+    margin-bottom: 10px;
 }

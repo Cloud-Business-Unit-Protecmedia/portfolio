@@ -1,0 +1,35 @@
+<div id="main-content" class="content ly-menu-opinion" role="main">
+	<div class="container">
+		<div class="row r01">
+			<div class="col portlet-column nopadding" id="r01c01">	
+				$processor.processColumn("r01c01", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r02">
+			<div class="col-md-8 col-sm-12 portlet-column nopadding" id="r02c01">	
+				$processor.processColumn("r02c01", "portlet-column-content")
+			</div>
+			<div class="col-md-4 col-sm-12 portlet-column nopadding" id="r02c02">	
+				$processor.processColumn("r02c02", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r03">
+			<div class="col portlet-column nopadding" id="r03c01">	
+				$processor.processColumn("r03c01", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r04">
+			<div class="col-md-8 col-sm-12 portlet-column nopadding" id="r04c01">	
+				$processor.processColumn("r04c01", "portlet-column-content")
+			</div>
+			<div class="col-md-4 col-sm-12 portlet-column nopadding" id="r04c02">	
+				$processor.processColumn("r04c02", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r05">
+			<div class="col portlet-column nopadding" id="r05c01">	
+				$processor.processColumn("r05c01", "portlet-column-content")
+			</div>
+		</div>
+	</div>
+</div>

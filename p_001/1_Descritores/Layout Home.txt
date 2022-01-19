@@ -1,0 +1,131 @@
+<!-- Layout Home Full -->
+<div id="main-content" class="content ly-home" role="main">
+	<div class="container">
+		<div class="row r01"> <!--PUB-->
+			<div class="col portlet-column nopadding" id="r01c01">	
+				$processor.processColumn("r01c01", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r02"> <!--SLIDER-->
+			<div class="col portlet-column nopadding" id="r02c01">	
+				$processor.processColumn("r02c01", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r03">
+			<div class="col-md-9 col-sm-12 portlet-column nopadding" id="r03c01">	
+				$processor.processColumn("r03c01", "portlet-column-content")
+			</div>
+			<div class="col-md-3 col-sm-12 portlet-column nopadding" id="r03c02">	
+				$processor.processColumn("r03c02", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r04">
+			<div class="col-md-9 col-sm-12 portlet-column nopadding" id="r04c01">	
+				$processor.processColumn("r04c01", "portlet-column-content")
+			</div>
+			<div class="col-md-3 col-sm-12 portlet-column nopadding" id="r04c02">	
+				$processor.processColumn("r04c02", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r05">
+			<div class="col portlet-column nopadding" id="r05c01">	
+				$processor.processColumn("r05c01", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r06"> <!--PUB-->
+			<div class="col portlet-column nopadding" id="r06c01">	
+				$processor.processColumn("r06c01", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r07">
+			<div class="col-md-3 col-sm-12 portlet-column nopadding" id="r07c01">	
+				$processor.processColumn("r07c01", "portlet-column-content")
+			</div>
+			<div class="col-md-9 col-sm-12 portlet-column nopadding" id="r07c02">	
+				$processor.processColumn("r07c02", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r08"> <!--PUB-->
+			<div class="col portlet-column nopadding" id="r08c01">	
+				$processor.processColumn("r08c01", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row container-fluid r09"> <!--COVID-->
+			<div class="col portlet-column nopadding" id="r09c01">	
+				$processor.processColumn("r09c01", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r10">
+			<div class="col portlet-column nopadding" id="r10c01">	
+				$processor.processColumn("r10c01", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row container-fluid r11"> <!--SUBSCRIBETE-->
+			<div class="col-md-9 col-sm-12 portlet-column nopadding" id="r11c01">	
+				$processor.processColumn("r11c01", "portlet-column-content")
+			</div>
+			<div class="col-md-3 col-sm-12 portlet-column nopadding" id="r11c02">	
+				$processor.processColumn("r11c02", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r12"> <!--OPINION-->
+			<div class="col portlet-column nopadding" id="r12c01">	
+				$processor.processColumn("r12c01", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r13"> <!--CARTONES-->
+			<div class="col-md-9 col-sm-12 portlet-column nopadding" id="r13c01">	
+				$processor.processColumn("r13c01", "portlet-column-content")
+			</div>
+			<div class="col-md-3 col-sm-12 portlet-column nopadding" id="r13c02">	
+				$processor.processColumn("r13c02", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r14_0"> <!--CINTILLO-->
+			<div class="col portlet-column nopadding" id="r14_0c01">	
+				$processor.processColumn("r14_0c01", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r14"> <!--INVESTIGACION-->
+			<div class="col-md-9 col-sm-12 portlet-column nopadding" id="r14c01">	
+				$processor.processColumn("r14c01", "portlet-column-content")
+			</div>
+			<div class="col-md-3 col-sm-12 portlet-column nopadding" id="r14c02">	
+				$processor.processColumn("r14c02", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r15">  <!--LOS MAS-->
+			<div class="col portlet-column nopadding" id="r15c01">	
+				$processor.processColumn("r15c01", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r16">  <!--VIDEOS-->
+			<div class="col portlet-column nopadding" id="r16c01">	
+				$processor.processColumn("r16c01", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r17">  <!--PUB-->
+			<div class="col portlet-column nopadding" id="r17c01">	
+				$processor.processColumn("r17c01", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r18">  
+			<div class="col portlet-column nopadding" id="r18c01">	
+				$processor.processColumn("r18c01", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r19"> <!--GENTE-->
+			<div class="col-md-3 col-sm-12 portlet-column nopadding" id="r19c01">	
+				$processor.processColumn("r19c01", "portlet-column-content")
+			</div>
+			<div class="col-md-9 col-sm-12 portlet-column nopadding" id="r19c02">	
+				$processor.processColumn("r19c02", "portlet-column-content")
+			</div>
+		</div>
+		<div class="row r20">  <!--CORREIO NEWSLETTER-->
+			<div class="col portlet-column nopadding" id="r20c01">	
+				$processor.processColumn("r20c01", "portlet-column-content")
+			</div>
+		</div>
+	</div>
+</div>

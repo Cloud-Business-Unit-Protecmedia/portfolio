@@ -1,4 +1,4 @@
-﻿##----News_Secundaria----
+##----News_Secundaria----
 #set($numTeaserImages= $articleToolbox.getNumImageTags("TeaserImage","true"))
 #set ($totalSize = 200)
 

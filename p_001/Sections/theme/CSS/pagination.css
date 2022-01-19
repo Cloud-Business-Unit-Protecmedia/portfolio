@@ -1,0 +1,64 @@
+/*----pagiantion----*/
+
+.nav-button.carrusel.vertical {
+    display: block;
+    width: 100%;
+    float: left;
+}
+
+
+/*
+.nav-button.carrusel.vertical .more-button{
+    background-color: #F2EEEE;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 0 auto;
+    padding: 1rem;
+    text-align: center;
+    width: 20%;
+}
+*/
+
+.nav-button.carrusel.vertical .more-button {
+    display: none;
+}
+
+#mylistCarrousel {
+    text-align: center;
+}
+
+#mylistCarrousel .classCarruselCss {
+    display: inline-block;
+}
+
+#mylistCarrousel .prev-button,
+#mylistCarrousel .next-button {
+    float: left;
+    cursor: pointer;
+    margin-right: 1rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-top: -0.4rem;
+}
+
+#mylistCarrousel .prev-button.disable-button,
+#mylistCarrousel .next-button.disable-button {
+    font-weight: normal;
+    cursor: inherit;
+}
+
+#mylistCarrousel ul {
+    float: left;
+}
+
+#mylistCarrousel ul li {
+    float: left;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+#mylistCarrousel ul li.nav-page-selected {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: -0.1rem;
+}

@@ -1,0 +1,47 @@
+/*----404----*/
+
+.notfound {
+    max-width: 767px;
+    width: 100%;
+    line-height: 1.4;
+    margin-top: 30px;
+    padding: 15px;
+    text-align: center;
+}
+
+.notfound h1 {
+    font-size: 9rem;
+    text-shadow: 1px 1px 20px #3f3d3d;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #f48221;
+    font-family: monospace;
+}
+
+.notfound h2 {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 40px 0;
+}
+
+.notfound a {
+    font-family: 'Titillium Web', sans-serif;
+    display: block;
+    text-transform: uppercase;
+    color: #fff;
+    background: #00adef;
+    padding: 10px 3%;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 20px;
+    margin: 50px auto;
+    width: 90%;
+    box-shadow: 0 0 9px 4px #666;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+    text-decoration: none;
+}
+
+.notfound a:hover {
+    opacity: 0.8;
+}

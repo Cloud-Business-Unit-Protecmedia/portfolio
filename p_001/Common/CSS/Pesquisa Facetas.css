@@ -1,0 +1,191 @@
+/*----Pesquisa Facetas----*/
+
+/*FACETAS CALENDARIO*/
+.advanced-facetas .iter-field.iter-field-wrapper {
+    display: flow-root;
+}
+.search-filters-portlet {
+    background-color: #DCDCDE;
+    padding: 10px 10px 20px 10px;
+}
+.advanced-facetas .iter-datepicker-select-wrapper {
+    margin-top: 6px;
+}
+
+.advanced-facetas h2 {
+    margin: 0;
+    margin-bottom: 10px;
+    font-family: font_1_bold;
+    font-size: 14px;
+}
+.advanced-facetas .labelBuscador,.advanced-facetas .iter-field-label {
+    font-size: 11px;
+    display: inline-block;
+    min-width: 45px;
+    float: left;
+    position: relative;
+    padding-top: 10px;
+    padding-right: 10px;
+    font-weight: bold;
+    line-height: 23px;
+    text-transform: uppercase;
+}
+
+/*----Calendario interno----*/
+
+.advanced-facetas .hasDatepicker {
+    top: 335px!important;
+    left: unset!important;
+    z-index: 1!important;
+    width: 285px;
+}
+
+.advanced-facetas .ui-datepicker-inline.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all {
+    background-color: #f9fafb;
+    padding: 10px;
+-webkit-box-shadow: 0px 0px 5px 5px rgba(189,189,189,0.75);
+-moz-box-shadow: 0px 0px 5px 5px rgba(189,189,189,0.75);
+box-shadow: 0px 0px 5px 5px rgba(189,189,189,0.75);
+}
+.advanced-facetas table {
+    caption-side: bottom;
+    border-collapse: collapse;
+    width: 100%;
+}
+.advanced-facetas .ui-datepicker-title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 4px;
+color: #00a1c9;
+}
+.advanced-facetas .ui-datepicker-header.ui-widget-header.ui-helper-clearfix.ui-corner-all {
+    width: 260px;
+    float: left;
+}
+.advanced-facetas a.ui-state-default.ui-state-active {
+    font-weight: bold;
+color: #00a1c9;
+}
+.advanced-facetas span.ui-state-default {
+    cursor: pointer;
+}
+.advanced-facetas .ui-datepicker-next {
+    float: right;
+    cursor: pointer;
+}
+.advanced-facetas .ui-datepicker-prev {
+    float: left;
+    cursor: pointer;
+}
+
+/*----Calendario externo----*/
+
+.advanced-facetas .iter-datepicker-select-wrapper {
+    width: 180px;
+    float: right;
+    position: relative;
+    margin-top: 8px;
+    margin-right: 0px;
+    display: inline-flex;
+}
+.advanced-facetas .iter-datepicker-button-wrapper {
+    position: relative;
+    margin-top: 10px;
+}
+.advanced-facetas .iter-datepicker-button-wrapper button {
+    float: left;
+    width: 18px;
+    height: 20px;
+    background: url('../_resources/images/sprite-icon-home.png') no-repeat -42px -86px transparent;
+    border: 0;
+margin-top: 10px;
+}
+.advanced-facetas select {
+    color: #000;
+    font-family: Arial;
+    font-size: 10px;
+    border: none;
+    height: 23px;
+    cursor: pointer;
+    margin: 1px;
+}
+.advanced-facetas .iter-field-element input {
+    margin-top: 6px;
+    width: 65%;
+    margin-bottom: 10px;
+    cursor: text;
+}
+
+
+
+/*FACETAS NOMBRE BUSQUEDA*/
+.searchHeader h2 {
+    font-size: 1.8rem;
+}
+.searchHeader span.keyword {
+    color: #00a1c9;
+}
+
+/*FACETAS FILTROS*/
+.portlet-boundary.portlet-static-end.advanced-facetas {
+    margin-bottom: 30px;
+}
+.iter-faceted-search-header {
+    background-color: #DCDCDE;
+    padding: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.advanced-facetas span.iconCheck:before {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    content: "\e157";
+    cursor: pointer;
+}
+.advanced-facetas .checked span.iconCheck:before {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    content: "\e067";
+    color: #00a1c9;
+    cursor: pointer;
+}
+.advanced-facetas .iter-faceted-search-content span.label:hover {
+    color: #00a1c9;
+    font-weight: 500;
+    cursor: pointer;
+}
+@media(max-width: 992px) {
+	.advanced-facetas .iter-field-element input {
+	    width: 100%;
+	}
+	.advanced-facetas .iter-datepicker-select-wrapper {
+	    float: left;
+	    display: block;
+	}
+}
+
+@media(max-width: 767px) {
+	.iter-faceted-search {
+	    display: none;
+	}
+	.advanced-facetas .iter-datepicker-select-wrapper {
+	    float: right;
+	    display: inline-flex;
+	}
+	.advanced-facetas .hasDatepicker {
+	    position: relative!important;
+	    top: 0!important;
+	}
+}

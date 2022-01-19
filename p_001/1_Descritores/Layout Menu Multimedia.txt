@@ -1,0 +1,9 @@
+<div id="main-content" class="content ly-menu-multimedia" role="main">
+	<div class="container">
+		<div class="row r01">
+			<div class="col portlet-column nopadding" id="r01c01">	
+				$processor.processColumn("r01c01", "portlet-column-content")
+			</div>
+		</div>
+	</div>
+</div>

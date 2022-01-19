@@ -1,4 +1,5 @@
-﻿/*----fonts----*/
+/*----fonts----*/
+
 .head_text,
 .seccion,
 .article-meta,
@@ -6,13 +7,13 @@ h1,
 h2,
 .inf2,
 .p_001_005 .INF1INST_TIT_INF2 .inf2,
-.nav-button.carrusel.vertical .more-button span{
+.nav-button.carrusel.vertical .more-button span {
     font-family: 'Work Sans', sans-serif;
 }
 
 .p_001_005 .INF1INST_TIT_INF2 h2,
 .text,
-p{
+p {
     font-family: 'Noto Serif', serif;
 }
 
@@ -20,44 +21,48 @@ p{
 .seccion,
 .article-meta,
 h1,
-h2{
-    font-weight: 800; 
-   
+h2 {
+    font-weight: 800;
 }
-h1{
+
+h1 {
     line-height: 2.5rem;
 }
+
 .head_text,
 .seccion,
 .article-meta,
-h2{
+h2 {
     line-height: 2.1rem
 }
 
-.article-meta{
+.article-meta {
     text-transform: uppercase;
 }
 
-.p_001_005 .INF1INST_TIT_INF2 .inf2{
+.p_001_005 .INF1INST_TIT_INF2 .inf2 {
     font-weight: bold;
 }
 
-.inf2{
-    font-weight: normal; 
+.inf2 {
+    font-weight: normal;
     font-size: 0.9rem;
     line-height: 1.5rem
 }
 
 .text,
-p{
+p {
     line-height: 1.4rem;
 }
 
+
 /**Fuentes en función de los huecos en los que van***/
+
 .ly-home .col-md-9 h2 {
     font-size: 2.4rem;
     line-height: 2.5rem;
 }
+
 .ly-home .col-md-6 .text_block {
     min-height: 15rem;
 }

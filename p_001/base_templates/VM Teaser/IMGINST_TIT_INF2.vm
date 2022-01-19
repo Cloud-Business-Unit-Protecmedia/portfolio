@@ -38,9 +38,11 @@
 		<div class="headline">
 			<a href="#printAcUrl"><h2>#getTeaserTitle_v1</h2></a>
 		</div>
+<!--
 		<div class="line separator">
 			¤¤¤¤¤¤¤¤¤¤		
 		</div>
+-->
 		<div class="inf2">
 			#if($hmAutores.size() > 0)
 				$!hmAutor.name
@@ -50,3 +52,4 @@
 	</div><!-- block2 -->
 	
 </div>
+

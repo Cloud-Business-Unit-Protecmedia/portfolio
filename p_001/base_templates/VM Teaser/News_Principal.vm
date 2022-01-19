@@ -1,4 +1,4 @@
-﻿##----News_Principal----
+##----News_Principal----
 #set($numTeaserImages= $articleToolbox.getNumImageTags("TeaserImage","true"))
 #set ($totalSize = 200)
 
@@ -8,7 +8,7 @@
 <table width="750" border="0" cellpadding="0" cellspacing="" class="news-principal" style="border-bottom: 1px solid #b2b2b2; margin-bottom: 15px;">
 	#if($numTeaserImages > 0)
 	<tr>
-		<td class="image" style="max-width:750px">
+		<td class="image" style="max-width:750px"> 
 		
 			#set($imgUrl = $articleToolbox.getImageURL("Image","0","crop_56_100_M"))
 			<img width="100%" height="auto" alt="" src="$imgUrl"/>

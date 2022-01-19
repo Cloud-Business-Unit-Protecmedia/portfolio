@@ -1,4 +1,4 @@
-﻿/*----footer----*/
+/*----footer----*/
  function startTheme () {
 	jQuery(window).scroll(switchHeader);
 	mobileMenuInit();
@@ -27,15 +27,18 @@ function switchHeader () {
 		var theScroll=$(window).scrollTop();
 		if (theScroll>headerHeight){
 			jQuery(".header_js").addClass("scroll");
+			jQuery(".iter-content-wrapper").css('margin-top',190);
 		}else{
 			jQuery(".header_js").removeClass("scroll");
+			jQuery(".iter-content-wrapper").css('margin-top',0);
 		}
 	}
 }
 function mobileMenuInit(){
 	jQuery(".container-header .search-icon").bind("click",function(){
 		jQuery(".header_js").addClass("active_search");
-		jQuery(".ly-theme-7-header .container-menu .advanced-search-portlet .iter-field-element input").focus();
+		//jQuery(".ly-theme-7-header .container-menu .advanced-search-portlet .iter-field-element input").focus();
+		jQuery(".header_js .advanced-search-portlet .iter-field-element input").focus();
 	});
 	jQuery(".container-header .mobile-menu").bind("click",function(){
 		jQuery(".header_js").addClass("active_search");
