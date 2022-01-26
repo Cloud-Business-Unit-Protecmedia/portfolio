@@ -202,7 +202,6 @@
                     #set($arraImgTemp = [])
                 #end
             #end
-    
             #if($element.name == "Youtube_Text")
                 #if($el && $el.trim() != "")
                     <div class="multimediaMacroWrapper">
@@ -214,8 +213,29 @@
                     </div>
                 #end
             #end
-            
-             #if($element.name == "Vimeo_Text")
+            #if($element.name == "Instagram_Text")
+                #if($el && $el.trim() != "")
+                    <div class="multimediaMacroWrapper">
+                        <div class="contentMedia art-instagram"  iterhtmlid="$el.Milenium.data">
+                            <div class="responsive-video" itemprop="instagram_post">
+                                <iframe width="$!widthMultimedia" height="$!heightMultimedia" src="//www.instagram.com/p/${el.data}/embed" frameborder="0"></iframe>
+                            </div>  
+                        </div>
+                    </div>
+                #end
+            #end
+            #if($element.name == "Facebook_Text")
+                #if($el && $el.trim() != "")
+                    <div class="multimediaMacroWrapper">
+                        <div class="contentMedia art-facebook" iterhtmlid="$el.Milenium.data">
+                            <div class="responsive-video" itemprop="facebook_post">
+                                <div class="fb-post" data-href="$!el.data.trim()"></div>
+                            </div>
+                        </div>
+                    </div>
+                #end
+            #end
+            #if($element.name == "Vimeo_Text")
                 #if($el && $el.trim() != "")
                     <div class="multimediaMacroWrapper">
                         <div class="contentMedia art-vimeo"  iterhtmlid="$el.Milenium.data">
@@ -226,8 +246,7 @@
                     </div>
                 #end
             #end
-
-        #if($element.name == "Twitter_Text")
+            #if($element.name == "Twitter_Text")
                 #if($el && $el.trim() != "")
                         <div class="art-twitter"  iterhtmlid="$el.Milenium.data">
                             <div class="twitter-content" itemprop="tweet">
@@ -239,7 +258,6 @@
                         </div>
                 #end
             #end
-            
             #if($element.name == "Multimedia_Text")
                #if($el && $el.trim() != "")
                     <div class="multimediaMacroWrapper">
@@ -254,21 +272,16 @@
                     </div>
                 #end             
             #end        
-      
             #if($element.name == "HTML_Text")
                 #if($el.data && $el.data.trim() != "")
                     <div class='${element.cssclass}'>$!el.data.trim().replaceAll("&","&")</div>
                 #end                                    
             #end
-               
-            
             #if($element.name == "Lead")
                 #if($el && $el.trim() != "")
                     <h2 class='${element.cssclass} cita' mlnid="$el.Milenium.data">$!el.data.trim().replaceAll("&","&")</h2>
                 #end                                    
             #end
-            
-    
             #if($element.name == "Text")
                 #if($el && $el.trim() != "")
                     <div class='paragraph' mlnid="$el.Milenium.data">
@@ -281,8 +294,7 @@
                         #end
                     </div>
                 #end
-            #end    
-            
+            #end     
             #if($element.name == "Intext")
                 #if($el && $el.trim() != "")
                     <div class='${element.cssclass}' mlnid="$el.Milenium.data">
@@ -290,7 +302,6 @@
                     </div>
                 #end
             #end
-            
             #if($element.name == "Quote")
                 #if($el && $el.trim() != "")
                     <blockquote class='${element.cssclass}' mlnid="$el.Milenium.data">
@@ -298,8 +309,6 @@
                     </blockquote>   
                 #end
             #end    
-            
-            
             #if($element.name == "Destacado")
                 #if($el && $el.trim() != "")
                     <div class='${element.cssclass}' mlnid="$el.Milenium.data">
@@ -324,6 +333,7 @@
             #set ($temp = $hashNames.put("Youtube_Text","Youtube_Text"))
             #set ($temp = $hashNames.put("Twitter_Text","Twitter_Text"))
             #set ($temp = $hashNames.put("Facebook_Text","Facebook_Text"))
+            #set ($temp = $hashNames.put("Instagram_Text","Instagram_Text"))
             #set ($temp = $hashNames.put("Maps_Text","Maps_Text"))
             #set ($temp = $hashNames.put("Multimedia_Text","Multimedia_Text"))
             #set ($temp = $hashNames.put("Vimeo_Text","Vimeo_Text"))

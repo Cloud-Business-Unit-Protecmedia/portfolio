@@ -200,15 +200,10 @@
                                 ##COMPROBACION DE VERSION DE ITER PARA PARAMETRO SIZES
                                 #if($imgHtml)##SOPORTE PARA PARAMETRO SIZES
                                     $imgHtml
-
-				
-
                                 #else##SIN SOPORTE PARAPARAMETRO SIZES
-
-				   
-
                                     $!articleToolbox.getImageTag("$el.name","$el.Milenium.data","$cropName","","","","false","$!$AltImage","$!TitleImage")
-                                #end							
+                                #end	
+
                                 #if($el.Cutline && $el.Cutline.data != "")
 									#if ($environment == 'PREVIEW')
 											#set($tempIter = "mlnid='$el.Cutline.Milenium.data' ")
@@ -225,7 +220,6 @@
 									</div>
                                 #end
 						</figure>
-						
 					</$cont.tag>
 				#end
 				#if($cont.type == "twitter") ## CONTENIDOS DE TIPO TWITTER
@@ -257,49 +251,57 @@
                         <$cont.tag class="multimediaMacroWrapper ${cont.cssclass}" itemprop="video"  $!tempIter >
                             <iframe allowfullscreen="" frameborder="0" height="$heightMultimedia"  width="$widthMultimedia" src="//www.youtube.com/embed/$el.data?wmode=transparent&controls=2&showinfo=0&theme=light"></iframe>
                         </$cont.tag>
-
-						
+					#end
+				#end
+				#if($cont.type == "instagram")
+					#if($el && $el.trim() != "")
+						#if ($environment == 'PREVIEW')
+                            #set($tempIter = " iterhtmlid='$el.Milenium.data' ")
+                        #else
+                            #set($tempIter = "")		
+		                #end
+						<$cont.tag class="multimediaMacroWrapper ${cont.cssclass}"  itemprop="instagram_post" $!tempIter>
+								<iframe width="$!widthMultimedia" height="$!heightMultimedia" src="//www.instagram.com/p/${el.data}/embed" frameborder="0"></iframe>
+						</$cont.tag>
+					#end
+				#end
+				#if($cont.type == "facebook")
+					#if($el && $el.trim() != "")
+						#if ($environment == 'PREVIEW')
+                            #set($tempIter = " iterhtmlid='$el.Milenium.data' ")
+                        #else
+                            #set($tempIter = "")		
+		                #end
+						<$cont.tag class="multimediaMacroWrapper ${cont.cssclass}" itemprop="facebook_post" $!tempIter>
+							<div class="fb-post" data-href="$!el.data.trim()"></div>
+						</$cont.tag>
 					#end
 				#end
 				#if($cont.type == "vimeo") ## CONTENIDOS DE TIPO VIDEO VIMEO
 					#if($el && $el.trim() != "")
-
-
-                         
-
                         #if ($environment == 'PREVIEW')
                             #set($tempIter = " iterhtmlid='$el.Milenium.data' ")
                         #else
                             #set($tempIter = "")		
 		                #end
-
                          <$cont.tag class="multimediaMacroWrapper ${cont.cssclass}" itemprop="video"  $!tempIter >
                             <iframe class="vimeo-player" src="//player.vimeo.com/video/$el.data" width="$widthMultimedia" height="$heightMultimedia" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 						 </$cont.tag>
-
-
-						
 					#end
 				#end
 				#if($cont.type == "multimedia") ## CONTENIDOS DE TIPO JWPLAYER
 				   #if($el && $el.trim() != "")
-
-
                         #if ($environment == 'PREVIEW')
                             #set($tempIter = " iterhtmlid='$el.Milenium.data' ")
                         #else
                             #set($tempIter = "")		
 		                #end
-
-                         <$cont.tag class="multimediaMacroWrapper ${cont.cssclass}"  $!tempIter >
+                        <$cont.tag class="multimediaMacroWrapper ${cont.cssclass}"  $!tempIter >
                             <div id="multimediaPlayer${reserved-article-id.data}${velocityCount}">Cargando reproductor ...</div>		
                             <script type="text/javascript">
                                 initJwPlayer("$el.Preview.data","$el.Document.data","multimediaPlayer${reserved-article-id.data}${velocityCount}","$widthMultimedia","$heightMultimedia");									
                             </script>
                         </$cont.tag>
-
-
-						
 					#end             
 				#end
 				#if($cont.type == "paragraph") ## CONTENIDOS DE TIPO TEXTO CON PARRAFOS
