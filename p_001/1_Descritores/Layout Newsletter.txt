@@ -1,0 +1,74 @@
+<!-- Layout Newsletter -->
+<style>
+/*
+.signed-in .portlet-column {
+	min-height: 30px;
+	border: 1px dotted;
+}
+*/
+</style>
+<div id="newsletter" class="ly-theme-newsletter" role="main">
+<center>
+	<table width="750" align="center" border="0" cellspacing="10" cellpadding="0" id="cabecera" style="background-color: #fff;border-bottom: 1px solid #0069AA;margin-top: 25px;margin-bottom: 15px;padding-bottom: 20px;">
+		<tbody>
+		  	<tr>
+				<td align="right" >
+					<div class="portlet-column" id="news-date" style="font-size: 18px; line-height: 18px; font-family: 'Verdana',sans-serif; color: #000;">
+						$processor.processColumn("news-date", "portlet-column-content")
+					</div>					
+				</td>
+		  	</tr>
+		  	<tr>
+				<td align="center" >
+					<div class="portlet-column" id="news-0">
+						$processor.processColumn("news-0", "portlet-column-content")
+					</div>					
+				</td>
+		  	</tr>
+		</tbody>
+	</table>
+	
+	<table width="750" border="0" cellpadding="0" cellspacing="0" id="col_central">
+		<tbody>
+			<tr>
+				<td align="center" valign="top">
+					<div class="portlet-column" id="news-1">
+						$processor.processColumn("news-1", "portlet-column-content")
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table width="750" border="0" cellpadding="0" cellspacing="0" id="col_central" style="font-family: 'Verdana',sans-serif; color: #000;">
+		<tbody>
+			<tr>
+				<td align="left" valign="top">
+					<h3>SOBRE ESTA NEWSLETTER</h3>
+					<p>Está a receber esta mensagem porque está subscrito à newsletter do Jornal Sol.</p>
+					<p>Por favor, diga-nos o que podemos fazer para que a newsletter seja o mais útil para si. Envie os seus comentários para <a href="mailto:contacto@jornalsol.pt">contacto@jornalsol.pt</a></p>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" valign="top">
+					<div class="portlet-column" id="news-2">
+						$processor.processColumn("news-2", "portlet-column-content")
+					</div>
+
+				</td>
+			</tr>
+			<tr>
+				<td align="center" valign="top">
+					<a href="https://www.jornalsol/newsletter">Deixar de receber a newsletter</a>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" valign="top">
+					<div class="copyright">Lapanews, 2021 © Todos os Direitos Reservados</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+</center>
+</div>

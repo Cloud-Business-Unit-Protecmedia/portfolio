@@ -1,9 +1,11 @@
-﻿##---------------------------##
+﻿
+##---------------------------##
 ## IMG_INF2 ##
 ##---------------------------##
 #set($sectionID = "#printAssignedSectionID")
 #set ($varColorIter = $!iterVelocityTools.getVariable($sectionID , "color"))
 #set ($topcontent = $!iterVelocityTools.getVariable("0" , "cintillo"))
+#set ($date = $!iterVelocityTools.getVariable("0" , "date"))
 #set ($info = $!iterVelocityTools.getVariable("0" , "printInfo"))
 #set ($hasImages = $articleToolbox.getNumImageTags("TeaserImage", "true"))
 
@@ -36,12 +38,29 @@
 			#if($imgAuthor && $imgAuthor != "")
 				<div class="multimedia">
 					$imgAuthor
-				</div>
+
+
+#set($imgString = $!aboutAuthor.getImageURL("Image","0", "crop_300x300"))
+
+#set($facebookapp = {})
+#set($temp = $facebookapp.put( "property", "og:image" ) )
+#set($temp = $facebookapp.put( "content", $imgString ) )
+$iterVelocityTools.addMetaTag( $facebookapp )
+
+
+
+			</div>
 			#end
 		#end
 
 		<div class="inf2">
-			#printInfo_v1($info "-")
+			#printInfo_v1($info "</br>$aboutAuthor.Headline.data</br>" $date)
 		</div>
+
+
+
+
+
+
 
 </div>

@@ -1,0 +1,52 @@
+<div id="ly-header" class="ly-header">
+	<div class="container">
+	    <div class="row h-r00">
+	        <div class="col-md-12 portlet-column nopadding" id="h-r00-c01">	
+			$processor.processColumn("h-r00-c01", "portlet-column-content")
+	        </div>
+	    </div> 
+		<div class="row h-r01">
+			<div class="col-md-11 col-sm-12 portlet-column nopadding" id="h-r01c01">	
+				<div class="row h-r0101">
+					<div class="col portlet-column nopadding" id="h-r0101c01">	
+						$processor.processColumn("h-r0101c01", "portlet-column-content")
+					</div>
+				</div>	
+				<div class="row h-r0102">
+					<div class="col portlet-column nopadding" id="h-r0102c01">	
+						$processor.processColumn("h-r0102c01", "portlet-column-content")
+					</div>
+				</div>
+			</div>
+			<div class="col-md-1 col-sm-12 portlet-column nopadding" id="h-r01c02">	
+				$processor.processColumn("h-r01c02", "portlet-column-content")
+			</div>
+		</div>
+	    <div class="row h-r02">
+	        <div class="col-2 col-md-1 portlet-column nopadding" id="h-r02-c01">	
+			$processor.processColumn("h-r02-c01", "portlet-column-content")
+	        </div>
+	        <div class="col-8 col-md-9 portlet-column nopadding" id="h-r02-c02">	
+			$processor.processColumn("h-r02-c02", "portlet-column-content")
+	        </div>
+	        <div class="col-2 col-md-2 d-none d-md-block portlet-column nopadding" id="h-r02-c03">	
+			$processor.processColumn("h-r02-c03", "portlet-column-content")
+	        </div>
+	    </div>
+	    <div class="row h-r03 h-menu-drop-down" style="display:none;">
+	        <div class="col-md-12 portlet-column nopadding" id="h-r03-c01">	
+			$processor.processColumn("h-r03-c01", "portlet-column-content")
+	        </div>
+	    </div>
+	    <div class="row h-r04">
+	        <div class="col-md-12 portlet-column nopadding" id="h-r04-c01">	
+			$processor.processColumn("h-r04-c01", "portlet-column-content")
+	        </div>
+	    </div>
+	    <div class="row h-r05">
+	        <div class="col-md-12 portlet-column nopadding" id="h-r05-c01">	
+			$processor.processColumn("h-r05-c01", "portlet-column-content")
+	        </div>
+	    </div>
+	</div>
+</div>

@@ -1,0 +1,217 @@
+/* Estilo para mostrar estadísticas en el preview (puede afectar al live)**/
+
+.p_001_002 article {
+    float: left;
+    background-color: #fff;
+}
+
+
+/*----p_001_002 6 col con foto izquierda----*/
+
+.p_001_002 .IMG_INF1_TIT_TXT_INF2,
+.p_001_002 .IMGINST_INF1_TIT_TXT_INF2 {
+    float: left;
+    width: 100%;
+    padding-bottom: 1rem;
+}
+
+.p_001_002 .IMG_INF1_TIT_TXT_INF2.n1,
+.p_001_002 .IMGINST_INF1_TIT_TXT_INF2.n1 {
+    padding-bottom: 2%;
+}
+
+.p_001_002 .IMG_INF1_TIT_TXT_INF2.n1 {
+    border-bottom: 2px solid #ddd;
+}
+
+.p_001_002.no_border .IMG_INF1_TIT_TXT_INF2.n1,
+.p_001_002.no_border .IMGINST_INF1_TIT_TXT_INF2.n1 {
+    border-bottom: none;
+}
+
+.p_001_002 .IMG_INF1_TIT_TXT_INF2.n2,
+.p_001_002 .IMGINST_INF1_TIT_TXT_INF2.n2 {
+    margin-top: 1rem;
+}
+
+.p_001_002 .media_block {
+    float: left;
+    width: 48%;
+    margin-right: 2%;
+}
+
+.ly-section .p_001_002 .text_block {
+    min-height: 18rem;
+}
+
+.p_001_002 .text_block {
+    width: 50%;
+    float: left;
+    min-height: 17rem;
+}
+
+.ly-section .search-results-portlet.p_001_002 .text_block {
+    min-height: 12rem;
+}
+
+.ly-section .p_001_002 .inf2 li {
+    float: left;
+}
+
+.ly-section .search-results-portlet.p_001_002 ul.noticias>li {
+    border-bottom: 2px solid #ddd;
+    float: left;
+    margin-bottom: 1rem;
+}
+
+.ly-section .search-results-portlet.p_001_002 ul.noticias>li:last-child {
+    border: none;
+}
+
+.search-results-portlet.p_001_002 .IMG_INF1_TIT_TXT_INF2.n1 {
+    border-bottom: none;
+}
+
+.p_001_002 h2 {
+    font-size: 1.4rem;
+    line-height: 1.5rem;
+}
+
+.p_001_002 p {
+    font-size: 0.9rem;
+}
+
+.p_001_002 .seccion,
+.p_001_002 .article-meta {
+    line-height: 1rem;
+}
+
+.p_001_002 .inf2 {
+    width: 50%;
+    float: right;
+}
+
+.p_001_002 .multimedia.author {
+    width: 10rem;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+}
+
+.p_001_002 .multimedia.author img {
+    vertical-align: middle;
+    border: 2px solid #ddd;
+    padding: 0;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.ly-menu-subsection .p_001_002 .text .paragraph {
+    overflow: hidden;
+    max-height: 135px;
+}
+
+.ly-menu-subsection .p_001_002 .text .paragraph:not(:first-child) {
+    display: none;
+}
+
+
+/*----carta autor----
+
+.carta .IMG_TIT_SUB_TXT {
+    margin-right: 25px;
+}
+.carta .IMG_TIT_SUB_TXT .text_block {
+    min-height: unset;
+}
+.carta .IMG_TIT_SUB_TXT .byline {
+    float: left;
+    font-weight: bold;
+    line-height: 3rem;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #000;
+    text-transform: capitalize;
+    width: 500px;
+}
+.carta .IMG_TIT_SUB_TXT .text {
+    font-size: 1.3rem;
+    padding-top: 10px;
+}
+.carta + .portlet-boundary.portlet-static-end.article-topics-portlet {
+    position: absolute;
+    z-index: -1;
+}
+*/
+
+.carta .media_block {
+    width: 30%;
+    margin-right: 3%;
+}
+
+.carta .multimedia.author img {
+    width: 200px;
+    height: 150px;
+    border: unset;
+    border-radius: unset;
+}
+
+.carta .text_block {
+    min-height: unset;
+}
+
+.carta .byline {
+    float: left;
+    font-weight: bold;
+    line-height: 3rem;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #000;
+    text-transform: capitalize;
+    width: 500px;
+}
+
+.carta .title {
+    margin-top: 10px;
+}
+
+.carta .text {
+    font-size: 1.3rem;
+    padding-top: 10px;
+}
+
+.r01 article.categoryListItem.categoryPageItem {
+    margin-bottom: unset;
+}
+
+.r01 .head_text.section,
+span.categoryListItemLink.linkDisabled {
+    line-height: 2.5rem;
+}
+
+
+/**********GRID************/
+
+.p_001_002.grid .IMG_INF1_TIT_TXT_INF2.n2,
+.p_001_002.grid .IMGINST_INF1_TIT_TXT_INF2.n2 {
+    margin-top: 0;
+}
+
+.p_001_002.grid .IMG_INF1_TIT_TXT_INF2,
+.p_001_002.grid .IMGINST_INF1_TIT_TXT_INF2 {
+    border-bottom: 2px solid #ddd;
+}
+
+.p_001_002.grid .IMG_INF1_TIT_TXT_INF2.even,
+.p_001_002.grid .IMGINST_INF1_TIT_TXT_INF2.even {
+    padding-left: 1rem;
+}
+
+.p_001_002.grid .IMG_INF1_TIT_TXT_INF2.odd,
+.p_001_002.grid .IMGINST_INF1_TIT_TXT_INF2.odd {
+    padding-right: 1rem;
+}
+
+.p_001_002.grid3 .IMG_INF1_TIT_TXT_INF2,
+.p_001_002.grid3 .IMGINST_INF1_TIT_TXT_INF2 {
+    padding-bottom: 2%;
+}

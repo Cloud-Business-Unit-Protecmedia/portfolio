@@ -1,0 +1,109 @@
+/*----base_sections----*/
+
+.grid section.noticias,
+.grid .paged.noticias.carrusel-list,
+.grid3 section.noticias,
+.grid3 .paged.noticias.carrusel-list,
+.grid4 section.noticias,
+.grid4 .paged.noticias.carrusel-list {
+    padding-right: 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex !important;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: stretch;
+    -moz-align-items: stretch;
+    -ms-align-items: stretch;
+    align-items: stretch;
+    -webkit-box-flex: 1 1 100%;
+    -moz-box-flex: 1 1 100%;
+    -webkit-flex: 1 1 100%;
+    -ms-flex: 1 1 100%;
+    flex: 1 1 100%;
+    justify-content: flex-start;
+    box-sizing: border-box;
+}
+
+.grid section.noticias>article,
+.grid .paged.noticias>article,
+.grid3 section.noticias>article,
+.grid3 .paged.noticias>article,
+.grid4 section.noticias>article,
+.grid4 .paged.noticias>article {
+    margin-bottom: 1rem;
+    float: left;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+.grid section.noticias>article,
+.grid .paged.noticias>article {
+    width: 50%;
+}
+
+.grid3 section.noticias>article,
+.grid3 .paged.noticias>article {
+    width: 33.33%;
+}
+
+.grid4 section.noticias>article,
+.grid4 .paged.noticias>article {
+    width: 25%;
+}
+
+.grid section.noticias>article:nth-child(odd),
+.grid .paged.noticias>article:nth-child(odd) {
+    position: relative;
+}
+
+.grid section.noticias>article:nth-child(odd)::after,
+.grid .paged.noticias>article:nth-child(odd)::after,
+.grid3 section.noticias>article::after,
+.grid3 .paged.noticias>article::after,
+.grid4 section.noticias>article::after,
+.grid4 .paged.noticias>article::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 90%;
+    width: 0;
+    border-right: 2px solid #ddd;
+}
+
+.grid .paged.noticias>article:nth-child(odd)::after {
+    right: unset;
+}
+
+.grid3 section.noticias>article,
+.grid3 .paged.noticias>article,
+.grid4 section.noticias>article,
+.grid4 .paged.noticias>article {
+    border-bottom: 2px solid #ddd;
+    border-right: none;
+    position: relative;
+}
+
+.grid3 section.noticias>article:nth-child(3n)::after,
+.grid3 .paged.noticias>article:nth-child(3n)::after,
+.grid4 section.noticias>article:nth-child(4n)::after,
+.grid4 .paged.noticias>article:nth-child(4n)::after {
+    border-right: none;
+}

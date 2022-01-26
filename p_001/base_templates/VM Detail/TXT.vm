@@ -1,4 +1,5 @@
-﻿##---------------------------##
+﻿
+##---------------------------##
 ## TXT ##
 ##---------------------------##
 #set($sectionID = "#printAssignedSectionID")
@@ -22,6 +23,12 @@
 #end
 
 
+##----PROVA----
+
+#set($childrenTags = $articleToolbox.getChildrenTags(null))
+<div class="prova">$!childrenTags</div>
+
+
 <div class="TXT $!oddeven n$!position $!last">
 
 		##TEXT TXT
@@ -29,3 +36,4 @@
 			#getTextFlow_v1("crop_504x311" "504" "311" "100%")
 		</div> <!-- Fin div text -->
 </div>
+

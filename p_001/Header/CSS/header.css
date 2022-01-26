@@ -1,4 +1,4 @@
-﻿/*----header----*/
+/*----header----*/
 
 .header_js .menu_header ::-webkit-scrollbar {
     display: none;
@@ -11,7 +11,7 @@
 	font-family: 'Work Sans',sans-serif;
 	font-size: 14px;
 	width: 100%;
-	background: #FFF;
+	background: #FFF; 
 }
 
 .header_js div#menu-col {
@@ -62,7 +62,7 @@
 	z-index: 10;
 	position: fixed;
 	top: 11px;
-	left: 275px;
+	left: 110px;
 }
 .header_js .menu_sub {
 	float: right;
@@ -178,14 +178,13 @@
 	display: inline-flex;
 	max-width: 110px;
 	font-size: 14px;
-	margin-left: 20px;
 	margin-top: 22px;
 }
 .header_js .date-portlet .updatedSiteDate {
-	font-size: 14px;
+	font-size: 12px;
 	font-family: 'Work Sans',sans-serif;
 	font-weight: 400;
-	margin-top: 10px;
+	margin-top: 15px;
 }
 .header_js .header-logo {
 	display: block;
@@ -309,7 +308,7 @@
 }
 .header_js .container-menu .menu-portlet .child-nav li a:hover,
 .header_js .container-menu .hot-topics-portlet .categoryListItem a:hover {
-    color: #C5161D;
+    color: #7b7979;
 }
 
 /* ICONO MENU  */
@@ -346,9 +345,9 @@
 	top: 6px;
 	left: 0;
 	background: #f8f8f8;
-	min-width: 200px;
+	min-width: 145px;
 	z-index: 9;
-	width: 323px;
+	/* width: 323px; */
 	position: fixed;
 	overflow: auto;
 	height: 100%;
@@ -405,3 +404,7 @@
 .header_js.scroll .advanced-search-portlet {
 	margin-top: 24px;
 }
+
+
+
+    

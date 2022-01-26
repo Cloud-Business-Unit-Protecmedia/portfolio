@@ -1,12 +1,13 @@
-﻿##---------------------------##
+﻿
+##---------------------------##
 ## INF2 ##
 ##---------------------------##
 #set($sectionID = "#printAssignedSectionID")
 #set ($varColorIter = $!iterVelocityTools.getVariable($sectionID , "color"))
 #set ($topcontent = $!iterVelocityTools.getVariable("0" , "cintillo"))
+#set ($date = $!iterVelocityTools.getVariable("0" , "date"))
 #set ($info = $!iterVelocityTools.getVariable("0" , "printInfo"))
 #set ($hasImages = $articleToolbox.getNumImageTags("TeaserImage", "true"))
-
 
 #set ($position = $!iterVelocityTools.getVelocityVariable("teaseritemposition"))
 #set ($last = $!iterVelocityTools.getVelocityVariable("lastteaseritempos"))
@@ -30,7 +31,12 @@
 <div class="INF2 $!oddeven n$!position $!last">
 
 		<div class="inf2">
-			#printInfo_v1($info "-")
+			#printInfo_v1($info "-" $date)
 		</div>
 
 </div>
+
+
+
+			 
+

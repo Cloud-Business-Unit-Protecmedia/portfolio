@@ -1,0 +1,36 @@
+/*----footer static pages----*/
+
+.ficha_tecnica,
+.estatuto,
+.como_anunciar,
+.contactos,
+.politica_cookies,
+.termos_utilizacao {
+    border-left: 2px solid #ddd;
+    padding-left: 30px;
+    margin: 30px auto;
+    width: 400px;
+}
+
+.ficha_tecnica h2,
+.estatuto h2,
+.como_anunciar h2,
+.contactos h2,
+.politica_cookies h2,
+.termos_utilizacao h2 {
+    margin-bottom: 30px;
+    color: #999;
+}
+
+.politica_cookies ul {
+    padding-left: 1rem!important;
+}
+
+.container-fluid.nopadding.bg-ready.bg-ready-1 {
+    padding: 10px 0;
+    margin: 0 0 20px 0;
+}
+
+.r01 .advertisement_banner_show_label {
+    font-size: .5rem;
+}

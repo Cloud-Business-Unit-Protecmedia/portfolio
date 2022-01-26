@@ -1,0 +1,193 @@
+/*#### DETAIL ARTICLE ####*/
+
+.ly-detail .headline h1 {
+    margin-bottom: 1.5rem;
+}
+
+.ly-detail .byline a {
+    font-weight: 600;
+}
+
+.ly-detail span.cutline-text,
+.ly-detail span.byline-image {
+    font-size: .8rem;
+}
+
+.ly-detail .categoryTitle h2 {
+    font-size: 1rem;
+    margin-bottom: .1rem;
+}
+
+.ly-detail section.categoryList {
+    font-size: .8rem;
+}
+
+.ly-detail span.categoryListItemPosition {
+    display: none;
+}
+
+.ly-detail a.categoryListItemLink {
+    text-transform: uppercase;
+}
+
+.ly-detail .addthis_inline_share_toolbox {
+    text-align: center;
+}
+
+.ly-detail .subheadline h3 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.ly-detail .TXT {
+    padding-left: 20px;
+    border-left: 2px solid #ddd;
+    padding-bottom: 30px;
+}
+
+.ly-detail .paragraph {
+    margin: 10px 0;
+}
+
+.ly-detail p {
+    line-height: 1.5rem;
+}
+
+
+/*---- Image iFrame ----*/
+
+.ly-detail iframe {
+    width: 100%;
+}
+
+
+/*---- Texto Destak ----*/
+
+.ly-detail .lead {
+    position: relative;
+    color: #666;
+    font-weight: normal!important;
+    padding: 15px;
+    margin: 25px 0;
+    font-size: 1.1rem;
+    line-height: 1.4rem;
+}
+
+.ly-detail h2.lead.cita:before {
+    content: "";
+    left: 15px;
+    top: 0;
+    right: 75%;
+    position: absolute;
+    border-top: 1px solid #999;
+}
+
+.ly-detail h2.lead.cita:after {
+    content: "";
+    bottom: 0;
+    left: 15px;
+    right: 75%;
+    position: absolute;
+    border-top: 1px solid #999;
+}
+
+
+/*---- Hyperlinks ----*/
+
+.ly-detail p a {
+    text-decoration: underline!important;
+    color: #0d6efd;
+}
+
+
+/*---- Setas ----*/
+
+.ly-detail .bx-prev {
+    left: 3%;
+    margin-top: 30px;
+}
+
+.ly-detail .bx-next {
+    right: 5%;
+    margin-top: 30px;
+}
+
+
+/*---- Crédito foto ----*/
+
+.ly-detail span.byline-image {
+    margin: 0 -4px;
+}
+
+
+/*#### DETAIL OPINION ####*/
+
+.ly-detail .head_text.detail_opinion {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    text-decoration: underline;
+    letter-spacing: 2px;
+    margin: 0 0 10px 0;
+    padding-top: unset;
+    text-underline-position: under;
+    /* text-underline-offset: 5px;*/
+}
+
+.ly-detail .TIT_SUB h1,
+.ly-detail .TIT_SUB .subheadline {
+    text-align: center;
+}
+
+.ly-detail .IMG_INF2 .multimedia {
+    width: 6rem;
+    margin: 0 auto;
+}
+
+.ly-detail .IMG_INF2 .multimedia img {
+    vertical-align: middle;
+    border: 2px solid #ddd;
+    padding: 0;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.ly-detail .IMG_INF2 span.separator {
+    font-size: .95em;
+}
+
+
+/*#### DETAIL SERVIÇOS CAPAS JORNAL REVISTA ####*/
+
+.ly-catalog-two-column .head_text.detail_opinion {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    text-decoration: underline;
+    letter-spacing: 2px;
+    margin: 0 0 10px 0;
+    padding-top: unset;
+    text-underline-position: under;
+    /* text-underline-offset: 5px;*/
+}
+
+.TIT_TXT .headline {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.TIT_TXT .headline h1 {
+    line-height: 2.5rem;
+    font-weight: 800;
+}
+
+.TIT_TXT .text {
+    text-align: center;
+}
+
+.TIT_TXT .text .paragraph {
+    margin-bottom: 30px;
+}

@@ -22,7 +22,10 @@
 #if($hasImages <= 0)
 	#set($templateClass = "no-media")
 #end
-<div class="IMG_INF1_TIT_TXT_INF2 $!oddeven n$!position $!last">
+<!-- <div class="IMG_INF1_TIT_TXT_INF2 $!oddeven n$!position $!last">  -->
+<div class="IMG_INF1_TIT_TXT $!oddeven n$!position $!last"> 
+
+
 
 	<div class="media_block">
 		#if($hasImages > 0)
@@ -30,8 +33,28 @@
 			<div class="multimedia">
 				#getMultimediaIcon_v1("crop_768x432","","","","","", "", "100%", true)
 			</div> <!-- multimedia -->
+		
+		
+		#else
+			#set($templateClass = "media")
+			#set($hmAutores = {})
+			#getAcAssignedCatExtended($hmAutores "Author")
+			#set($hmAutor = "")
+			#if($hmAutores.size() > 0) 
+				#set($hmAutor = $hmAutores.get(0))
+				#set($catId = $hmAutor.id)
+				#set($aboutAuthor = $aboutCategoryArticles.getArticle($catId))
+				#set($imgAuthor = $!aboutAuthor.getImageTag("Image","0","crop_100x100","","","","true", "$!hmAutor.name", "$!hmAutor.name","25%"))
+				#if($imgAuthor && $imgAuthor != "")
+					<div class="multimedia author">
+						$imgAuthor
+					</div>
+				#end
+			#end  
 		#end
 	</div><!-- block1 -->
+
+
 	<div class="text_block $!templateClass">
 		##SECTION INF1
 		#if($topcontent && $topcontent.data != "")
@@ -43,7 +66,22 @@
 		</div>
 		##TEXT TXT
 		<div class="text">
-			#getTeaserText_v1()
+			#set($reclamo_web = "#getTeaserText_v1()")
+			#if($hasImages > 0)
+				#getTeaserText_v1(100)
+			#else
+				#getTextFlow_v1("crop_200x112" "200" "112" "50%")
+			#end
+
 		</div> <!-- Fin div text -->
+
+
+
+
+
+
+
+
 	</div><!-- block2 -->
 </div>
+

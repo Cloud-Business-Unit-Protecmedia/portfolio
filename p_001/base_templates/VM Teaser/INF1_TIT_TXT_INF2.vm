@@ -1,4 +1,5 @@
-﻿##----------------------##
+﻿
+##----------------------##
 ## INF1_TIT_TXT_INF2    ##
 ##----------------------##
 #set($sectionID = "#printAssignedSectionID")
@@ -45,7 +46,7 @@
 		
 		##TEXT TXT
 		<div class="text">
-			#getTeaserText_v1()
+			#getTeaserText_v1(400)
 		</div> <!-- Fin div text -->
 
 	</div><!-- block2 -->
@@ -54,3 +55,4 @@
 	</div>
 	
 </div>
+

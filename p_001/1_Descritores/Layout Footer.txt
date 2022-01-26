@@ -1,0 +1,9 @@
+<div id="ly-footer" class="ly-footer">
+	<div class="container">
+	    <div class="row f-r01">
+	        <div class="col-md-12 portlet-column nopadding" id="f-r01">	
+			$processor.processColumn("f-r01", "portlet-column-content")
+	        </div>
+	    </div>
+	</div>
+</div>
